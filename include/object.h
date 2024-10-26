@@ -50,7 +50,7 @@ static char *objectToString(ObjectType type) {
 
 static void debugObject(SceneObject *object) {
     printf("--------------------------------------\n");
-    printf("OBJECT DEBUG => (%s)\n", objectToString(object->type));
+    printf("OBJECT DEBUG => %s (%s)\n", object->tag, objectToString(object->type));
     printf("Position: (%f, %f, %f)\n", object->transforms->position.x, object->transforms->position.y, object->transforms->position.z);
     printf("Rotation: (%f, %f, %f)\n", object->transforms->rotation.x, object->transforms->rotation.y, object->transforms->rotation.z);
     printf("Rotation degrees: %.2f\n", object->transforms->rotationDegrees);

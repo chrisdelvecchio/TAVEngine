@@ -50,8 +50,6 @@ build CMakeFiles/game.dir/external/glad/src/glad.c.obj: C_COMPILER__game_unscann
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\external\glad\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/callbacks.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/callbacks.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\callbacks.c.obj.d
@@ -59,8 +57,6 @@ build CMakeFiles/game.dir/src/callbacks.c.obj: C_COMPILER__game_unscanned_ C$:/U
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/camera.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/camera.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\camera.c.obj.d
@@ -68,8 +64,6 @@ build CMakeFiles/game.dir/src/camera.c.obj: C_COMPILER__game_unscanned_ C$:/User
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/game.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/game.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\game.c.obj.d
@@ -77,8 +71,6 @@ build CMakeFiles/game.dir/src/game.c.obj: C_COMPILER__game_unscanned_ C$:/Users/
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/main.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/main.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\main.c.obj.d
@@ -86,8 +78,6 @@ build CMakeFiles/game.dir/src/main.c.obj: C_COMPILER__game_unscanned_ C$:/Users/
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/object.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/object.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\object.c.obj.d
@@ -95,8 +85,6 @@ build CMakeFiles/game.dir/src/object.c.obj: C_COMPILER__game_unscanned_ C$:/User
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/physics.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/physics.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\physics.c.obj.d
@@ -104,8 +92,6 @@ build CMakeFiles/game.dir/src/physics.c.obj: C_COMPILER__game_unscanned_ C$:/Use
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/render.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/render.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\render.c.obj.d
@@ -113,8 +99,6 @@ build CMakeFiles/game.dir/src/render.c.obj: C_COMPILER__game_unscanned_ C$:/User
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/shader.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/shader.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\shader.c.obj.d
@@ -122,8 +106,6 @@ build CMakeFiles/game.dir/src/shader.c.obj: C_COMPILER__game_unscanned_ C$:/User
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/timings.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/timings.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\timings.c.obj.d
@@ -131,8 +113,6 @@ build CMakeFiles/game.dir/src/timings.c.obj: C_COMPILER__game_unscanned_ C$:/Use
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/ui.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/ui.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\ui.c.obj.d
@@ -140,8 +120,6 @@ build CMakeFiles/game.dir/src/ui.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Ch
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 build CMakeFiles/game.dir/src/utils.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/src/utils.c || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles\game.dir\src\utils.c.obj.d
@@ -149,8 +127,6 @@ build CMakeFiles/game.dir/src/utils.c.obj: C_COMPILER__game_unscanned_ C$:/Users
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = CMakeFiles\game.dir
   OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
 
 
 # =============================================================================
@@ -165,10 +141,9 @@ build game.exe: C_EXECUTABLE_LINKER__game_ CMakeFiles/game.dir/external/glad/src
   OBJECT_DIR = CMakeFiles\game.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
   TARGET_FILE = game.exe
   TARGET_IMPLIB = libgame.dll.a
-  TARGET_PDB = game.pdb
+  TARGET_PDB = game.exe.dbg
 
 
 #############################################
@@ -281,8 +256,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/euler.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/affine.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/affine.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -291,8 +264,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/affine.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/io.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/io.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -301,8 +272,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/io.c.obj: C_COMPILER__cglm_un
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/quat.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/quat.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -311,8 +280,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/quat.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/cam.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/cam.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -321,8 +288,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/cam.c.obj: C_COMPILER__cglm_u
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/vec2.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/vec2.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -331,8 +296,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/vec2.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/ivec2.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/ivec2.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -341,8 +304,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/ivec2.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/vec3.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/vec3.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -351,8 +312,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/vec3.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/ivec3.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/ivec3.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -361,8 +320,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/ivec3.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/vec4.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/vec4.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -371,8 +328,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/vec4.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/ivec4.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/ivec4.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -381,8 +336,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/ivec4.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat2.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat2.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -391,8 +344,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat2.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat2x3.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat2x3.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -401,8 +352,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat2x3.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat2x4.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat2x4.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -411,8 +360,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat2x4.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat3.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat3.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -421,8 +368,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat3.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat3x2.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat3x2.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -431,8 +376,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat3x2.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat3x4.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat3x4.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -441,8 +384,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat3x4.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat4.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat4.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -451,8 +392,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat4.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat4x2.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat4x2.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -461,8 +400,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat4x2.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/mat4x3.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/mat4x3.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -471,8 +408,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/mat4x3.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/plane.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/plane.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -481,8 +416,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/plane.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/frustum.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/frustum.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -491,8 +424,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/frustum.c.obj: C_COMPILER__cg
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/box.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/box.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -501,8 +432,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/box.c.obj: C_COMPILER__cglm_u
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/project.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/project.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -511,8 +440,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/project.c.obj: C_COMPILER__cg
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/sphere.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/sphere.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -521,8 +448,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/sphere.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/ease.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/ease.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -531,8 +456,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/ease.c.obj: C_COMPILER__cglm_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/curve.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/curve.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -541,8 +464,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/curve.c.obj: C_COMPILER__cglm
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/bezier.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/bezier.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -551,8 +472,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/bezier.c.obj: C_COMPILER__cgl
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/ray.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/ray.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -561,8 +480,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/ray.c.obj: C_COMPILER__cglm_u
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/affine2d.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/affine2d.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -571,8 +488,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/affine2d.c.obj: C_COMPILER__c
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_lh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/ortho_lh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -581,8 +496,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_lh_no.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_lh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/ortho_lh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -591,8 +504,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_lh_zo.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_rh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/ortho_rh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -601,8 +512,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_rh_no.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_rh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/ortho_rh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -611,8 +520,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/ortho_rh_zo.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_lh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/persp_lh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -621,8 +528,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_lh_no.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_lh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/persp_lh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -631,8 +536,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_lh_zo.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_rh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/persp_rh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -641,8 +544,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_rh_no.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_rh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/persp_rh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -651,8 +552,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/persp_rh_zo.c.obj: 
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_lh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/view_lh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -661,8 +560,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_lh_no.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_lh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/view_lh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -671,8 +568,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_lh_zo.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_rh_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/view_rh_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -681,8 +576,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_rh_no.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_rh_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/view_rh_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -691,8 +584,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/view_rh_zo.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/project_no.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/project_no.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -701,8 +592,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/project_no.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/project_zo.c.obj: C_COMPILER__cglm_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src/clipspace/project_zo.c || cmake_object_order_depends_target_cglm
   DEFINES = -DCGLM_EXPORTS -Dcglm_EXPORTS
@@ -711,8 +600,6 @@ build external/cglm-master/CMakeFiles/cglm.dir/src/clipspace/project_zo.c.obj: C
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/src
   OBJECT_DIR = external\cglm-master\CMakeFiles\cglm.dir
   OBJECT_FILE_DIR = external\cglm-master\CMakeFiles\cglm.dir\src\clipspace
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
 
 
 # =============================================================================
@@ -728,10 +615,9 @@ build external/cglm-master/libcglm-0.dll external/cglm-master/libcglm.dll.a: C_S
   POST_BUILD = cd .
   PRE_LINK = cd .
   RESTAT = 1
-  TARGET_COMPILE_PDB = external\cglm-master\CMakeFiles\cglm.dir\
   TARGET_FILE = external\cglm-master\libcglm-0.dll
   TARGET_IMPLIB = external\cglm-master\libcglm.dll.a
-  TARGET_PDB = external\cglm-master\libcglm-0.pdb
+  TARGET_PDB = cglm-0.dll.dbg
 
 
 #############################################
@@ -844,8 +730,6 @@ build external/nanovg-master/CMakeFiles/nanovg.dir/src/nanovg.c.obj: C_COMPILER_
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = external\nanovg-master\CMakeFiles\nanovg.dir
   OBJECT_FILE_DIR = external\nanovg-master\CMakeFiles\nanovg.dir\src
-  TARGET_COMPILE_PDB = external\nanovg-master\CMakeFiles\nanovg.dir\nanovg.pdb
-  TARGET_PDB = external\nanovg-master\libnanovg.pdb
 
 
 # =============================================================================
@@ -859,9 +743,8 @@ build external/nanovg-master/libnanovg.a: C_STATIC_LIBRARY_LINKER__nanovg_ exter
   OBJECT_DIR = external\nanovg-master\CMakeFiles\nanovg.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = external\nanovg-master\CMakeFiles\nanovg.dir\nanovg.pdb
   TARGET_FILE = external\nanovg-master\libnanovg.a
-  TARGET_PDB = external\nanovg-master\libnanovg.pdb
+  TARGET_PDB = nanovg.a.dbg
 
 
 #############################################
@@ -973,8 +856,6 @@ build external/lib-list-master/CMakeFiles/list.dir/src/liblist.c.obj: C_COMPILER
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = external\lib-list-master\CMakeFiles\list.dir
   OBJECT_FILE_DIR = external\lib-list-master\CMakeFiles\list.dir\src
-  TARGET_COMPILE_PDB = external\lib-list-master\CMakeFiles\list.dir\list.pdb
-  TARGET_PDB = external\lib-list-master\liblist.pdb
 
 
 # =============================================================================
@@ -988,9 +869,8 @@ build external/lib-list-master/liblist.a: C_STATIC_LIBRARY_LINKER__list_ externa
   OBJECT_DIR = external\lib-list-master\CMakeFiles\list.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = external\lib-list-master\CMakeFiles\list.dir\list.pdb
   TARGET_FILE = external\lib-list-master\liblist.a
-  TARGET_PDB = external\lib-list-master\liblist.pdb
+  TARGET_PDB = list.a.dbg
 
 
 #############################################
@@ -1102,8 +982,6 @@ build external/lib-io-main/CMakeFiles/io.dir/src/libio.c.obj: C_COMPILER__io_uns
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = external\lib-io-main\CMakeFiles\io.dir
   OBJECT_FILE_DIR = external\lib-io-main\CMakeFiles\io.dir\src
-  TARGET_COMPILE_PDB = external\lib-io-main\CMakeFiles\io.dir\io.pdb
-  TARGET_PDB = external\lib-io-main\libio.pdb
 
 
 # =============================================================================
@@ -1117,9 +995,8 @@ build external/lib-io-main/libio.a: C_STATIC_LIBRARY_LINKER__io_ external/lib-io
   OBJECT_DIR = external\lib-io-main\CMakeFiles\io.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = external\lib-io-main\CMakeFiles\io.dir\io.pdb
   TARGET_FILE = external\lib-io-main\libio.a
-  TARGET_PDB = external\lib-io-main\libio.pdb
+  TARGET_PDB = io.a.dbg
 
 
 #############################################
@@ -1231,8 +1108,6 @@ build external/lib-map-main/CMakeFiles/map.dir/src/libmap.c.obj: C_COMPILER__map
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Game/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/include
   OBJECT_DIR = external\lib-map-main\CMakeFiles\map.dir
   OBJECT_FILE_DIR = external\lib-map-main\CMakeFiles\map.dir\src
-  TARGET_COMPILE_PDB = external\lib-map-main\CMakeFiles\map.dir\map.pdb
-  TARGET_PDB = external\lib-map-main\libmap.pdb
 
 
 # =============================================================================
@@ -1246,9 +1121,8 @@ build external/lib-map-main/libmap.a: C_STATIC_LIBRARY_LINKER__map_ external/lib
   OBJECT_DIR = external\lib-map-main\CMakeFiles\map.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = external\lib-map-main\CMakeFiles\map.dir\map.pdb
   TARGET_FILE = external\lib-map-main\libmap.a
-  TARGET_PDB = external\lib-map-main\libmap.pdb
+  TARGET_PDB = map.a.dbg
 
 
 #############################################
@@ -1417,14 +1291,14 @@ build external/nanovg-master/all: phony external/nanovg-master/libnanovg.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCCompilerABI.c C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineRCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeNinjaFindMake.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystem.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestRCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Determine-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Templates/CPackConfig.cmake.in C$:/Users/Chris/Desktop/Chris/Coding/Game/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/cglm.pc.in C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.4/CMakeCCompiler.cmake CMakeFiles/3.30.4/CMakeCXXCompiler.cmake CMakeFiles/3.30.4/CMakeRCCompiler.cmake CMakeFiles/3.30.4/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Templates/CPackConfig.cmake.in C$:/Users/Chris/Desktop/Chris/Coding/Game/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/cglm.pc.in C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.4/CMakeCCompiler.cmake CMakeFiles/3.30.4/CMakeCXXCompiler.cmake CMakeFiles/3.30.4/CMakeRCCompiler.cmake CMakeFiles/3.30.4/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCCompilerABI.c C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCompilerIdDetection.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineRCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeNinjaFindMake.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseImplicitIncludeInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeParseLibraryArchitecture.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCCompiler.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystem.cmake.in C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestCompilerCommon.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeTestRCCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ADSP-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ARMCC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/ARMClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/AppleClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Borland-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Bruce-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompilerInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Compaq-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Cray-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CrayClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Embarcadero-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Fujitsu-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GHS-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/HP-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/HP-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IAR-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Intel-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/LCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/MSVC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/NVHPC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/NVIDIA-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/OrangeC-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/PGI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/PathScale-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SCO-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SDCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SunPro-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TI-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TIClang-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Tasking-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/Watcom-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XL-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XL-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XLClang-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/zOS-C-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Determine-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Templates/CPackConfig.cmake.in C$:/Users/Chris/Desktop/Chris/Coding/Game/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/cglm.pc.in C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.4/CMakeCCompiler.cmake CMakeFiles/3.30.4/CMakeCXXCompiler.cmake CMakeFiles/3.30.4/CMakeRCCompiler.cmake CMakeFiles/3.30.4/CMakeSystem.cmake: phony
+build C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Templates/CPackConfig.cmake.in C$:/Users/Chris/Desktop/Chris/Coding/Game/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/cglm.pc.in C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-io-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-list-master/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/lib-map-main/CMakeLists.txt C$:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.4/CMakeCCompiler.cmake CMakeFiles/3.30.4/CMakeCXXCompiler.cmake CMakeFiles/3.30.4/CMakeRCCompiler.cmake CMakeFiles/3.30.4/CMakeSystem.cmake: phony
 
 
 #############################################

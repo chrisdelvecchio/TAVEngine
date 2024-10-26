@@ -32,17 +32,13 @@ SceneObject *CreateTriangle(vec3s position) {
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_2D,
         .tag = "TRIANGLE",
+        .transforms = NewTransforms(1, (Transform[]){{.position = position}}),
         .color = (vec3s){0.0f, 1.0f, 1.0f},
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
         .indices = meshData->indicesCopy,
         .vertexCount = vertexCount,
         .indexCount = indexCount});
-
-    Transform *transforms = (Transform *)object->transforms;
-    transforms[0] = (Transform){
-        .position = position};
-    object->transforms = transforms;
     return object;
 }
 
@@ -68,21 +64,17 @@ SceneObject *CreatePlane(vec3s position) {
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "PLANE",
+        .transforms = NewTransforms(1, (Transform[]){
+                                           {.position = position,
+                                            .rotationDegrees = -90.0f,
+                                            .rotation = (vec3s){1.0f, 0.0f, 0.0f},
+                                            .scale = (vec3s){100.0f, 100.0f, 100.0f}}}),
         .color = (vec3s){1.0f, 1.0f, 1.0f},
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
         .indices = meshData->indicesCopy,
         .vertexCount = vertexCount,
         .indexCount = indexCount});
-
-    Transform *transforms = (Transform *)object->transforms;
-    transforms[0] = (Transform){
-        .position = position,
-        .rotationDegrees = -90.0f,
-        .rotation = (vec3s){1.0f, 0.0f, 0.0f},
-        .scale = (vec3s){100.0f, 100.0f, 100.0f}};
-
-    object->transforms = transforms;
     return object;
 }
 SceneObject *CreateCube(vec3s position) {
@@ -146,26 +138,12 @@ SceneObject *CreateCube(vec3s position) {
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "CUBE",
-        .instanceCount = 2500,
         .color = (vec3s){1.0f, 0.0f, 0.0f},
+        .transforms = NewTransforms(1, (Transform[]){{.position = position}}),
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
         .indices = meshData->indicesCopy,
         .vertexCount = vertexCount,
         .indexCount = indexCount});
-
-    Transform *transforms = (Transform *)object->transforms;
-    transforms[0] = (Transform){
-        .position = position};
-
-    for (int i = 0; i < object->instanceCount; i++) {
-        transforms[i] = (Transform){
-            .position = (vec3s){
-                .x = ((float)rand() / RAND_MAX) * 10 * position.x - 4.0f,
-                .y = ((float)rand() / RAND_MAX) * 10 * position.y - 4.0f,
-                .z = ((float)rand() / RAND_MAX) * 10 * position.z - 4.0f}};
-    }
-
-    object->transforms = transforms;
     return object;
 }

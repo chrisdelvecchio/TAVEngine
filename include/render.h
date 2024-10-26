@@ -14,6 +14,8 @@ void SendToShader(SceneObject *object);
 SceneObject *NewSceneObject(SceneObject object);
 SceneObject *CopySceneObject(SceneObject *object);
 
+Transform *NewTransforms(int instanceCount, Transform *transforms);
+
 Texture *NewTexture(const char *path);
 void UseTexture(Texture *texture);
 

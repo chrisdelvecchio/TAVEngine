@@ -94,7 +94,7 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, newFrameBuffer->depthStencilBufferID);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        printf("[OpenGL Framebuffer Error] Framebuffer is not complete!\n");
+        printf("[OpenGL Framebuffer Error] Depth Stencil Framebuffer is not complete!\n");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -111,7 +111,7 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newFrameBuffer->screenTexture, 0);  // we only need a color buffer
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        printf("[OpenGL Framebuffer Error] Framebuffer is not complete!\n");
+        printf("[OpenGL Framebuffer Error] Screen Texture Framebuffer is not complete!\n");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -126,14 +126,16 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
 }
 
 void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glDeleteFramebuffers(1, &frameBuffer->frameBufferID);
-    glDeleteTextures(1, &frameBuffer->texColorBufferID);
-    glDeleteRenderbuffers(1, &frameBuffer->depthStencilBufferID);
+    if (frameBuffer) {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDeleteFramebuffers(1, &frameBuffer->frameBufferID);
+        glDeleteTextures(1, &frameBuffer->texColorBufferID);
+        glDeleteRenderbuffers(1, &frameBuffer->depthStencilBufferID);
 
-    free(frameBuffer);
+        free(frameBuffer);
 
-    printf("[Game] Screen Framebuffer Object has been freed!\n");
+        printf("[Game] Screen Framebuffer Object has been freed!\n");
+    }
 }
 
 static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isInstanced) {
@@ -148,7 +150,7 @@ static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isIn
             model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
 
             if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
-                transform.scale = GLMS_VEC3_ONE;
+                transform.scale = (vec3s)GLMS_VEC3_ONE;
             }
 
             model = glms_scale(model, transform.scale);
@@ -160,6 +162,10 @@ static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isIn
         // Non-instanced handling
         Transform transform = object->transforms[0];
         mat4s model = glms_mat4_identity();
+
+        if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
+            transform.scale = (vec3s)GLMS_VEC3_ONE;
+        }
 
         model = glms_translate(model, transform.position);
         model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
@@ -264,6 +270,22 @@ SceneObject *CopySceneObject(SceneObject *object) {
     if (object != NULL) {
         return (SceneObject *)NewSceneObject(*object);
     }
+}
+
+Transform *NewTransforms(int instanceCount, Transform *transforms) {
+    if (instanceCount < 1) instanceCount = 1;
+
+    Transform *newTransforms = (Transform *)malloc(instanceCount * sizeof(Transform));
+    if (newTransforms == NULL) {
+        fprintf(stderr, "[MEMORY ERROR] Failed creating new Transform, ERROR ALLOCATING MEMORY\n");
+        free(newTransforms);
+        return NULL;
+    }
+
+    memcpy(newTransforms, transforms, sizeof(Transform));
+    newTransforms[0].model = glms_mat4_identity();
+
+    return newTransforms;
 }
 
 void UseTexture(Texture *texture) {

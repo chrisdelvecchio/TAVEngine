@@ -109,15 +109,23 @@ Game *init(void) {
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    
+
+    glEnable(GL_BLEND);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+
     defaultShader = (Shader *)NewShader("shader.vert", "shader.frag");
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
-    antiAliasShader = (Shader *)NewShader("aa_post.vert", "aa_post.frag");
     camera = (Camera *)NewCamera((vec3s){1.0f, 1.0f, 1.0f}, 45.0f);
 
-    antiAlias = (FrameBufferObject *)BindFrameBuffer((FrameBufferObject){
-        .bufferWidth = SCREEN_WIDTH,
-        .bufferHeight = SCREEN_HEIGHT});
+    if (game->antiAliasing) {
+        antiAliasShader = (Shader *)NewShader("aa_post.vert", "aa_post.frag");
+        antiAlias = (FrameBufferObject *)BindFrameBuffer((FrameBufferObject){
+            .bufferWidth = SCREEN_WIDTH,
+            .bufferHeight = SCREEN_HEIGHT});
+    }
 
     button = (Element *)CreateElement((Element){
         .type = ELEMENT_BUTTON,
@@ -141,6 +149,7 @@ Game *init(void) {
 
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
+    cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
     return game;
 }
 
@@ -218,6 +227,7 @@ void render(void) {
 
     glClearColor(BACKGROUND_COLOR);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
 
     if (game->antiAliasing) {
         glBindFramebuffer(GL_FRAMEBUFFER, antiAlias->frameBufferID);
@@ -236,8 +246,6 @@ void render(void) {
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
         object->draw(object);
     }
-    // cube->draw(cube);
-    // plane->draw(plane);
 
     if (menu != NULL) {
         DrawElement(button, NULL);
