@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "type_traits": "c",
+        "libmap.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c"
+    }
+}

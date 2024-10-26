@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc liblist.a CMakeFiles/list.dir/src/liblist.c.obj
+C:\msys64\ucrt64\bin\ranlib.exe liblist.a

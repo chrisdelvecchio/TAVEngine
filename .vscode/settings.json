@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "glfw3.h": "c",
+        "stdio.h": "c",
+        "glad.h": "c",
+        "nanovg.h": "c",
+        "nanovg_gl.h": "c",
+        "game.h": "c",
+        "timings.h": "c",
+        "callbacks.h": "c",
+        "utils.h": "c",
+        "type_traits": "c",
+        "ui.h": "c",
+        "libmap.h": "c",
+        "libio.h": "c",
+        "liblist.h": "c",
+        "shader.h": "c",
+        "stb_image.h": "c",
+        "object.h": "c",
+        "physics.h": "c",
+        "render.h": "c",
+        "string.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

@@ -1,0 +1,4 @@
+shaderDir=shaders
+assetDir=assets
+fontDir=fonts
+defaultFont=Roboto-Regular.ttf
