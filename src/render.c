@@ -374,7 +374,7 @@ void BindBufferObj(SceneObject *object) {
     if (object->instanceCount > 1) {
         glBindBuffer(GL_ARRAY_BUFFER, object->IVBO);
 
-        glBufferData(GL_ARRAY_BUFFER, object->instanceCount * sizeof(mat4s), &object->transforms->model.raw[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, object->instanceCount * sizeof(mat4s), &object->transforms->model.raw[0], GL_DYNAMIC_DRAW);
 
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)0);
