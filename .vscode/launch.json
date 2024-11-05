@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Engine",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/game.exe",
+        "args": [],
+        "cwd": "${workspaceFolder}/build",
+        "preLaunchTask": "Build with Ninja",
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:/Users/Chris/Coding Tools/mingw64/bin/gdb.exe",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "stopAtEntry": false
+      }
+    ]
+  }
+  
