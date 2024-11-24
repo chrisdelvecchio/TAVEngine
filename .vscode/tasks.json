@@ -6,7 +6,7 @@
             "command": "cls; ninja",
             "args": [],
             "options": {
-                "cwd": "C:/Users/Chris/Desktop/Chris/Coding/Game/build"
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
             "group": {
