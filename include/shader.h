@@ -3,7 +3,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "game.h"
+#include "engine.h"
 #include <stdbool.h>
 
 void reloadShaders(void);
@@ -24,23 +24,23 @@ void setMat3(Shader shader, const char *name, const mat3s *mat);
 void setMat4(Shader shader, const char *name, const mat4s *mat);
 
 static char *getShaderPath(const char *path) {
-    return (char *)CreatePath(game->shaderDir, path);
+    return (char *)CreatePath(engine->shaderDir, path);
 }
 
 static void freeShaders(void) {
-    if (isListEmpty(game->shaders)) {
-        printf("[Game] No shaders to free.\n");
+    if (isListEmpty(engine->shaders)) {
+        printf("[TAV ENGINE] No shaders to free.\n");
         return;
     }
 
     int counter = 0;
-    foreach (Shader *shader, game->shaders) {
+    foreach (Shader *shader, engine->shaders) {
         glDeleteProgram(shader->programID);
         counter++;
     }
 
-    ListClear(game->shaders);
-    printf("[Game] %d Shaders have been freed!\n", counter);
+    ListClear(engine->shaders);
+    printf("[TAV ENGINE] %d Shaders have been freed!\n", counter);
 }
 
 static void checkCompileErrors(GLuint shader, char *type) {

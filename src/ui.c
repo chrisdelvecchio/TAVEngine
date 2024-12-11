@@ -7,7 +7,7 @@
 Menu *menu;
 
 void initUI(void) {
-    printf("[Game] Initializing UI...\n");
+    printf("[TAV ENGINE] Initializing UI...\n");
     if (menu == NULL) {
         menu = (Menu *)malloc(sizeof(Menu));
     }
@@ -115,17 +115,17 @@ void DrawElement(Element *element, void (*update)(void)) {
 
     switch (element->type) {
         case ELEMENT_TEXTBOX:
-            nvgBeginFrame(game->vgContext, game->windowWidth, game->windowHeight, game->aspectRatio);
+            nvgBeginFrame(engine->vgContext, engine->windowWidth, engine->windowHeight, engine->aspectRatio);
 
-            nvgFontSize(game->vgContext, element->textScale);
-            nvgFontFaceId(game->vgContext, game->defaultFont);
-            nvgTextAlign(game->vgContext, element->alignment);
-            nvgFillColor(game->vgContext, element->color);
+            nvgFontSize(engine->vgContext, element->textScale);
+            nvgFontFaceId(engine->vgContext, engine->defaultFont);
+            nvgTextAlign(engine->vgContext, element->alignment);
+            nvgFillColor(engine->vgContext, element->color);
 
-            // float textPosX = (element->alignment & NVG_ALIGN_RIGHT) ? game->windowWidth - padding : padding;
-            // float textPosY = (element->alignment & NVG_ALIGN_TOP) ? padding : game->windowHeight - padding;
+            // float textPosX = (element->alignment & NVG_ALIGN_RIGHT) ? engine->windowWidth - padding : padding;
+            // float textPosY = (element->alignment & NVG_ALIGN_TOP) ? padding : engine->windowHeight - padding;
             float bounds[4];
-            nvgTextBounds(game->vgContext, posX, posY, element->text, NULL, bounds);
+            nvgTextBounds(engine->vgContext, posX, posY, element->text, NULL, bounds);
 
             float textWidth = bounds[2] - bounds[0];
             float textHeight = bounds[3] - bounds[1];
@@ -146,81 +146,81 @@ void DrawElement(Element *element, void (*update)(void)) {
             // }
 
             if (element->alignment & NVG_ALIGN_RIGHT) {
-                textPosX = game->windowWidth - padding;
+                textPosX = engine->windowWidth - padding;
             }
 
             if (element->alignment & NVG_ALIGN_CENTER) {
-                textPosX = game->windowWidth / 2;
+                textPosX = engine->windowWidth / 2;
             } else {
                 // printf("ELSE CENTER TOP\n");
-                // textPosX = game->windowWidth - padding;
+                // textPosX = engine->windowWidth - padding;
             }
 
             if (element->alignment & NVG_ALIGN_TOP) {
                 textPosY = padding;
             } else {
                 // printf("ELSE ALIGN TOP\n");
-                // textPosY = game->windowHeight - padding;
+                // textPosY = engine->windowHeight - padding;
             }
 
             if (element->alignment & NVG_ALIGN_MIDDLE) {
                 // printf("MIDDLE TOP\n");
-                textPosY = game->windowHeight / 2;
+                textPosY = engine->windowHeight / 2;
             }
 
-            nvgText(game->vgContext, textPosX, textPosY, element->text, NULL);
-            nvgEndFrame(game->vgContext);
+            nvgText(engine->vgContext, textPosX, textPosY, element->text, NULL);
+            nvgEndFrame(engine->vgContext);
             break;
         case ELEMENT_RECT:
         case ELEMENT_BUTTON:
             const float textPadding = 40.0f;
 
             // actual rectangle
-            nvgBeginFrame(game->vgContext, game->windowWidth, game->windowHeight, game->aspectRatio);
+            nvgBeginFrame(engine->vgContext, engine->windowWidth, engine->windowHeight, engine->aspectRatio);
 
             if (element->type == ELEMENT_BUTTON) {
-                nvgFillColor(game->vgContext, (element->isHovered) ? element->hoverColor : element->color);
+                nvgFillColor(engine->vgContext, (element->isHovered) ? element->hoverColor : element->color);
             } else {
-                nvgFillColor(game->vgContext, element->color);
+                nvgFillColor(engine->vgContext, element->color);
             }
 
             float rectPosX = 0.0f, rectPosY = 0.0f;
 
             if (element->alignment & NVG_ALIGN_RIGHT) {
-                rectPosX = game->windowWidth - (padding + element->width);
+                rectPosX = engine->windowWidth - (padding + element->width);
             } else {
                 rectPosX = padding;
             }
 
             if (element->alignment & NVG_ALIGN_CENTER) {
-                rectPosX = game->windowWidth / 2 - (element->width / 2);
+                rectPosX = engine->windowWidth / 2 - (element->width / 2);
             }
 
             if (element->alignment & NVG_ALIGN_TOP) {
                 rectPosY = padding;
             } else {
-                rectPosY = game->windowHeight - (padding + element->height);
+                rectPosY = engine->windowHeight - (padding + element->height);
             }
 
             if (element->alignment & NVG_ALIGN_MIDDLE) {
-                rectPosY = game->windowHeight / 2 - (element->height / 2);
+                rectPosY = engine->windowHeight / 2 - (element->height / 2);
             }
 
             element->transform.position = (vec3s){rectPosX, rectPosY, 0.0f};
 
-            nvgBeginPath(game->vgContext);
-            nvgRect(game->vgContext, posX, posY, element->width, element->height);
-            nvgFill(game->vgContext);
-            nvgClosePath(game->vgContext);
+            nvgBeginPath(engine->vgContext);
+            nvgRect(engine->vgContext, posX, posY, element->width, element->height);
+            nvgFill(engine->vgContext);
+            nvgClosePath(engine->vgContext);
 
-            nvgEndFrame(game->vgContext);
+            nvgEndFrame(engine->vgContext);
 
             // draw text inside the rectangle
             if (element->text != NULL) {
-                nvgBeginFrame(game->vgContext, game->windowWidth, game->windowHeight, game->aspectRatio);
+                nvgBeginFrame(engine->vgContext, engine->windowWidth, engine->windowHeight, engine->aspectRatio);
 
                 float bounds[4];
-                nvgTextBounds(game->vgContext, posX, posY, element->text, NULL, bounds);
+                nvgTextBounds(engine->vgContext, posX, posY, element->text, NULL, bounds);
 
                 float textWidth = bounds[2] - bounds[0];
                 float textHeight = bounds[3] - bounds[1];
@@ -229,13 +229,13 @@ void DrawElement(Element *element, void (*update)(void)) {
                          OR TO THE LEFT WHATEVER U GET THE POINT NIGGA */
                 // printf("TextWidth = %.2f && TextHeight = %.2f\n", textWidth, textHeight);
 
-                nvgFontSize(game->vgContext, element->textScale);
-                nvgFontFaceId(game->vgContext, game->defaultFont);
-                nvgFillColor(game->vgContext, element->textColor);
+                nvgFontSize(engine->vgContext, element->textScale);
+                nvgFontFaceId(engine->vgContext, engine->defaultFont);
+                nvgFillColor(engine->vgContext, element->textColor);
 
-                nvgText(game->vgContext, posX + textPadding, posY + element->textScale, element->text, NULL);
+                nvgText(engine->vgContext, posX + textPadding, posY + element->textScale, element->text, NULL);
 
-                nvgEndFrame(game->vgContext);
+                nvgEndFrame(engine->vgContext);
             }
             break;
         default:

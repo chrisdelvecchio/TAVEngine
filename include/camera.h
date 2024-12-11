@@ -3,7 +3,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "game.h"
+#include "engine.h"
 
 Camera *NewCamera(vec3s position, float fov);
 

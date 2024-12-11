@@ -1,4 +1,4 @@
-#include "game.h"
+#include "engine.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,21 +14,21 @@
 #include "uievents.h"
 #include "utils.h"
 
-Game *game = NULL;
+Engine *engine = NULL;
 Shader *defaultShader, *instanceShader, *antiAliasShader;
 Camera *camera;
 Element *button, *fpstextBox, *coordinatestextBox;
 SceneObject *plane, *cube;
 FrameBufferObject *antiAlias;
 
-Game *init(void) {
-    game = malloc(sizeof(Game));
-    if (!game) {
-        printf("[Game] => Failed to allocate memory for game\n");
+Engine *init(void) {
+    engine = malloc(sizeof(Engine));
+    if (!engine) {
+        printf("[TAV ENGINE] => Failed to allocate memory for Engine\n");
         return NULL;
     }
 
-    printf("[Game] => Loading game...\n");
+    printf("[TAV ENGINE] => Loading engine...\n");
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -37,24 +37,24 @@ Game *init(void) {
     GLFWwindow *window;
 
     if (!glfwInit()) {
-        printf("[Game] => Failed to initialize GLFW\n");
+        printf("[TAV ENGINE] => Failed to initialize GLFW\n");
         return NULL;
     }
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Prototype Game", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Prototype Engine", NULL, NULL);
     if (!window) {
-        printf("[Game] => Failed to create GLFW window\n");
+        printf("[TAV ENGINE] => Failed to create GLFW window\n");
         glfwTerminate();
         return NULL;
     }
 
-    game->windowWidth = (float)SCREEN_WIDTH;
-    game->windowHeight = (float)SCREEN_HEIGHT;
-    game->aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
+    engine->windowWidth = (float)SCREEN_WIDTH;
+    engine->windowHeight = (float)SCREEN_HEIGHT;
+    engine->aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 
-    game->firstMouse = GLFW_TRUE;
-    game->lastX = SCREEN_WIDTH / 2.0f;
-    game->lastY = SCREEN_HEIGHT / 2.0f;
+    engine->firstMouse = GLFW_TRUE;
+    engine->lastX = SCREEN_WIDTH / 2.0f;
+    engine->lastY = SCREEN_HEIGHT / 2.0f;
 
     glfwMakeContextCurrent(window);
 
@@ -65,7 +65,7 @@ Game *init(void) {
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    char *mainPath = "C:/Users/Chris/Desktop/Chris/Coding/Game";
+    char *mainPath = getSourceCodePath();
     char *settingsFile = CreatePath(mainPath, "build/settings.txt");
     char *shadersDir = CreatePath(mainPath, ReadValue(settingsFile, "shaderDir"));
     char *assetsDir = CreatePath(mainPath, ReadValue(settingsFile, "assetDir"));
@@ -85,26 +85,26 @@ Game *init(void) {
         return NULL;
     }
 
-    game->window = (GLFWwindow *)window;
-    game->vgContext = (NVGcontext *)vg;
-    game->defaultFont = (int)font;
-    game->mainPath = (char *)mainPath;
-    game->settingsFile = (char *)settingsFile;
-    game->shaderDir = (char *)shadersDir;
-    game->assetDir = (char *)assetsDir;
-    game->fontDir = (char *)fontsDir;
-    game->fps = (float)0.0f;
-    game->deltaTime = (float)0.0f;
-    game->shaders = (List *)NewList(NULL);
-    game->sceneObjects = (List *)NewList(NULL);
-    game->antiAliasing = GLFW_TRUE;
-    game->vSync = GLFW_TRUE;
-    game->wireframeMode = GLFW_FALSE;
+    engine->window = (GLFWwindow *)window;
+    engine->vgContext = (NVGcontext *)vg;
+    engine->defaultFont = (int)font;
+    engine->mainPath = (char *)mainPath;
+    engine->settingsFile = (char *)settingsFile;
+    engine->shaderDir = (char *)shadersDir;
+    engine->assetDir = (char *)assetsDir;
+    engine->fontDir = (char *)fontsDir;
+    engine->fps = (float)0.0f;
+    engine->deltaTime = (float)0.0f;
+    engine->shaders = (List *)NewList(NULL);
+    engine->sceneObjects = (List *)NewList(NULL);
+    engine->antiAliasing = GLFW_TRUE;
+    engine->vSync = GLFW_TRUE;
+    engine->wireframeMode = GLFW_FALSE;
 
     glEnable(GL_DEBUG_OUTPUT);
 
     initUI();
-    init_callbacks(game);
+    init_callbacks(engine);
     InitTimerManager();
 
     glEnable(GL_DEPTH_TEST);
@@ -120,7 +120,7 @@ Game *init(void) {
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
     camera = (Camera *)NewCamera((vec3s){1.0f, 1.0f, 1.0f}, 45.0f);
 
-    if (game->antiAliasing) {
+    if (engine->antiAliasing) {
         antiAliasShader = (Shader *)NewShader("aa_post.vert", "aa_post.frag");
         antiAlias = (FrameBufferObject *)BindFrameBuffer((FrameBufferObject){
             .bufferWidth = SCREEN_WIDTH,
@@ -141,7 +141,7 @@ Game *init(void) {
         .type = ELEMENT_TEXTBOX,
         .color = nvgRGBA(255, 255, 0, 255),
         .transform = (Transform){
-            .position = (vec3s){10.0f, game->windowHeight - 50.0f, 0.0f}}});
+            .position = (vec3s){10.0f, engine->windowHeight - 50.0f, 0.0f}}});
 
     coordinatestextBox = (Element *)CreateElement((Element){
         .type = ELEMENT_TEXTBOX,
@@ -150,35 +150,35 @@ Game *init(void) {
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
-    return game;
+    return engine;
 }
 
 static void RemoveSceneObjects(void) {
     int counter = 0;
-    foreach (SceneObject *object, game->sceneObjects) {
+    foreach (SceneObject *object, engine->sceneObjects) {
         RemoveSceneObject(object);
         counter++;
     }
 
-    if (!isListEmpty(game->sceneObjects)) {
-        ListClear(game->sceneObjects);
+    if (!isListEmpty(engine->sceneObjects)) {
+        ListClear(engine->sceneObjects);
     }
 
     UnbindFrameBufferObj(antiAlias);
 
-    printf("[Game] %d Scene Objects have been freed!\n", counter);
+    printf("[TAV ENGINE] %d Scene Objects have been freed!\n", counter);
 }
 
 int cleanup(void) {
     printf("\n");
-    nvgDeleteGL3(game->vgContext);
+    nvgDeleteGL3(engine->vgContext);
 
     destroyUI();
     freeShaders();
     RemoveSceneObjects();
 
-    ListFreeMemory(game->sceneObjects);
-    ListFreeMemory(game->shaders);
+    ListFreeMemory(engine->sceneObjects);
+    ListFreeMemory(engine->shaders);
 
     ListFreeMemory(menu->elements);
     free(menu);
@@ -192,10 +192,10 @@ int cleanup(void) {
     free(timerManager->timers);
     free(timerManager);
 
-    glfwDestroyWindow(game->window);
+    glfwDestroyWindow(engine->window);
     glfwTerminate();
 
-    free(game);
+    free(engine);
     printf("[EXIT] Cleaned up successfully.");
     return EXIT_SUCCESS;
 }
@@ -213,7 +213,7 @@ void update(void) {
     double difference = currentTime - lastTime;
 
     if (difference >= 1.0f) {
-        game->fps = frameCount;
+        engine->fps = frameCount;
 
         frameCount = 0;
         lastTime = currentTime;
@@ -221,7 +221,7 @@ void update(void) {
 }
 
 void render(void) {
-    if (!game->vSync) {
+    if (!engine->vSync) {
         glfwSwapInterval(0);
     }
 
@@ -229,20 +229,20 @@ void render(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 
-    if (game->antiAliasing) {
+    if (engine->antiAliasing) {
         glBindFramebuffer(GL_FRAMEBUFFER, antiAlias->frameBufferID);
         glClearColor(BACKGROUND_COLOR);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
     }
 
-    if (game->wireframeMode) {
+    if (engine->wireframeMode) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
-    foreach (SceneObject *object, game->sceneObjects) {
+    foreach (SceneObject *object, engine->sceneObjects) {
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
         object->draw(object);
     }
@@ -251,7 +251,7 @@ void render(void) {
         DrawElement(button, NULL);
 
         DrawElement(fpstextBox, lambda(void, (void), {
-                        sprintf(fpstextBox->text, "%.1f", game->fps);
+                        sprintf(fpstextBox->text, "%.1f", engine->fps);
                     }));
 
         DrawElement(coordinatestextBox, lambda(void, (void), {
@@ -259,10 +259,10 @@ void render(void) {
                     }));
     }
 
-    if (game->antiAliasing) {
+    if (engine->antiAliasing) {
         antiAlias->drawBuffer(antiAlias);
     }
 
-    glfwSwapBuffers(game->window);
+    glfwSwapBuffers(engine->window);
     glfwPollEvents();
 }

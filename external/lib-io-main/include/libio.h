@@ -14,7 +14,7 @@ typedef struct MyFile {
 char *CreatePath(const char *base, const char* filename);
 
 //Create a File
-FILE *CreateFile(const char *path, bool overwrite);
+FILE *CreateFile_(const char *path, bool overwrite);
 
 //Stores finalPath of file, and the FILE pointer
 MyFile *CreateMyFile(const char *path, bool overwrite);

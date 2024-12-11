@@ -3,7 +3,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "game.h"
+#include "engine.h"
 
 static MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint *indices, int indexCount) {
     MeshData *meshData = malloc(sizeof(MeshData));

@@ -3,7 +3,7 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "game.h"
+#include "engine.h"
 
 FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
 void UnbindFrameBufferObj(FrameBufferObject *frameBuffer);
@@ -26,7 +26,7 @@ void UnbindBufferObj(SceneObject *object);
 void RemoveSceneObject(SceneObject *object);
 
 static char *getAssetPath(const char *path) {
-    return (char *)CreatePath(game->assetDir, path);
+    return (char *)CreatePath(engine->assetDir, path);
 }
 
 #endif // RENDER_H

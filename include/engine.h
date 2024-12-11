@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include <cglm/struct.h>
 #include <glad/glad.h>
@@ -20,7 +20,7 @@
 #define SCREEN_HEIGHT 600
 #define UPDATE_INTERVAL 1.0f / 60.0f
 
-typedef struct Game {
+typedef struct Engine {
     GLFWwindow *window;
     float windowWidth, windowHeight, aspectRatio, fps, deltaTime, lastX, lastY;
 
@@ -31,7 +31,7 @@ typedef struct Game {
     List *sceneObjects, *shaders;
 
     bool vSync, antiAliasing, wireframeMode, firstMouse;
-} Game;
+} Engine;
 
 typedef struct Transform {
     mat4s model;
@@ -141,12 +141,12 @@ typedef struct Entity {
     SceneObject *object;
 } Entity;
 
-extern Game *game;
+extern Engine *engine;
 extern FrameBufferObject *antiAlias;
 extern Shader *defaultShader, *instanceShader, *antiAliasShader;
 extern Camera *camera;
 
-Game *init(void);
+Engine *init(void);
 int cleanup(void);
 
 void update(void);
@@ -170,8 +170,8 @@ static void tick(void) {
             nextUpdateTime = currentTime;
         }
 
-        game->deltaTime = (float)(nextUpdateTime - currentTime);
+        engine->deltaTime = (float)(nextUpdateTime - currentTime);
     }
 }
 
-#endif  // GAME_H
+#endif // ENGINE_H

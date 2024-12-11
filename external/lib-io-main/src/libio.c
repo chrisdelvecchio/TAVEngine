@@ -9,7 +9,7 @@ char* CreatePath(const char* base, const char* filename) {
     return path;
 }
 
-FILE* CreateFile(const char* filename, bool overwrite) {  // works
+FILE* CreateFile_(const char* filename, bool overwrite) {  // works
   if (!overwrite && FileExists(filename)) {
     printf(
         "#CreateFile 'overwrite = false' (FILE ALREADY EXISTS) Exception: %s\n",

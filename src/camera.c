@@ -1,7 +1,7 @@
 #include "camera.h"
 
 static void UpdateCameraVectors(Camera *camera) {
-    camera->projection = glms_perspective(glm_rad(camera->fov), game->aspectRatio, 0.1f, camera->renderDistance);
+    camera->projection = glms_perspective(glm_rad(camera->fov), engine->aspectRatio, 0.1f, camera->renderDistance);
     camera->view = glms_lookat(camera->position, glms_vec3_add(camera->position, camera->front), camera->up);
 
     vec3s front;
@@ -33,32 +33,32 @@ Camera *NewCamera(vec3s position, float fov) {
 }
 
 void processKeyboard(Camera *camera) {
-    float cameraSpeed = camera->movementSpeed * game->deltaTime;
+    float cameraSpeed = camera->movementSpeed * engine->deltaTime;
 
     // Move forward (W key)
-    if (glfwGetKey(game->window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_W) == GLFW_PRESS)
         camera->position = glms_vec3_add(camera->position, glms_vec3_scale(camera->front, cameraSpeed));
 
     // Move backward (S key)
-    if (glfwGetKey(game->window, GLFW_KEY_S) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_S) == GLFW_PRESS)
         camera->position = glms_vec3_sub(camera->position, glms_vec3_scale(camera->front, cameraSpeed));
 
     // Strafe left (A key)
-    if (glfwGetKey(game->window, GLFW_KEY_A) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_A) == GLFW_PRESS)
         camera->position = glms_vec3_sub(camera->position, glms_normalize(
                                                                glms_vec3_scale(glms_cross(camera->front, camera->up), cameraSpeed)));
 
     // Strafe right (D key)
-    if (glfwGetKey(game->window, GLFW_KEY_D) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_D) == GLFW_PRESS)
         camera->position = glms_vec3_add(camera->position, glms_normalize(
                                                                glms_vec3_scale(glms_cross(camera->front, camera->up), cameraSpeed)));
 
     // Fly up (Space bar)
-    if (glfwGetKey(game->window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_SPACE) == GLFW_PRESS)
         camera->position = glms_vec3_add(camera->position, glms_vec3_scale(camera->up, cameraSpeed));
 
     // Fly down (Left Shift key)
-    if (glfwGetKey(game->window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    if (glfwGetKey(engine->window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera->position = glms_vec3_sub(camera->position, glms_vec3_scale(camera->up, cameraSpeed));
 }
 
@@ -66,16 +66,16 @@ void processMouse(Camera *camera, double xposIn, double yposIn) {
     float xpos = (float)xposIn;
     float ypos = (float)yposIn;
 
-    if (game->firstMouse) {
-        game->lastX = xpos;
-        game->lastY = ypos;
-        game->firstMouse = GLFW_FALSE;
+    if (engine->firstMouse) {
+        engine->lastX = xpos;
+        engine->lastY = ypos;
+        engine->firstMouse = GLFW_FALSE;
     }
 
-    float xoffset = xpos - game->lastX;
-    float yoffset = game->lastY - ypos;  // reversed since y-coordinates go from bottom to top
-    game->lastX = xpos;
-    game->lastY = ypos;
+    float xoffset = xpos - engine->lastX;
+    float yoffset = engine->lastY - ypos;  // reversed since y-coordinates go from bottom to top
+    engine->lastX = xpos;
+    engine->lastY = ypos;
 
     float sensitivity = camera->mouseSensitivity;
     xoffset *= sensitivity;

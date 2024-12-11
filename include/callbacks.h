@@ -3,9 +3,9 @@
 #ifndef CALLBACKS_H
 #define CALLBACKS_H
 
-#include "game.h"
+#include "engine.h"
 
-void init_callbacks(Game *game);
+void init_callbacks(Engine *engine);
 
 void APIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam);
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);

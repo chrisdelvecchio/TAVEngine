@@ -3,7 +3,7 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-#include "game.h"
+#include "engine.h"
 #include <stdbool.h>
 
 typedef struct PhysicsManager {

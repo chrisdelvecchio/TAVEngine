@@ -3,21 +3,21 @@
 #include <string.h>
 
 void reloadShaders(void) {
-    if (isListEmpty(game->shaders)) {
-        printf("[Game] => No shaders to reload.\n");
+    if (isListEmpty(engine->shaders)) {
+        printf("[TAV ENGINE] => No shaders to reload.\n");
         return;
     }
 
     int counter = 0;
 
-    foreach (Shader *shader, game->shaders) {
+    foreach (Shader *shader, engine->shaders) {
         glDeleteProgram(shader->programID);
 
         CompileShader(shader);
         counter++;
     }
 
-    printf("[Game] => DONE.. Reloaded %d shaders successfully!\n", counter);
+    printf("[TAV ENGINE] => DONE.. Reloaded %d shaders successfully!\n", counter);
 }
 
 Shader *NewShader(const char *vertexPath, const char *fragmentPath) {
@@ -47,8 +47,8 @@ Shader *NewShader(const char *vertexPath, const char *fragmentPath) {
     free(fullVertexPath);
     free(fullFragmentPath);
 
-    // 4. Add the shader to the game's shader list
-    ListAdd(game->shaders, shader);
+    // 4. Add the shader to the engine's shader list
+    ListAdd(engine->shaders, shader);
     printf("[Shader] Successfully loaded new shaders (%s) & (%s)\n", vertexPath, fragmentPath);
 
     return shader;

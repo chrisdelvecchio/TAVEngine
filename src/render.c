@@ -47,7 +47,7 @@ static SceneObject *CreateScreenQuad(FrameBufferObject *frameBuffer) {
 static void DrawFrameBufferObject(FrameBufferObject *frameBuffer) {
     glBindFramebuffer(GL_READ_FRAMEBUFFER, frameBuffer->frameBufferID);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffer->intermediateFBO);
-    glBlitFramebuffer(0, 0, game->windowWidth, game->windowHeight, 0, 0, game->windowWidth, game->windowHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    glBlitFramebuffer(0, 0, engine->windowWidth, engine->windowHeight, 0, 0, engine->windowWidth, engine->windowHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
     // 3. now render quad with scene's visuals as its texture image
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -83,13 +83,13 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
 
     glGenTextures(1, &newFrameBuffer->texColorBufferID);
     glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, newFrameBuffer->texColorBufferID);
-    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGB, game->windowWidth, game->windowHeight, GL_TRUE);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGB, engine->windowWidth, engine->windowHeight, GL_TRUE);
     glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, newFrameBuffer->texColorBufferID, 0);
 
     glGenRenderbuffers(1, &newFrameBuffer->depthStencilBufferID);
     glBindRenderbuffer(GL_RENDERBUFFER, newFrameBuffer->depthStencilBufferID);
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8, game->windowWidth, game->windowHeight);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8, engine->windowWidth, engine->windowHeight);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, newFrameBuffer->depthStencilBufferID);
 
@@ -105,7 +105,7 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
     // create a color attachment texture
     glGenTextures(1, &newFrameBuffer->screenTexture);
     glBindTexture(GL_TEXTURE_2D, newFrameBuffer->screenTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, game->windowWidth, game->windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, engine->windowWidth, engine->windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newFrameBuffer->screenTexture, 0);  // we only need a color buffer
@@ -134,7 +134,7 @@ void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
 
         free(frameBuffer);
 
-        printf("[Game] Screen Framebuffer Object has been freed!\n");
+        printf("[TAV ENGINE] Screen Framebuffer Object has been freed!\n");
     }
 }
 
@@ -262,7 +262,7 @@ SceneObject *NewSceneObject(SceneObject object) {
 
     BindBufferObj(newSceneObject);
 
-    ListAdd(game->sceneObjects, newSceneObject);
+    ListAdd(engine->sceneObjects, newSceneObject);
     return newSceneObject;
 }
 

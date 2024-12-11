@@ -8,17 +8,17 @@
 #include "utils.h"
 #include "render.h"
 
-void init_callbacks(Game *game) {
-    glfwSetKeyCallback(game->window, key_callback);
-    glfwSetMouseButtonCallback(game->window, mouse_button_callback);
-    glfwSetScrollCallback(game->window, scroll_callback);
-    glfwSetFramebufferSizeCallback(game->window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(game->window, cursor_position_callback);
-    glfwSetWindowCloseCallback(game->window, window_close_callback);
+void init_callbacks(Engine *engine) {
+    glfwSetKeyCallback(engine->window, key_callback);
+    glfwSetMouseButtonCallback(engine->window, mouse_button_callback);
+    glfwSetScrollCallback(engine->window, scroll_callback);
+    glfwSetFramebufferSizeCallback(engine->window, framebuffer_size_callback);
+    glfwSetCursorPosCallback(engine->window, cursor_position_callback);
+    glfwSetWindowCloseCallback(engine->window, window_close_callback);
 
     glDebugMessageCallback(debugCallback, NULL);
 
-    printf("[Game] Initalized GLFW events...\n");
+    printf("[TAV ENGINE] Initalized GLFW events...\n");
 }
 
 void APIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam) {
@@ -35,11 +35,11 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
     } else if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
         reloadShaders();
     } else if (key == GLFW_KEY_GRAVE_ACCENT && action == GLFW_RELEASE) {
-        int mode = glfwGetInputMode(game->window, GLFW_CURSOR);
+        int mode = glfwGetInputMode(engine->window, GLFW_CURSOR);
 
-        glfwSetInputMode(game->window, GLFW_CURSOR, (mode == GLFW_CURSOR_DISABLED) ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(engine->window, GLFW_CURSOR, (mode == GLFW_CURSOR_DISABLED) ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
     } else if (key == GLFW_KEY_W && action == GLFW_RELEASE && (mods & GLFW_MOD_CONTROL)) {
-        game->wireframeMode = !game->wireframeMode;
+        engine->wireframeMode = !engine->wireframeMode;
     }
 }
 
@@ -77,11 +77,11 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     printf("Framebuffer callback => Resized to %dx%d\n", width, height);
     glViewport(0, 0, width, height);
 
-    game->windowWidth = (float)width;
-    game->windowHeight = (float)height;
-    game->aspectRatio = (float)width / (float)height;
+    engine->windowWidth = (float)width;
+    engine->windowHeight = (float)height;
+    engine->aspectRatio = (float)width / (float)height;
 
-    if (game->antiAliasing) {
+    if (engine->antiAliasing) {
         UnbindFrameBufferObj(antiAlias); // Clean up the old framebuffer
         antiAlias = BindFrameBuffer((FrameBufferObject){
             .bufferWidth = width,

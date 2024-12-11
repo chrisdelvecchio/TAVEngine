@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "game.h"
+#include "engine.h"
 
 static void debug(void) {
     GLenum err;
@@ -16,9 +16,9 @@ static void loop(void) {
 }
 
 int main(void) {
-    game = init();
+    engine = init();
 
-    while (!glfwWindowShouldClose(game->window)) {
+    while (!glfwWindowShouldClose(engine->window)) {
         loop();
     }
 

@@ -5,7 +5,7 @@
 
 #include <stdbool.h>
 
-#include "game.h"
+#include "engine.h"
 
 typedef enum ElementType {
     ELEMENT_TEXTBOX = 0,
