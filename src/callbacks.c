@@ -63,7 +63,7 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
             if (element == NULL || element->type != ELEMENT_BUTTON) continue;
 
             if (element->isHovered && element->onClick) {
-                element->onClick();
+                element->onClick(element);
             }
         }
     }

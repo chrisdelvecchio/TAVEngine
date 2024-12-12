@@ -7,9 +7,9 @@
 #include "engine.h"
 #include "ui.h"
 
-static void onClickPlayButton(void) {
+static void onClickPlayButton(Element *element) {
     printf("Play button clicked!\n");
-    destroyUI();
+    DestroyElement(element);
 }
 
 #endif // UIEVENTS_H

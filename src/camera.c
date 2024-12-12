@@ -26,6 +26,8 @@ Camera *NewCamera(vec3s position, float fov) {
     camera->up = (vec3s){0.0f, 1.0f, 0.0f};
     camera->front = (vec3s){0.0f, 0.0f, -1.0f};
     camera->worldUp = camera->up;
+    camera->velocity = GLMS_VEC3_ZERO;
+    camera->maxVelocity = 10.0f;
     camera->update = UpdateCameraVectors;
 
     UpdateCameraVectors(camera);

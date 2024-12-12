@@ -17,7 +17,7 @@ typedef struct Element {
     ElementType type;
     Transform transform;
     
-    void (*onClick)(void);
+    void (*onClick)(struct Element *element);
 
     NVGcolor color;
     NVGcolor textColor;

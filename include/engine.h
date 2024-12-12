@@ -47,12 +47,14 @@ typedef struct Camera {
     vec3s up;
     vec3s right;
     vec3s worldUp;
+    vec3s velocity;
 
     float yaw;
     float pitch;
 
     float renderDistance;
     float movementSpeed;
+    float maxVelocity;
     float mouseSensitivity;
     float fov;
 

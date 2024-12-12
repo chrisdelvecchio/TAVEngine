@@ -1,6 +1,5 @@
 #include "render.h"
 
-#include "object.h"
 #include "shader.h"
 #include "stb_image.h"
 #include "utils.h"
@@ -406,14 +405,16 @@ void UnbindBufferObj(SceneObject *object) {
     glDeleteBuffers(1, &object->VBO);
     glDeleteBuffers(1, &object->IVBO);
     glDeleteBuffers(1, &object->EBO);
+
+    object->VAO = 0;
+    object->VBO = 0;
+    object->IVBO = 0;
+    object->EBO = 0;
 }
 
 void RemoveSceneObject(SceneObject *object) {
-    UnbindBufferObj(object);
-
-    freeMeshData(object->meshData);
-    free(object->sprite);
-    free(object->texture);
-    free(object->transforms);
-    free(object);
+    if (object != NULL) {
+        FreeupObject(object);
+        ListRemove(engine->sceneObjects, object);
+    }
 }

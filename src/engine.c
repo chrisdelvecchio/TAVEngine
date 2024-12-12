@@ -17,9 +17,11 @@
 Engine *engine = NULL;
 Shader *defaultShader, *instanceShader, *antiAliasShader;
 Camera *camera;
-Element *button, *fpstextBox, *coordinatestextBox;
-SceneObject *plane, *cube;
 FrameBufferObject *antiAlias;
+
+static Element *button, *fpstextBox, *coordinatestextBox;
+static SceneObject *plane, *cube;
+static Timer *timer;
 
 Engine *init(void) {
     engine = malloc(sizeof(Engine));
@@ -150,13 +152,16 @@ Engine *init(void) {
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
+
+    timer = NewTimer(5.0f);
+    StartTimer(timer);
     return engine;
 }
 
 static void RemoveSceneObjects(void) {
     int counter = 0;
     foreach (SceneObject *object, engine->sceneObjects) {
-        RemoveSceneObject(object);
+        FreeupObject(object);
         counter++;
     }
 
@@ -240,6 +245,10 @@ void render(void) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+    if (TimerDone(*timer) && ObjectExists(plane)) {
+        RemoveSceneObject(plane);
     }
 
     foreach (SceneObject *object, engine->sceneObjects) {
