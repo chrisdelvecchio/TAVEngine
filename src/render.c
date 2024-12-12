@@ -413,8 +413,12 @@ void UnbindBufferObj(SceneObject *object) {
 }
 
 void RemoveSceneObject(SceneObject *object) {
-    if (object != NULL) {
+    if (ObjectExists(object)) {
+        if (ListContains(engine->sceneObjects, object)) {
+            ListRemove(engine->sceneObjects, object);
+        }
+
         FreeupObject(object);
-        ListRemove(engine->sceneObjects, object);
+        printf("[SCENE OBJECT] Destroyed successfully!\n");
     }
 }

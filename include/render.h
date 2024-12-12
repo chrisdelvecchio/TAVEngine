@@ -8,8 +8,6 @@
 
 FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
 void UnbindFrameBufferObj(FrameBufferObject *frameBuffer);
-
-
 void SendToShader(SceneObject *object);
 
 SceneObject *NewSceneObject(SceneObject object);
@@ -52,7 +50,7 @@ static inline void FreeupObject(SceneObject *object) {
 
 void RemoveSceneObject(SceneObject *object);
 
-static char *getAssetPath(const char *path) {
+static inline char *getAssetPath(const char *path) {
     return (char *)CreatePath(engine->assetDir, path);
 }
 

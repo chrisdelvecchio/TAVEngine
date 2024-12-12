@@ -19,22 +19,34 @@ void initUI(void) {
 void destroyUI(void) {
     menu->shown = GLFW_FALSE;
 
+    int counter = 0;
     foreach (Element *element, menu->elements) {
-        DestroyElement(element);
+        if (!ElementExists(element)) continue;
+        FreeupElement(element);
+        counter++;
     }
+
+    if (!isListEmpty(menu->elements)) {
+        ListClear(menu->elements);
+    }
+
+    printf("[TAV ENGINE] %d UI Elements have been freed!\n", counter);
 }
 
 void DestroyElement(Element *element) {
-    if (element == NULL) return;
+    if (!ElementExists(element)) return;
 
-    element->created = GLFW_FALSE;
-    element->onClick = NULL;
+    if (ListContains(menu->elements, element)) {
+        ListRemove(menu->elements, element);
+    }
 
-    element = NULL;
+    FreeupElement(element);
+    printf("[UI ELEMENT] Destroyed successfully!\n");
 }
 
 void toggleMenu(void) {
     menu->shown = !menu->shown;
+    printf("[UI] Toggled Menu\n");
 }
 
 Element *CreateElement(Element element) {
@@ -104,7 +116,7 @@ Element *CreateElement(Element element) {
 }
 
 void DrawElement(Element *element, void (*update)(void)) {
-    if (!menu->shown || element->created == GLFW_FALSE) return;
+    if (!menu->shown || !ElementExists(element)) return;
 
     if (update != NULL) update();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -141,8 +153,8 @@ void DrawElement(Element *element, void (*update)(void)) {
             // ALIGN TOP
 
             // if (element->alignment == 0) {
-                // printf("(DEFAULT) Element '%s''s Alignment value: %d\n", element->text, element->alignment);
-                // textPosX = 0.0f;
+            // printf("(DEFAULT) Element '%s''s Alignment value: %d\n", element->text, element->alignment);
+            // textPosX = 0.0f;
             // }
 
             if (element->alignment & NVG_ALIGN_RIGHT) {

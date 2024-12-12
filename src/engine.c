@@ -161,6 +161,7 @@ Engine *init(void) {
 static void RemoveSceneObjects(void) {
     int counter = 0;
     foreach (SceneObject *object, engine->sceneObjects) {
+        if (!ObjectExists(object)) continue;
         FreeupObject(object);
         counter++;
     }
@@ -249,9 +250,11 @@ void render(void) {
 
     if (TimerDone(*timer) && ObjectExists(plane)) {
         RemoveSceneObject(plane);
+        printf("Removed scene object in timer condition;\n");
     }
 
     foreach (SceneObject *object, engine->sceneObjects) {
+        if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
         object->draw(object);
     }

@@ -23,7 +23,7 @@ void setMat2(Shader shader, const char *name, const mat2s *mat);
 void setMat3(Shader shader, const char *name, const mat3s *mat);
 void setMat4(Shader shader, const char *name, const mat4s *mat);
 
-static char *getShaderPath(const char *path) {
+static inline char *getShaderPath(const char *path) {
     return (char *)CreatePath(engine->shaderDir, path);
 }
 

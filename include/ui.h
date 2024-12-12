@@ -42,6 +42,20 @@ void destroyUI(void);
 void toggleMenu(void);
 
 Element *CreateElement(Element element);
+
+static inline bool ElementExists(Element *element) {
+    return element && element->created;
+}
+
+static inline void FreeupElement(Element *element) {
+    if (!ElementExists(element)) return;
+
+    element->created = GLFW_FALSE;
+    element->onClick = NULL;
+
+    free(element);
+}
+
 void DestroyElement(Element *element);
 
 void DrawElement(Element *element, void (*update)(void));
