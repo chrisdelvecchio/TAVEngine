@@ -41,7 +41,7 @@ void initUI(void);
 void destroyUI(void);
 void toggleMenu(void);
 
-Element *CreateElement(Element element);
+Element *NewUIElement(Element element);
 
 static inline bool ElementExists(Element *element) {
     return element && element->created;
@@ -56,7 +56,7 @@ static inline void FreeupElement(Element *element) {
     free(element);
 }
 
-void DestroyElement(Element *element);
+void RemoveElement(Element *element);
 
 void DrawElement(Element *element, void (*update)(void));
 

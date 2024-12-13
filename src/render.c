@@ -332,7 +332,93 @@ Texture *NewTexture(const char *path) {
     }
 
     stbi_image_free(data);
+
+    printf("[Texture] '%s' loaded.\n", path);
     return texture;
+}
+
+static inline void FreeSkybox(Skybox *skybox) {
+    if (skybox != NULL) {
+        ListFreeMemory(skybox->textureNames);
+
+        glDeleteBuffers(1, &skybox->VBO);
+        free(skybox);
+
+        printf("[TAV ENGINE] Deallocated resources used up by Skybox\n");
+    }
+}
+
+static inline void DrawSkyBox(Skybox *skybox) {
+    glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+    UseShader(*skyboxShader);
+
+    mat4s viewNoTranslation;
+    viewNoTranslation = glms_mat4_copy(camera->view);
+    REMOVE_MAT4S_TRANSLATION(viewNoTranslation);
+
+    setMat4(*skyboxShader, "view", &camera->view);
+    setMat4(*skyboxShader, "projection", &camera->projection);
+
+    // skybox cube
+    glBindVertexArray(skybox->VAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->textureID);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+    glDepthFunc(GL_LESS);  // default depth FUNC
+}
+
+Skybox *NewSkybox(List *textureNames) {
+    Skybox *skybox = (Skybox *)malloc(sizeof(Skybox));
+    if (skybox == NULL) {
+        fprintf(stderr, "[MEMORY ERROR] Failed creating new Skybox, ERROR ALLOCATING MEMORY\n");
+        free(skybox);
+        return NULL;
+    }
+
+    if (textureNames != NULL && !isListEmpty(textureNames)) {
+        Texture skyboxTexture;
+        glGenTextures(1, &skyboxTexture.textureID);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture.textureID);
+
+        int counter = 0;
+        foreach (char *name, textureNames) {
+            unsigned char *data = stbi_load(getAssetPath(name), &skyboxTexture.width, &skyboxTexture.height, &skyboxTexture.nrChannels, 0);
+            if (data) {
+                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + counter, 0, GL_RGB, skyboxTexture.width, skyboxTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+                stbi_image_free(data);
+                counter++;
+            } else {
+                printf("[SKYBOX CUBEMAP ERROR] Cubemap texture failed to load at path: %s", getAssetPath(name));
+                stbi_image_free(data);
+            }
+        }
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+        UseShader(*skyboxShader);
+        setInt(*skyboxShader, "skybox", 0);
+
+        skybox->textureNames = (List *)textureNames;
+        skybox->textureID = skyboxTexture.textureID;
+        skybox->draw = DrawSkyBox;
+        skybox->free = FreeSkybox;
+
+        glGenVertexArrays(1, &skybox->VAO);
+        glGenBuffers(1, &skybox->VBO);
+        glBindVertexArray(skybox->VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, skybox->VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+
+        printf("[SKYBOX] Loaded %d faces successfully.\n", counter);
+        return skybox;
+    }
 }
 
 void UpdateInstancedBufferObj(SceneObject *object, mat4s *instanceMatrices, int instanceCount) {

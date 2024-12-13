@@ -20,6 +20,11 @@
 
 #define getArraySize(array) sizeof(array) / sizeof(array[0])
 
+#define REMOVE_MAT4S_TRANSLATION(mat) \
+    mat.raw[3][0] = 0.0f; \
+    mat.raw[3][1] = 0.0f; \
+    mat.raw[3][2] = 0.0f;
+
 static inline char *getSourceCodePath(void) {
     static char mainPath[1024];
     char buffer[1024];

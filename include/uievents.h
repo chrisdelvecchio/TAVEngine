@@ -9,7 +9,7 @@
 
 static void onClickPlayButton(Element *element) {
     printf("Play button clicked!\n");
-    DestroyElement(element);
+    RemoveElement(element);
 }
 
 #endif // UIEVENTS_H

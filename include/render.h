@@ -16,6 +16,9 @@ SceneObject *CopySceneObject(SceneObject *object);
 Transform *NewTransforms(int instanceCount, Transform *transforms);
 
 Texture *NewTexture(const char *path);
+
+Skybox *NewSkybox(List *textureNames);
+
 void UseTexture(Texture *texture);
 
 void UpdateInstancedBufferObj(SceneObject *object, mat4s *matrices, int newCount);

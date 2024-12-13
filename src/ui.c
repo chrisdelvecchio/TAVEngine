@@ -33,7 +33,7 @@ void destroyUI(void) {
     printf("[TAV ENGINE] %d UI Elements have been freed!\n", counter);
 }
 
-void DestroyElement(Element *element) {
+void RemoveElement(Element *element) {
     if (!ElementExists(element)) return;
 
     if (ListContains(menu->elements, element)) {
@@ -49,12 +49,12 @@ void toggleMenu(void) {
     printf("[UI] Toggled Menu\n");
 }
 
-Element *CreateElement(Element element) {
+Element *NewUIElement(Element element) {
     Element *newElement = (Element *)malloc(sizeof(Element));
     if (newElement == NULL) {
         fprintf(stderr,
                 "[MEMORY ERROR] Failed to allocate memory for "
-                "CreateElement();\n");
+                "NewUIElement();\n");
         return NULL;
     }
 

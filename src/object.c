@@ -134,11 +134,13 @@ SceneObject *CreateCube(vec3s position) {
     int indexCount = getArraySize(indices);
 
     MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
+    Texture *texture = (Texture *)NewTexture("grass_block.png");
 
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "CUBE",
         .color = (vec3s){1.0f, 0.0f, 0.0f},
+        .texture = texture,
         .transforms = NewTransforms(1, (Transform[]){{.position = position}}),
         .meshData = meshData,
         .vertices = meshData->verticesCopy,

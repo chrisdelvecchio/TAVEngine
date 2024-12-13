@@ -137,6 +137,15 @@ typedef struct FrameBufferObject {
     void (*drawBuffer)(struct FrameBufferObject *self);
 } FrameBufferObject;
 
+typedef struct Skybox {
+    List *textureNames;
+    GLuint textureID;
+    GLuint VAO, VBO;
+
+    void (*draw)(struct Skybox *self);
+    void (*free)(struct Skybox *self);
+} Skybox;
+
 typedef struct Entity {
     long uniqueID;
 
@@ -145,7 +154,7 @@ typedef struct Entity {
 
 extern Engine *engine;
 extern FrameBufferObject *antiAlias;
-extern Shader *defaultShader, *instanceShader, *antiAliasShader;
+extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 extern Camera *camera;
 
 Engine *init(void);

@@ -15,13 +15,15 @@
 #include "utils.h"
 
 Engine *engine = NULL;
-Shader *defaultShader, *instanceShader, *antiAliasShader;
+Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 Camera *camera;
 FrameBufferObject *antiAlias;
 
+/* DEBUG STUFF FOR TESTING & TROUBLESHOOTING ENGINE */
 static Element *button, *fpstextBox, *coordinatestextBox;
 static SceneObject *plane, *cube;
-static Timer *timer;
+// static Timer *timer;
+// static Skybox *skybox;
 
 Engine *init(void) {
     engine = malloc(sizeof(Engine));
@@ -120,6 +122,8 @@ Engine *init(void) {
 
     defaultShader = (Shader *)NewShader("shader.vert", "shader.frag");
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
+    skyboxShader = (Shader *)NewShader("skybox.vert", "skybox.frag");
+
     camera = (Camera *)NewCamera((vec3s){1.0f, 1.0f, 1.0f}, 45.0f);
 
     if (engine->antiAliasing) {
@@ -129,7 +133,7 @@ Engine *init(void) {
             .bufferHeight = SCREEN_HEIGHT});
     }
 
-    button = (Element *)CreateElement((Element){
+    button = (Element *)NewUIElement((Element){
         .type = ELEMENT_BUTTON,
         .text = "Play!",
         .width = 200.0f,
@@ -139,13 +143,13 @@ Engine *init(void) {
         .transform = (Transform){0},
         .onClick = onClickPlayButton});
 
-    fpstextBox = (Element *)CreateElement((Element){
+    fpstextBox = (Element *)NewUIElement((Element){
         .type = ELEMENT_TEXTBOX,
         .color = nvgRGBA(255, 255, 0, 255),
         .transform = (Transform){
             .position = (vec3s){10.0f, engine->windowHeight - 50.0f, 0.0f}}});
 
-    coordinatestextBox = (Element *)CreateElement((Element){
+    coordinatestextBox = (Element *)NewUIElement((Element){
         .type = ELEMENT_TEXTBOX,
         .alignment = NVG_ALIGN_TOP | NVG_ALIGN_RIGHT});
 
@@ -153,8 +157,16 @@ Engine *init(void) {
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
 
-    timer = NewTimer(5.0f);
-    StartTimer(timer);
+    // List *skyboxTextureNames = NewList(NULL);
+    // ListAddMultiple(skyboxTextureNames, 
+    // "skybox1.png", 
+    // "skybox2.png", 
+    // "skybox3.png", 
+    // "skybox4.png", 
+    // "skybox5.png", 
+    // "skybox6.png");
+
+    // skybox = (Skybox *)LoadSkyBox(skyboxTextureNames);
     return engine;
 }
 
@@ -200,6 +212,8 @@ int cleanup(void) {
 
     glfwDestroyWindow(engine->window);
     glfwTerminate();
+
+    // skybox->free(skybox);
 
     free(engine);
     printf("[EXIT] Cleaned up successfully.");
@@ -248,11 +262,6 @@ void render(void) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
-    if (TimerDone(*timer) && ObjectExists(plane)) {
-        RemoveSceneObject(plane);
-        printf("Removed scene object in timer condition;\n");
-    }
-
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
@@ -274,6 +283,8 @@ void render(void) {
     if (engine->antiAliasing) {
         antiAlias->drawBuffer(antiAlias);
     }
+
+    // skybox->draw(skybox);
 
     glfwSwapBuffers(engine->window);
     glfwPollEvents();

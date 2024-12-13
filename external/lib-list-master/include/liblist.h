@@ -41,6 +41,12 @@ void ListFreeMemory(List *list);
 // Add an element to the List
 void ListAdd(List *list, void *data);
 
+/*
+    -> #ListAddMultiple(List *list, void *data...)
+    -> Add multiple elements to the List at once 
+*/
+void ListAddMultiple(List *list, ...);
+
 // Add an array of elements to the List
 void ListAddArray(List *list, void **data);
 

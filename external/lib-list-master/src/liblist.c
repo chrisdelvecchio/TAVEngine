@@ -52,6 +52,19 @@ void ListAdd(List *list, void *data) {
     list->size += 1;
 }
 
+void ListAddMultiple(List *list, ...) {
+    va_list ap;
+    va_start(ap, list);
+
+    void *data;
+
+    while ((data = va_arg(ap, void *)) != NULL) {
+        ListAdd(list, data);
+    }
+
+    va_end(ap);
+}
+
 void ListAddArray(List *list, void **data) {
     size_t incoming = sizeof(data) / sizeof(data[0]);
 
