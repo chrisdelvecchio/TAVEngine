@@ -20,9 +20,24 @@
 #define SCREEN_HEIGHT 600
 #define UPDATE_INTERVAL 1.0f / 60.0f
 
+typedef enum TextureType {
+    TEXTURE_TYPE_2D,
+    TEXTURE_TYPE_CUBEMAP,
+    TEXTURE_TYPE_DIFFUSE,
+    TEXTURE_TYPE_SPECULAR,
+    TEXTURE_TYPE_NORMAL
+} TextureType;
+
+typedef struct Texture {
+    TextureType type;
+    GLuint textureID;
+
+    int width, height, nrChannels;
+} Texture;
+
 typedef struct Skybox {
     List *textureNames;
-    GLuint textureID;
+    Texture *texture;
     GLuint VAO, VBO;
 
     /* DO NOT call this function; This is called in the main render loop; */
@@ -91,6 +106,7 @@ typedef struct Camera {
     float mouseSensitivity;
     float fov;
 
+    /* Do NOT call this function; */
     void (*update)(struct Camera *self);
 } Camera;
 
@@ -102,12 +118,6 @@ typedef struct Shader {
     const char *vShaderCode;
     const char *fShaderCode;
 } Shader;
-
-typedef struct Texture {
-    GLuint textureID;
-
-    int width, height, nrChannels;
-} Texture;
 
 typedef struct Sprite {
     Texture texture;
@@ -133,6 +143,7 @@ typedef struct MeshData {
     Vertex *verticesCopy;
     GLuint *indicesCopy;
 
+    /* Do NOT call this function; */
     void (*free)(struct MeshData *self);
 } MeshData;
 
@@ -155,6 +166,7 @@ typedef struct SceneObject {
 
     vec3s color;
 
+    /* Do NOT call this function; */
     void (*draw)(struct SceneObject *self);
 } SceneObject;
 
@@ -169,6 +181,8 @@ typedef struct FrameBufferObject {
     int bufferHeight;
 
     SceneObject *quad;
+
+    /* Do NOT call this function; */
     void (*drawBuffer)(struct FrameBufferObject *self);
 } FrameBufferObject;
 

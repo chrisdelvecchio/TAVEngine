@@ -13,7 +13,7 @@ SceneObject *CopySceneObject(SceneObject *object);
 
 Transform *NewTransforms(int instanceCount, Transform *transforms);
 
-Texture *NewTexture(const char *path);
+Texture *NewTexture(TextureType type, const char *path);
 
 /*
 Order of operation:

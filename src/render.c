@@ -281,12 +281,21 @@ Transform *NewTransforms(int instanceCount, Transform *transforms) {
 void UseTexture(Texture *texture) {
     if (texture != NULL) {
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture->textureID);
+
+        switch (texture->type) {
+            case TEXTURE_TYPE_CUBEMAP:
+                glBindTexture(GL_TEXTURE_CUBE_MAP, texture->textureID);
+                break;
+            default:
+                glBindTexture(GL_TEXTURE_2D, texture->textureID);
+                break;
+        }
     }
 }
 
-Texture *NewTexture(const char *path) {
+Texture *NewTexture(TextureType type, const char *path) {
     Texture *texture = (Texture *)malloc(sizeof(Texture));
+    texture->type = type;
     texture->textureID = 0;
     texture->width = 0;
     texture->height = 0;
@@ -294,37 +303,52 @@ Texture *NewTexture(const char *path) {
 
     // Load texture
     glGenTextures(1, &texture->textureID);
-    glBindTexture(GL_TEXTURE_2D, texture->textureID);
 
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    if (texture->type == TEXTURE_TYPE_2D) {
+        glBindTexture(GL_TEXTURE_2D, texture->textureID);
 
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    // load image, create texture and generate mipmaps
-    stbi_set_flip_vertically_on_load(GLFW_TRUE);
-    unsigned char *data = stbi_load(getAssetPath(path), &texture->width, &texture->height, &texture->nrChannels, 0);
-    if (data) {
-        GLenum format;
-        if (texture->nrChannels == 1)
-            format = GL_RED;
-        else if (texture->nrChannels == 3)
-            format = GL_RGB;
-        else if (texture->nrChannels == 4)
-            format = GL_RGBA;
+        // set texture filtering parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, format, texture->width, texture->height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else {
-        printf("[TEXTURE ERROR] Failed to load texture at path: %s\n", path);
+        // load image, create texture and generate mipmaps
+        stbi_set_flip_vertically_on_load(GLFW_TRUE);
+
+        unsigned char *data = stbi_load(getAssetPath(path), &texture->width, &texture->height, &texture->nrChannels, 0);
+        if (data) {
+            GLenum format;
+            if (texture->nrChannels == 1)
+                format = GL_RED;
+            else if (texture->nrChannels == 3)
+                format = GL_RGB;
+            else if (texture->nrChannels == 4)
+                format = GL_RGBA;
+
+            glTexImage2D(GL_TEXTURE_2D, 0, format, texture->width, texture->height, 0, format, GL_UNSIGNED_BYTE, data);
+            glGenerateMipmap(GL_TEXTURE_2D);
+        } else {
+            printf("[TEXTURE ERROR] Failed to load texture at path: %s\n", path);
+        }
+
+        stbi_image_free(data);
+
+        printf("[Texture] '%s' loaded.\n", path);
+    } else if (texture->type == TEXTURE_TYPE_CUBEMAP) {
+        glBindTexture(GL_TEXTURE_CUBE_MAP, texture->textureID);
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+        stbi_set_flip_vertically_on_load(GLFW_FALSE);
     }
 
-    stbi_image_free(data);
-
-    printf("[Texture] '%s' loaded.\n", path);
     return texture;
 }
 
@@ -333,8 +357,12 @@ static inline void FreeSkybox(Skybox *skybox) {
         ListFreeMemory(skybox->textureNames);
 
         glDeleteBuffers(1, &skybox->VBO);
-        free(skybox);
 
+        if (skybox->texture != NULL) {
+            free(skybox->texture);
+        }
+
+        free(skybox);
         printf("[TAV ENGINE] Deallocated resources used up by Skybox\n");
     }
 }
@@ -352,8 +380,8 @@ static inline void DrawSkyBox(Skybox *skybox) {
 
     // skybox cube
     glBindVertexArray(skybox->VAO);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->textureID);
+    UseTexture(skybox->texture);
+
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
     glDepthFunc(GL_LESS);  // default depth FUNC
@@ -368,36 +396,29 @@ Skybox *NewSkybox(List *textureNames) {
     }
 
     if (textureNames != NULL && !isListEmpty(textureNames)) {
-        Texture skyboxTexture;
-        glGenTextures(1, &skyboxTexture.textureID);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture.textureID);
-
-        stbi_set_flip_vertically_on_load(GLFW_FALSE);
+        Texture *skyboxTexture = (Texture *)NewTexture(TEXTURE_TYPE_CUBEMAP, NULL);
         int counter = 0;
-        foreach (char *name, textureNames) {
-            unsigned char *data = stbi_load(getAssetPath(name), &skyboxTexture.width, &skyboxTexture.height, &skyboxTexture.nrChannels, 0);
-            
-            if (data) {
-                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + counter, 0, GL_RGB, skyboxTexture.width, skyboxTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-                stbi_image_free(data);
-                counter++;
-            } else {
-                printf("[SKYBOX CUBEMAP ERROR] Cubemap texture failed to load at path: %s\n", getAssetPath(name));
-                stbi_image_free(data);
+
+        if (skyboxTexture != NULL) {
+            foreach (char *name, textureNames) {
+                unsigned char *data = stbi_load(getAssetPath(name), &skyboxTexture->width, &skyboxTexture->height, &skyboxTexture->nrChannels, 0);
+
+                if (data) {
+                    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + counter, 0, GL_RGB, skyboxTexture->width, skyboxTexture->height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+                    stbi_image_free(data);
+                    counter++;
+                } else {
+                    printf("[SKYBOX CUBEMAP ERROR] Cubemap texture failed to load at path: %s\n", getAssetPath(name));
+                    stbi_image_free(data);
+                }
             }
         }
-        
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
         UseShader(*skyboxShader);
         setInt(*skyboxShader, "skybox", 0);
 
         skybox->textureNames = (List *)textureNames;
-        skybox->textureID = skyboxTexture.textureID;
+        skybox->texture = skyboxTexture;
         skybox->draw = DrawSkyBox;
         skybox->free = FreeSkybox;
 

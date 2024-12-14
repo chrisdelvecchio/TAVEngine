@@ -134,7 +134,7 @@ SceneObject *CreateCube(vec3s position) {
     int indexCount = getArraySize(indices);
 
     MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
-    Texture *texture = (Texture *)NewTexture("grass_block.png");
+    Texture *texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, "grass_block.png");
 
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
