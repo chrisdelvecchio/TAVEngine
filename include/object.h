@@ -5,7 +5,7 @@
 
 #include "engine.h"
 
-static float skyboxVertices[] = {
+static float cubeVertices[] = {
     // positions
     -1.0f, 1.0f, -1.0f,
     -1.0f, -1.0f, -1.0f,
@@ -49,12 +49,16 @@ static float skyboxVertices[] = {
     -1.0f, -1.0f, 1.0f,
     1.0f, -1.0f, 1.0f};
 
-static MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint *indices, int indexCount) {
+void freeMeshData(MeshData *meshData);
+
+static inline MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint *indices, int indexCount) {
     MeshData *meshData = malloc(sizeof(MeshData));
     if (meshData == NULL) {
         printf("[MEMORY ALLOCATION FAILURE] => #RETURNMESHCOPIES Memory allocation failed.\n");
         return NULL;
     }
+
+    meshData->free = freeMeshData;
 
     meshData->verticesCopy = malloc(sizeof(Vertex) * vertexCount);
     if (meshData->verticesCopy == NULL) {
@@ -77,7 +81,7 @@ static MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint *indice
     return meshData;
 }
 
-static char *objectToString(ObjectType type) {
+static inline char *objectToString(ObjectType type) {
     switch (type) {
         case OBJECT_NONE:
             return "OBJECT_NONE";
@@ -92,7 +96,7 @@ static char *objectToString(ObjectType type) {
     }
 }
 
-static void debugObject(SceneObject *object) {
+static inline void debugObject(SceneObject *object) {
     printf("--------------------------------------\n");
     printf("OBJECT DEBUG => %s (%s)\n", object->tag, objectToString(object->type));
     printf("Position: (%f, %f, %f)\n", object->transforms->position.x, object->transforms->position.y, object->transforms->position.z);
@@ -105,8 +109,6 @@ static void debugObject(SceneObject *object) {
     printf("Has texture?: %s\n", (object->texture != NULL) ? "Yes" : "No");
     printf("--------------------------------------\n");
 }
-
-void freeMeshData(MeshData *meshData);
 
 SceneObject *CreateTriangle(vec3s position);
 SceneObject *CreatePlane(vec3s position);

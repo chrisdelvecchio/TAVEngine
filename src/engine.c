@@ -18,12 +18,12 @@ Engine *engine = NULL;
 Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 Camera *camera;
 FrameBufferObject *antiAlias;
+Skybox *skybox;
 
 /* DEBUG STUFF FOR TESTING & TROUBLESHOOTING ENGINE */
 static Element *button, *fpstextBox, *coordinatestextBox;
 static SceneObject *plane, *cube;
 // static Timer *timer;
-static Skybox *skybox;
 
 Engine *init(void) {
     engine = malloc(sizeof(Engine));
@@ -170,23 +170,6 @@ Engine *init(void) {
     return engine;
 }
 
-static void RemoveSceneObjects(void) {
-    int counter = 0;
-    foreach (SceneObject *object, engine->sceneObjects) {
-        if (!ObjectExists(object)) continue;
-        FreeupObject(object);
-        counter++;
-    }
-
-    if (!isListEmpty(engine->sceneObjects)) {
-        ListClear(engine->sceneObjects);
-    }
-
-    UnbindFrameBufferObj(antiAlias);
-
-    printf("[TAV ENGINE] %d Scene Objects have been freed!\n", counter);
-}
-
 int cleanup(void) {
     printf("\n");
     nvgDeleteGL3(engine->vgContext);
@@ -267,6 +250,7 @@ void render(void) {
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
+
         object->draw(object);
     }
 

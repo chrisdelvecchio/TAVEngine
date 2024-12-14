@@ -27,7 +27,7 @@ static inline char *getShaderPath(const char *path) {
     return (char *)CreatePath(engine->shaderDir, path);
 }
 
-static void freeShaders(void) {
+static inline void freeShaders(void) {
     if (isListEmpty(engine->shaders)) {
         printf("[TAV ENGINE] No shaders to free.\n");
         return;
@@ -43,7 +43,7 @@ static void freeShaders(void) {
     printf("[TAV ENGINE] %d Shaders have been freed!\n", counter);
 }
 
-static void checkCompileErrors(GLuint shader, char *type) {
+static inline void checkCompileErrors(GLuint shader, char *type) {
     int success;
     char infoLog[1024];
 
@@ -62,7 +62,7 @@ static void checkCompileErrors(GLuint shader, char *type) {
     }
 }
 
-static void ReadContents(Shader *shader) {
+static inline void ReadContents(Shader *shader) {
     char *fullVertexPath = getShaderPath(shader->vertexPath);
     char *fullFragmentPath = getShaderPath(shader->fragmentPath);
         if (!fullVertexPath || !fullFragmentPath) {
@@ -98,7 +98,7 @@ static void ReadContents(Shader *shader) {
     free(fullFragmentPath);
 }
 
-static void CompileShader(Shader *shader) {
+static inline void CompileShader(Shader *shader) {
     GLuint vertex, fragment;
 
     ReadContents(shader);

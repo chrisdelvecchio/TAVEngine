@@ -7,8 +7,6 @@
 #include "object.h"
 
 FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
-void UnbindFrameBufferObj(FrameBufferObject *frameBuffer);
-void SendToShader(SceneObject *object);
 
 SceneObject *NewSceneObject(SceneObject object);
 SceneObject *CopySceneObject(SceneObject *object);
@@ -30,12 +28,26 @@ Skybox *NewSkybox(List *textureNames);
 
 void UseTexture(Texture *texture);
 
-void UpdateInstancedBufferObj(SceneObject *object, mat4s *matrices, int newCount);
-void BindBufferObj(SceneObject *object);
-void UnbindBufferObj(SceneObject *object);
-
 static inline bool ObjectExists(SceneObject *object) {
     return object && object->VAO != 0;
+}
+
+static inline void UnbindBufferObj(SceneObject *object) {
+    // Unbind VAO, VBO, and EBO
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    // Delete the buffers
+    glDeleteVertexArrays(1, &object->VAO);
+    glDeleteBuffers(1, &object->VBO);
+    glDeleteBuffers(1, &object->IVBO);
+    glDeleteBuffers(1, &object->EBO);
+
+    object->VAO = 0;
+    object->VBO = 0;
+    object->IVBO = 0;
+    object->EBO = 0;
 }
 
 static inline void FreeupObject(SceneObject *object) {
@@ -58,6 +70,36 @@ static inline void FreeupObject(SceneObject *object) {
 
         free(object);
     }
+}
+
+static inline void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
+    if (frameBuffer) {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDeleteFramebuffers(1, &frameBuffer->frameBufferID);
+        glDeleteTextures(1, &frameBuffer->texColorBufferID);
+        glDeleteRenderbuffers(1, &frameBuffer->depthStencilBufferID);
+
+        free(frameBuffer);
+
+        printf("[TAV ENGINE] Screen Framebuffer Object has been freed!\n");
+    }
+}
+
+static inline void RemoveSceneObjects(void) {
+    int counter = 0;
+    foreach (SceneObject *object, engine->sceneObjects) {
+        if (!ObjectExists(object)) continue;
+        FreeupObject(object);
+        counter++;
+    }
+
+    if (!isListEmpty(engine->sceneObjects)) {
+        ListClear(engine->sceneObjects);
+    }
+
+    UnbindFrameBufferObj(antiAlias);
+
+    printf("[TAV ENGINE] %d Scene Objects have been freed!\n", counter);
 }
 
 void RemoveSceneObject(SceneObject *object);

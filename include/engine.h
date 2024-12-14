@@ -99,6 +99,8 @@ typedef struct Vertex {
 typedef struct MeshData {
     Vertex *verticesCopy;
     GLuint *indicesCopy;
+
+    void (*free)(struct MeshData *self);
 } MeshData;
 
 typedef struct SceneObject {
@@ -156,6 +158,7 @@ extern Engine *engine;
 extern FrameBufferObject *antiAlias;
 extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 extern Camera *camera;
+extern Skybox *skybox;
 
 Engine *init(void);
 int cleanup(void);

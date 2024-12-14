@@ -60,7 +60,7 @@ void RemoveElement(Element *element);
 
 void DrawElement(Element *element, void (*update)(void));
 
-static char *elementTypetoString(ElementType type) {
+static inline char *elementTypetoString(ElementType type) {
     switch (type) {
         case ELEMENT_TEXTBOX:
             return "TextBox";

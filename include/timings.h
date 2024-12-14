@@ -26,7 +26,7 @@ typedef struct TimerManager
 
 extern TimerManager *timerManager;
 
-static void InitTimerManager(void)
+static inline void InitTimerManager(void)
 {
     timerManager = (TimerManager*) malloc(sizeof(TimerManager));
     timerManager->totalTimerCapacity = 2;

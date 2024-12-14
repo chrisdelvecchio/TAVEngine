@@ -6,6 +6,10 @@
 
 static SceneObject *mainFrameBufferScreenQuad = NULL;
 
+void SendToShader(SceneObject *object);
+void UpdateInstancedBufferObj(SceneObject *object, mat4s *matrices, int newCount);
+void BindBufferObj(SceneObject *object);
+
 static SceneObject *CreateScreenQuad(FrameBufferObject *frameBuffer) {
     Vertex vertices[] = {
         // Position           // Normal            // TexCoords
@@ -122,19 +126,6 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
     newFrameBuffer->drawBuffer = DrawFrameBufferObject;
 
     return newFrameBuffer;
-}
-
-void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
-    if (frameBuffer) {
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glDeleteFramebuffers(1, &frameBuffer->frameBufferID);
-        glDeleteTextures(1, &frameBuffer->texColorBufferID);
-        glDeleteRenderbuffers(1, &frameBuffer->depthStencilBufferID);
-
-        free(frameBuffer);
-
-        printf("[TAV ENGINE] Screen Framebuffer Object has been freed!\n");
-    }
 }
 
 static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isInstanced) {
@@ -384,9 +375,8 @@ Skybox *NewSkybox(List *textureNames) {
         stbi_set_flip_vertically_on_load(GLFW_FALSE);
         int counter = 0;
         foreach (char *name, textureNames) {
-            if (strcmp("\0", name) == 0) continue;
-            
             unsigned char *data = stbi_load(getAssetPath(name), &skyboxTexture.width, &skyboxTexture.height, &skyboxTexture.nrChannels, 0);
+            
             if (data) {
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + counter, 0, GL_RGB, skyboxTexture.width, skyboxTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
                 stbi_image_free(data);
@@ -415,7 +405,7 @@ Skybox *NewSkybox(List *textureNames) {
         glGenBuffers(1, &skybox->VBO);
         glBindVertexArray(skybox->VAO);
         glBindBuffer(GL_ARRAY_BUFFER, skybox->VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), &cubeVertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
 
@@ -481,24 +471,6 @@ void BindBufferObj(SceneObject *object) {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-}
-
-void UnbindBufferObj(SceneObject *object) {
-    // Unbind VAO, VBO, and EBO
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    // Delete the buffers
-    glDeleteVertexArrays(1, &object->VAO);
-    glDeleteBuffers(1, &object->VBO);
-    glDeleteBuffers(1, &object->IVBO);
-    glDeleteBuffers(1, &object->EBO);
-
-    object->VAO = 0;
-    object->VBO = 0;
-    object->IVBO = 0;
-    object->EBO = 0;
 }
 
 void RemoveSceneObject(SceneObject *object) {
