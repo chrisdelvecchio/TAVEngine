@@ -14,6 +14,7 @@ include_directories(${PROJECT_SOURCE_DIR}/external/nanovg-master/src)
 include_directories(${PROJECT_SOURCE_DIR}/external/lib-list-master/include)
 include_directories(${PROJECT_SOURCE_DIR}/external/lib-io-main/include)
 include_directories(${PROJECT_SOURCE_DIR}/external/lib-map-main/include)
+include_directories(${PROJECT_SOURCE_DIR}/external/assimp/include)
 
 # Source files: Get all .c files in the in project
 file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/src/*.c 
@@ -36,4 +37,5 @@ nanovg
 list 
 io 
 map 
+${PROJECT_SOURCE_DIR}/external/assimp/build/lib/libassimp.dll.a 
 ${PROJECT_SOURCE_DIR}/external/GLFW/lib/libglfw3.a)

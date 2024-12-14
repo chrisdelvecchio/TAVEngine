@@ -18,7 +18,6 @@ Engine *engine = NULL;
 Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 Camera *camera;
 FrameBufferObject *antiAlias;
-Skybox *skybox;
 
 /* DEBUG STUFF FOR TESTING & TROUBLESHOOTING ENGINE */
 static Element *button, *fpstextBox, *coordinatestextBox;
@@ -104,6 +103,7 @@ Engine *init(void) {
     engine->antiAliasing = GLFW_TRUE;
     engine->vSync = GLFW_TRUE;
     engine->wireframeMode = GLFW_FALSE;
+    engine->skybox = (Skybox *)NULL;
 
     glEnable(GL_DEBUG_OUTPUT);
 
@@ -156,17 +156,6 @@ Engine *init(void) {
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
-
-    List *skyboxTextureNames = (List *)NewList(NULL);
-    ListAddMultiple(skyboxTextureNames,
-                    "skybox/right.jpg",
-                    "skybox/left.jpg",
-                    "skybox/top.jpg",
-                    "skybox/bottom.jpg",
-                    "skybox/front.jpg",
-                    "skybox/back.jpg");
-
-    skybox = (Skybox *)NewSkybox(skyboxTextureNames);
     return engine;
 }
 
@@ -196,7 +185,9 @@ int cleanup(void) {
     glfwDestroyWindow(engine->window);
     glfwTerminate();
 
-    skybox->free(skybox);
+    if (engine->skybox != NULL) {
+        engine->skybox->free(engine->skybox);
+    }
 
     free(engine);
     printf("[EXIT] Cleaned up successfully.");
@@ -245,7 +236,9 @@ void render(void) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
-    skybox->draw(skybox);
+    if (engine->skybox != NULL) {
+        engine->skybox->draw(engine->skybox);
+    }
 
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;

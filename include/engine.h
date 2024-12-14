@@ -20,6 +20,18 @@
 #define SCREEN_HEIGHT 600
 #define UPDATE_INTERVAL 1.0f / 60.0f
 
+typedef struct Skybox {
+    List *textureNames;
+    GLuint textureID;
+    GLuint VAO, VBO;
+
+    /* DO NOT call this function; This is called in the main render loop; */
+    void (*draw)(struct Skybox *self);
+
+    /* Do NOT call this function; This is called @ cleanup(); */
+    void (*free)(struct Skybox *self);
+} Skybox;
+
 typedef struct Engine {
     GLFWwindow *window;
     float windowWidth, windowHeight, aspectRatio, fps, deltaTime, lastX, lastY;
@@ -29,6 +41,27 @@ typedef struct Engine {
 
     char *mainPath, *settingsFile, *shaderDir, *assetDir, *fontDir;
     List *sceneObjects, *shaders;
+
+    /*
+     -> Skybox struct for handling the Skybox Cubemap
+     -> Usage: You can keep track of the List of texture file path's that were used, textureID, VAO & VBO.
+     -> DO NOT USE THE DRAW OR FREE FUNCTION, THEIR FUNCTION POINTERS ARE ONLY FOR DEVELOPER USE ONLY.
+     -> Example:
+       **
+        List *textureNames = (List *)NewList(NULL);
+        
+        ListAddMultiple(textureNames, 
+        "right.png",
+        "left.png",
+        "top.png",
+        "bottom.png",
+        "front.png",
+        "back.png");
+
+        Skybox *skybox = (Skybox *)NewSkybox(textureNames);
+       **
+    */
+    Skybox *skybox;
 
     bool vSync, antiAliasing, wireframeMode, firstMouse;
 } Engine;
@@ -139,15 +172,6 @@ typedef struct FrameBufferObject {
     void (*drawBuffer)(struct FrameBufferObject *self);
 } FrameBufferObject;
 
-typedef struct Skybox {
-    List *textureNames;
-    GLuint textureID;
-    GLuint VAO, VBO;
-
-    void (*draw)(struct Skybox *self);
-    void (*free)(struct Skybox *self);
-} Skybox;
-
 typedef struct Entity {
     long uniqueID;
 
@@ -158,7 +182,6 @@ extern Engine *engine;
 extern FrameBufferObject *antiAlias;
 extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
 extern Camera *camera;
-extern Skybox *skybox;
 
 Engine *init(void);
 int cleanup(void);
