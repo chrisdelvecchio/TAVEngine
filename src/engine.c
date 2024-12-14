@@ -23,7 +23,7 @@ FrameBufferObject *antiAlias;
 static Element *button, *fpstextBox, *coordinatestextBox;
 static SceneObject *plane, *cube;
 // static Timer *timer;
-// static Skybox *skybox;
+static Skybox *skybox;
 
 Engine *init(void) {
     engine = malloc(sizeof(Engine));
@@ -157,16 +157,16 @@ Engine *init(void) {
     cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
 
-    // List *skyboxTextureNames = NewList(NULL);
-    // ListAddMultiple(skyboxTextureNames, 
-    // "skybox1.png", 
-    // "skybox2.png", 
-    // "skybox3.png", 
-    // "skybox4.png", 
-    // "skybox5.png", 
-    // "skybox6.png");
+    List *skyboxTextureNames = (List *)NewList(NULL);
+    ListAddMultiple(skyboxTextureNames,
+                    "skybox/right.jpg",
+                    "skybox/left.jpg",
+                    "skybox/top.jpg",
+                    "skybox/bottom.jpg",
+                    "skybox/front.jpg",
+                    "skybox/back.jpg");
 
-    // skybox = (Skybox *)LoadSkyBox(skyboxTextureNames);
+    skybox = (Skybox *)NewSkybox(skyboxTextureNames);
     return engine;
 }
 
@@ -213,7 +213,7 @@ int cleanup(void) {
     glfwDestroyWindow(engine->window);
     glfwTerminate();
 
-    // skybox->free(skybox);
+    skybox->free(skybox);
 
     free(engine);
     printf("[EXIT] Cleaned up successfully.");
@@ -262,6 +262,8 @@ void render(void) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+    skybox->draw(skybox);
+
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
@@ -283,8 +285,6 @@ void render(void) {
     if (engine->antiAliasing) {
         antiAlias->drawBuffer(antiAlias);
     }
-
-    // skybox->draw(skybox);
 
     glfwSwapBuffers(engine->window);
     glfwPollEvents();

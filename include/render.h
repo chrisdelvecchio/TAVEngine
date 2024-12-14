@@ -17,6 +17,15 @@ Transform *NewTransforms(int instanceCount, Transform *transforms);
 
 Texture *NewTexture(const char *path);
 
+/*
+Order of operation:
+    +X (right)
+    -X (left)
+    +Y (top)
+    -Y (bottom)
+    +Z (front) 
+    -Z (back)
+*/
 Skybox *NewSkybox(List *textureNames);
 
 void UseTexture(Texture *texture);

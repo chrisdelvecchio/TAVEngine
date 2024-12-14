@@ -314,7 +314,7 @@ Texture *NewTexture(const char *path) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // load image, create texture and generate mipmaps
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(GLFW_TRUE);
     unsigned char *data = stbi_load(getAssetPath(path), &texture->width, &texture->height, &texture->nrChannels, 0);
     if (data) {
         GLenum format;
@@ -356,7 +356,7 @@ static inline void DrawSkyBox(Skybox *skybox) {
     viewNoTranslation = glms_mat4_copy(camera->view);
     REMOVE_MAT4S_TRANSLATION(viewNoTranslation);
 
-    setMat4(*skyboxShader, "view", &camera->view);
+    setMat4(*skyboxShader, "view", &viewNoTranslation);
     setMat4(*skyboxShader, "projection", &camera->projection);
 
     // skybox cube
@@ -381,19 +381,22 @@ Skybox *NewSkybox(List *textureNames) {
         glGenTextures(1, &skyboxTexture.textureID);
         glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture.textureID);
 
+        stbi_set_flip_vertically_on_load(GLFW_FALSE);
         int counter = 0;
         foreach (char *name, textureNames) {
+            if (strcmp("\0", name) == 0) continue;
+            
             unsigned char *data = stbi_load(getAssetPath(name), &skyboxTexture.width, &skyboxTexture.height, &skyboxTexture.nrChannels, 0);
             if (data) {
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + counter, 0, GL_RGB, skyboxTexture.width, skyboxTexture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
                 stbi_image_free(data);
                 counter++;
             } else {
-                printf("[SKYBOX CUBEMAP ERROR] Cubemap texture failed to load at path: %s", getAssetPath(name));
+                printf("[SKYBOX CUBEMAP ERROR] Cubemap texture failed to load at path: %s\n", getAssetPath(name));
                 stbi_image_free(data);
             }
         }
-
+        
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

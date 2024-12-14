@@ -18,7 +18,7 @@ Camera *NewCamera(vec3s position, float fov) {
     Camera *camera = (Camera *)malloc(sizeof(Camera));
     camera->position = position;
     camera->fov = fov;
-    camera->movementSpeed = 8.0f;
+    camera->movementSpeed = 60.0f;
     camera->mouseSensitivity = 0.2f;
     camera->renderDistance = 1000.0f;
     camera->yaw = -90.0f;
