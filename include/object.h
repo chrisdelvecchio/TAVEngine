@@ -60,7 +60,7 @@ static inline MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint 
 
     meshData->free = freeMeshData;
 
-    meshData->verticesCopy = malloc(sizeof(Vertex) * vertexCount);
+    meshData->verticesCopy = (Vertex *)malloc(sizeof(Vertex) * vertexCount);
     if (meshData->verticesCopy == NULL) {
         printf("[MEMORY ALLOCATION FAILURE] => #RETURNMESHCOPIES Memory allocation failed for vertices copy.\n");
         free(meshData);
@@ -68,6 +68,36 @@ static inline MeshData *GetMeshCopies(Vertex *vertices, int vertexCount, GLuint 
     }
 
     memcpy(meshData->verticesCopy, vertices, sizeof(Vertex) * vertexCount);
+
+    meshData->indicesCopy = (GLuint *)malloc(sizeof(GLuint) * indexCount);
+    if (meshData->indicesCopy == NULL) {
+        printf("[MEMORY ALLOCATION FAILURE] => #RETURNMESHCOPIES Memory allocation failed for indices copy.\n");
+        free(meshData->verticesCopy);
+        free(meshData);
+        return NULL;
+    }
+
+    memcpy(meshData->indicesCopy, indices, sizeof(GLuint) * indexCount);
+    return meshData;
+}
+
+static inline MeshData *GetMeshCopiesRaw(float *vertices, int vertexCount, GLuint *indices, int indexCount) {
+    MeshData *meshData = malloc(sizeof(MeshData));
+    if (meshData == NULL) {
+        printf("[MEMORY ALLOCATION FAILURE] => #RETURNMESHCOPIES Memory allocation failed.\n");
+        return NULL;
+    }
+
+    meshData->free = freeMeshData;
+
+    meshData->rawVerticesCopy = (float *)malloc(sizeof(float) * vertexCount);
+    if (meshData->rawVerticesCopy == NULL) {
+        printf("[MEMORY ALLOCATION FAILURE] => #RETURNMESHCOPIES Memory allocation failed for RAW vertices copy.\n");
+        free(meshData);
+        return NULL;
+    }
+
+    memcpy(meshData->rawVerticesCopy, vertices, sizeof(float) * vertexCount);
 
     meshData->indicesCopy = malloc(sizeof(GLuint) * indexCount);
     if (meshData->indicesCopy == NULL) {

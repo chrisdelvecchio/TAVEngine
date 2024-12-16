@@ -50,14 +50,14 @@ unset(_cmake_expected_targets)
 add_library(cglm::cglm SHARED IMPORTED)
 
 set_target_properties(cglm::cglm PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/Chris/Desktop/Chris/Coding/Game/external/cglm-master/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include"
 )
 
 # Import target "cglm::cglm" for configuration ""
 set_property(TARGET cglm::cglm APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(cglm::cglm PROPERTIES
-  IMPORTED_IMPLIB_NOCONFIG "C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/cglm-master/libcglm.dll.a"
-  IMPORTED_LOCATION_NOCONFIG "C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/cglm-master/libcglm-0.dll"
+  IMPORTED_IMPLIB_NOCONFIG "C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/cglm-master/libcglm.dll.a"
+  IMPORTED_LOCATION_NOCONFIG "C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/cglm-master/libcglm-0.dll"
   )
 
 # This file does not depend on other imported targets which have

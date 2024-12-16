@@ -174,7 +174,14 @@ void SendToShader(SceneObject *object) {
         UseShader(*instanceShader);
         setMat4(*instanceShader, "projection", &camera->projection);
         setMat4(*instanceShader, "view", &camera->view);
+        setVec3(*instanceShader, "color", &object->color);
         setInt(*instanceShader, "instanceCount", instanceCount);
+
+        if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+            setBool(*object->shader, "isSprite", GLFW_TRUE);
+        } else {
+            setBool(*object->shader, "isSprite", GLFW_FALSE);
+        }
 
         HandleShaderTransform(object, instanceShader, GLFW_TRUE);
 
@@ -183,12 +190,19 @@ void SendToShader(SceneObject *object) {
             setInt(*instanceShader, "texture1", 0);
         } else {
             setBool(*instanceShader, "useTexture", GLFW_FALSE);
-            setVec3(*instanceShader, "color", &object->color);
         }
     } else {
         UseShader(*object->shader);
         setMat4(*object->shader, "projection", &camera->projection);
         setMat4(*object->shader, "view", &camera->view);
+        setVec3(*object->shader, "color", &object->color);
+
+        if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+            setBool(*object->shader, "isSprite", GLFW_TRUE);
+        } else {
+            setBool(*object->shader, "isSprite", GLFW_FALSE);
+        }
+
         HandleShaderTransform(object, object->shader, GLFW_FALSE);
 
         if (object->texture != NULL) {
@@ -196,7 +210,6 @@ void SendToShader(SceneObject *object) {
             setInt(*object->shader, "texture1", 0);
         } else {
             setBool(*object->shader, "useTexture", GLFW_FALSE);
-            setVec3(*object->shader, "color", &object->color);
         }
     }
 }
@@ -204,6 +217,12 @@ void SendToShader(SceneObject *object) {
 static void DrawSceneObject(SceneObject *object) {
     SendToShader(object);
     glBindVertexArray(object->VAO);
+
+    if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
     UseTexture(object->texture);
 
     int indexCount = object->indexCount;
@@ -221,9 +240,11 @@ static void DrawSceneObject(SceneObject *object) {
     }
 
     glBindVertexArray(0);
+
+    glDisable(GL_BLEND);
 }
 
-SceneObject *NewSceneObject(SceneObject object) {
+SceneObject *NewSceneObject(SceneObject builder) {
     SceneObject *newSceneObject = (SceneObject *)malloc(sizeof(SceneObject));
     if (newSceneObject == NULL) {
         fprintf(stderr, "[MEMORY ERROR] Failed creating new Scene Object, ERROR ALLOCATING MEMORY\n");
@@ -231,10 +252,14 @@ SceneObject *NewSceneObject(SceneObject object) {
         return NULL;
     }
 
-    memcpy(newSceneObject, &object, sizeof(SceneObject));
+    memcpy(newSceneObject, &builder, sizeof(SceneObject));
 
     if (newSceneObject->shader == NULL) {
         newSceneObject->shader = defaultShader;
+    }
+
+    if (newSceneObject->color.x == 0 && newSceneObject->color.y == 0 && newSceneObject->color.z == 0) {
+        newSceneObject->color = (vec3s){1.0f, 1.0f, 1.0f};
     }
 
     if (newSceneObject->instanceCount == 0) {
@@ -254,6 +279,39 @@ SceneObject *NewSceneObject(SceneObject object) {
 
     ListAdd(engine->sceneObjects, newSceneObject);
     return newSceneObject;
+}
+
+SceneObject *NewSprite(vec3s position, float size, const char *path) {
+    Vertex vertices[] = {
+        // Position         // Normal            // TexCoords
+        {{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},   // Top-left
+        {{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},    // Top-right
+        {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},  // Bottom-left
+        {{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}}    // Bottom-right
+    };
+
+    GLuint indices[] = {
+        0, 1, 2,  // First triangle
+        1, 3, 2   // Second triangle
+    };
+
+    int vertexCount = getArraySize(vertices);
+    int indexCount = getArraySize(indices);
+
+    MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
+
+    printf("DEBUG :: CREATED SPRITE\n");
+    return (SceneObject *)NewSceneObject((SceneObject){
+        .meshData = meshData,
+        .vertices = meshData->verticesCopy,
+        .indices = meshData->indicesCopy,
+        .vertexCount = vertexCount,
+        .indexCount = indexCount,
+        .type = OBJECT_SPRITE,
+        .tag = "SPRITE",
+        .texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, path),
+        .transforms = NewTransforms(1, (Transform[]){{.position = position,
+                                                      .scale = (vec3s){size, size, size}}})});
 }
 
 SceneObject *CopySceneObject(SceneObject *object) {

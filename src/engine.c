@@ -22,6 +22,7 @@ FrameBufferObject *antiAlias;
 /* DEBUG STUFF FOR TESTING & TROUBLESHOOTING ENGINE */
 static Element *button, *fpstextBox, *coordinatestextBox;
 static SceneObject *plane, *cube;
+static Camera *cam2;
 // static Timer *timer;
 
 Engine *init(void) {
@@ -125,6 +126,7 @@ Engine *init(void) {
     skyboxShader = (Shader *)NewShader("skybox.vert", "skybox.frag");
 
     camera = (Camera *)NewCamera((vec3s){1.0f, 1.0f, 1.0f}, 45.0f);
+    cam2 = (Camera *)NewCamera((vec3s){15.0f, -10.0f, 10.0f}, 45.0f);
 
     if (engine->antiAliasing) {
         antiAliasShader = (Shader *)NewShader("aa_post.vert", "aa_post.frag");
@@ -165,9 +167,13 @@ int cleanup(void) {
 
     destroyUI();
     freeShaders();
-    RemoveSceneObjects();
 
+    free(camera);
+    free(cam2);
+
+    RemoveSceneObjects();
     ListFreeMemory(engine->sceneObjects);
+
     ListFreeMemory(engine->shaders);
 
     ListFreeMemory(menu->elements);

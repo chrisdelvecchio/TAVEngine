@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Chris/Desktop/Chris/Coding/Game/external/nanovg-master
+# Install script for directory: C:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

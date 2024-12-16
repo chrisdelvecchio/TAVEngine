@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Chris/Desktop/Chris/Coding/Game
+# Install script for directory: C:/Users/Chris/Desktop/Chris/Coding/Engine
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,27 +39,27 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/cglm-master/cmake_install.cmake")
+  include("C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/cglm-master/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/nanovg-master/cmake_install.cmake")
+  include("C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/nanovg-master/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/lib-list-master/cmake_install.cmake")
+  include("C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/lib-list-master/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/lib-io-main/cmake_install.cmake")
+  include("C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/lib-io-main/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Chris/Desktop/Chris/Coding/Game/build/external/lib-map-main/cmake_install.cmake")
+  include("C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/lib-map-main/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -77,6 +77,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "C:/Users/Chris/Desktop/Chris/Coding/Game/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/Chris/Desktop/Chris/Coding/Engine/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

@@ -137,7 +137,7 @@ rule C_STATIC_LIBRARY_LINKER__map_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\Chris\Desktop\Chris\Coding\Game -BC:\Users\Chris\Desktop\Chris\Coding\Game\build
+  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\Chris\Desktop\Chris\Coding\Engine -BC:\Users\Chris\Desktop\Chris\Coding\Engine\build
   description = Re-running CMake...
   generator = 1
 

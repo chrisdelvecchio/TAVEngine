@@ -1,6 +1,7 @@
 #include "camera.h"
+#include "render.h"
 
-static void UpdateCameraVectors(Camera *camera) {
+static inline void UpdateCameraVectors(Camera *camera) {
     camera->projection = glms_perspective(glm_rad(camera->fov), engine->aspectRatio, 0.1f, camera->renderDistance);
     camera->view = glms_lookat(camera->position, glms_vec3_add(camera->position, camera->front), camera->up);
 
@@ -31,6 +32,12 @@ Camera *NewCamera(vec3s position, float fov) {
     camera->update = UpdateCameraVectors;
 
     UpdateCameraVectors(camera);
+
+    camera->object = (SceneObject *)NewSprite(position, 10.0f, "camera_texture.png");
+    camera->object->color = (vec3s){0.3f, 0.0f, 0.3f};
+    camera->object->type = OBJECT_CAMERA;
+
+    printf("Created camera successfully\n");
     return camera;
 }
 

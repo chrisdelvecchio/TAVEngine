@@ -8,6 +8,11 @@ void freeMeshData(MeshData *meshData) {
     if (meshData) {
         free(meshData->verticesCopy);
         free(meshData->indicesCopy);
+
+        if (meshData->rawVerticesCopy != NULL) {
+            free(meshData->rawVerticesCopy);
+        }
+        
         free(meshData);
     }
 }
@@ -61,7 +66,7 @@ SceneObject *CreatePlane(vec3s position) {
 
     MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
 
-    SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
+    return (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "PLANE",
         .transforms = NewTransforms(1, (Transform[]){
@@ -75,7 +80,6 @@ SceneObject *CreatePlane(vec3s position) {
         .indices = meshData->indicesCopy,
         .vertexCount = vertexCount,
         .indexCount = indexCount});
-    return object;
 }
 SceneObject *CreateCube(vec3s position) {
     Vertex vertices[] = {
@@ -139,7 +143,7 @@ SceneObject *CreateCube(vec3s position) {
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "CUBE",
-        .color = (vec3s){1.0f, 0.0f, 0.0f},
+        .color = (vec3s){0.0f, 0.0f, 0.0f},
         .texture = texture,
         .transforms = NewTransforms(1, (Transform[]){{.position = position}}),
         .meshData = meshData,

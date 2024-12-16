@@ -20,7 +20,16 @@
         "physics.h": "c",
         "render.h": "c",
         "string.h": "c",
-        "engine.h": "c"
+        "engine.h": "c",
+        "any": "c",
+        "array": "c",
+        "charconv": "c",
+        "compare": "c",
+        "functional": "c",
+        "ratio": "c",
+        "tuple": "c",
+        "utility": "c",
+        "variant": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -8,11 +8,14 @@ Not so fancy todo list lols
 
 typedef char *TAVENGINE "TODO";
 
-- STOP ABUSING POINTERS IN TAV ENGINE, USE REFERENCES MORE OFTEN TO MAKE FASTER YES YES YES
-- SKYBOX
-- ADD MODEL LOADING SUPPORT (POSSIBLY ASSIMP IDK YET)
- - IF YOU CODE UR OWN:
-    - MODEL, ANIMATIONS support
+We need to keep track an array of Cameras, Sprites;
+
+https://learnopengl.com/In-Practice/2D-Game/Rendering-Sprites
+https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/model.h
+https://learnopengl.com/code_viewer_gh.php?code=src/3.model_loading/1.model_loading/model_loading.cpp
+
+- SKYBOX [COMPLETED]
+- MODEL3D [WORK IN PROGRESS]
 - AABB's FOR LATER USE (SUPER USEFUL) might be fun as well little treat after working hard on model support :)
 - Selecting SceneObject's with cursor
 - Highlighting SceneObject's with cursor

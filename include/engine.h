@@ -6,26 +6,30 @@
 #include <cglm/struct.h>
 #include <glad/glad.h>
 #include <glfw3.h>
-
 #include <stdbool.h>
 
-#include "liblist.h"
 #include "libio.h"
+#include "liblist.h"
 #include "libmap.h"
 #include "nanovg.h"
 #include "timings.h"
 
+/* WINDOW */
 #define BACKGROUND_COLOR 0.53f, 0.81f, 0.98f, 1.0f
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define UPDATE_INTERVAL 1.0f / 60.0f
+
+/* MODELING */
+#define MAX_BONE_INFLUENCE 4
 
 typedef enum TextureType {
     TEXTURE_TYPE_2D,
     TEXTURE_TYPE_CUBEMAP,
     TEXTURE_TYPE_DIFFUSE,
     TEXTURE_TYPE_SPECULAR,
-    TEXTURE_TYPE_NORMAL
+    TEXTURE_TYPE_NORMAL,
+    TEXTURE_TYPE_HEIGHT
 } TextureType;
 
 typedef struct Texture {
@@ -64,8 +68,8 @@ typedef struct Engine {
      -> Example:
        **
         List *textureNames = (List *)NewList(NULL);
-        
-        ListAddMultiple(textureNames, 
+
+        ListAddMultiple(textureNames,
         "right.png",
         "left.png",
         "top.png",
@@ -87,7 +91,84 @@ typedef struct Transform {
     float rotationDegrees;
 } Transform;
 
+typedef struct Shader {
+    GLuint programID;
+
+    const char *vertexPath;
+    const char *fragmentPath;
+    const char *vShaderCode;
+    const char *fShaderCode;
+} Shader;
+
+typedef enum ObjectType {
+    OBJECT_NONE,
+    OBJECT_LIGHT,
+    OBJECT_3D,
+    OBJECT_2D,
+    OBJECT_CAMERA,
+    OBJECT_SPRITE,
+    OBJECT_FLOOR,
+    OBJECT_FRAMEBUFFER_QUAD
+} ObjectType;
+
+typedef struct Vertex {
+    vec3s position;
+    vec3s normal;
+    vec2s texCoords;
+    vec3s tangent;
+    vec3s bitangent;
+	
+    // bone indexes which will influence this vertex
+	int boneIDs[MAX_BONE_INFLUENCE];
+	
+    // weights from each bone
+	float boneWeights[MAX_BONE_INFLUENCE];
+} Vertex;
+
+typedef struct MeshData {
+    Vertex *verticesCopy;
+    float *rawVerticesCopy;
+    GLuint *indicesCopy;
+
+    /* Do NOT call this function; */
+    void (*free)(struct MeshData *self);
+} MeshData;
+
+typedef struct Mesh {
+    List *vertices;  // (List *) <Vertex>
+    List *indices;   // (List *) <GLuint>
+    List *textures;  // (List *) <Texture>
+
+    GLuint VAO, VBO, EBO;
+
+    void (*draw)(struct Mesh *self, Shader *shader);
+} Mesh;
+
+typedef struct SceneObject {
+    char *tag;
+
+    ObjectType type;
+    Transform *transforms;
+
+    Shader *shader;
+    Texture *texture;
+
+    MeshData *meshData;
+    GLuint VAO, VBO, EBO, IVBO;
+    Vertex *vertices;
+    GLuint *indices;
+
+    int indexCount, vertexCount, instanceCount;
+
+    vec3s color;
+
+    /* Do NOT call this function; */
+    void (*draw)(struct SceneObject *self);
+} SceneObject;
+
 typedef struct Camera {
+    SceneObject *object;
+
     mat4s projection, view;
 
     vec3s position;
@@ -110,65 +191,8 @@ typedef struct Camera {
     void (*update)(struct Camera *self);
 } Camera;
 
-typedef struct Shader {
-    GLuint programID;
-
-    const char *vertexPath;
-    const char *fragmentPath;
-    const char *vShaderCode;
-    const char *fShaderCode;
-} Shader;
-
-typedef struct Sprite {
-    Texture texture;
-    float x, y, width, height;
-} Sprite;
-
-typedef enum ObjectType {
-    OBJECT_NONE,
-    OBJECT_LIGHT,
-    OBJECT_3D,
-    OBJECT_2D,
-    OBJECT_FLOOR,
-    OBJECT_FRAMEBUFFER_QUAD
-} ObjectType;
-
-typedef struct Vertex {
-    vec3s position;
-    vec3s normal;
-    vec2s texCoords;
-} Vertex;
-
-typedef struct MeshData {
-    Vertex *verticesCopy;
-    GLuint *indicesCopy;
-
-    /* Do NOT call this function; */
-    void (*free)(struct MeshData *self);
-} MeshData;
-
-typedef struct SceneObject {
-    char *tag;
-
-    ObjectType type;
-    Transform *transforms;
-
-    Shader *shader;
-    Sprite *sprite;
-    Texture *texture;
-
-    MeshData *meshData;
-    GLuint VAO, VBO, EBO, IVBO;
-    Vertex *vertices;
-    GLuint *indices;
-
-    int indexCount, vertexCount, instanceCount;
-
-    vec3s color;
-
-    /* Do NOT call this function; */
-    void (*draw)(struct SceneObject *self);
-} SceneObject;
+typedef struct Model3D {
+} Model3D;
 
 typedef struct FrameBufferObject {
     GLuint frameBufferID;
@@ -189,12 +213,12 @@ typedef struct FrameBufferObject {
 typedef struct Entity {
     long uniqueID;
 
-    SceneObject *object;
+    Camera *camera;
 } Entity;
 
 extern Engine *engine;
 extern FrameBufferObject *antiAlias;
-extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
+extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader, *spriteShader;
 extern Camera *camera;
 
 Engine *init(void);
@@ -225,4 +249,4 @@ static void tick(void) {
     }
 }
 
-#endif // ENGINE_H
+#endif  // ENGINE_H

@@ -8,7 +8,9 @@
 
 FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
 
-SceneObject *NewSceneObject(SceneObject object);
+SceneObject *NewSceneObject(SceneObject builder);
+SceneObject *NewSprite(vec3s position, float size, const char *path);
+
 SceneObject *CopySceneObject(SceneObject *object);
 
 Transform *NewTransforms(int instanceCount, Transform *transforms);
@@ -56,10 +58,6 @@ static inline void FreeupObject(SceneObject *object) {
 
         freeMeshData(object->meshData);
 
-        if (object->sprite != NULL) {
-            free(object->sprite);
-        }
-
         if (object->texture != NULL) {
             free(object->texture);
         }
@@ -88,7 +86,7 @@ static inline void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
 static inline void RemoveSceneObjects(void) {
     int counter = 0;
     foreach (SceneObject *object, engine->sceneObjects) {
-        if (!ObjectExists(object)) continue;
+        if (!ObjectExists(object) || object->type == OBJECT_CAMERA) continue;
         FreeupObject(object);
         counter++;
     }
