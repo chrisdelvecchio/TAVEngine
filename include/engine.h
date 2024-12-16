@@ -37,6 +37,8 @@ typedef struct Texture {
     GLuint textureID;
 
     int width, height, nrChannels;
+
+    const char *path;
 } Texture;
 
 typedef struct Skybox {
@@ -147,6 +149,16 @@ typedef struct Mesh {
     void (*draw)(struct Mesh *self, Shader *shader);
 } Mesh;
 
+typedef struct Model3D {
+    List *texturesLoaded;
+    List *meshes;
+
+    char *path;
+    bool gammaCorrection;
+
+    void (*draw)(struct Model3D *self, Shader *shader);
+} Model3D;
+
 typedef struct SceneObject {
     char *tag;
 
@@ -155,6 +167,7 @@ typedef struct SceneObject {
 
     Shader *shader;
     Texture *texture;
+    Model3D *model3D;
 
     MeshData *meshData;
     GLuint VAO, VBO, EBO, IVBO;
@@ -201,9 +214,6 @@ typedef struct Camera {
     /* Do NOT call this function; */
     void (*update)(struct Camera *self);
 } Camera;
-
-typedef struct Model3D {
-} Model3D;
 
 typedef struct FrameBufferObject {
     GLuint frameBufferID;

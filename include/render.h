@@ -30,6 +30,12 @@ Skybox *NewSkybox(List *textureNames);
 
 void UseTexture(Texture *texture);
 
+static inline float CalcDistance(vec3s cameraPos, vec3s objectPos) {
+    return sqrtf(powf(cameraPos.x - objectPos.x, 2) +
+                 powf(cameraPos.y - objectPos.y, 2) +
+                 powf(cameraPos.z - objectPos.z, 2));
+}
+
 // Extract the frustum planes from the projection * view matrix
 static inline void UpdateFrustum(Camera *camera, float projViewMatrix[16]) {
     // Left Plane

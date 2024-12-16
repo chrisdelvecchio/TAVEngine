@@ -234,6 +234,10 @@ static void DrawSceneObject(SceneObject *object) {
 
     UseTexture(object->texture);
 
+    if (object->model3D != NULL) {
+        object->model3D->draw(object->model3D, object->shader);
+    }
+
     int indexCount = object->indexCount;
 
     if (object->indices != NULL && indexCount > 0) {
@@ -366,6 +370,7 @@ Texture *NewTexture(TextureType type, const char *path) {
     texture->width = 0;
     texture->height = 0;
     texture->nrChannels = 0;
+    texture->path = path;
 
     // Load texture
     glGenTextures(1, &texture->textureID);

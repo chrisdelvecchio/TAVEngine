@@ -29,7 +29,12 @@
         "ratio": "c",
         "tuple": "c",
         "utility": "c",
-        "variant": "c"
+        "variant": "c",
+        "scene.h": "c",
+        "importer.hpp": "c",
+        "string": "cpp",
+        "string_view": "cpp",
+        "span": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
