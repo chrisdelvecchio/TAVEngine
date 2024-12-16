@@ -20,9 +20,10 @@ typedef struct Map {
 } Map;
 
 Map *NewMap(Map *optional);
-void FreeMapMemory(Map *map);
+void MapFreeMemory(Map *map);
 void MapPut(Map *map, void *key, void *value);
 void *MapGet(Map *map, void *key);
+bool MapContains(Map *map, void *key);
 void *MapDelete(Map *map, void *key);
 void *MapKeys(Map *map);
 void *MapValues(Map *map);

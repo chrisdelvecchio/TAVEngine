@@ -27,14 +27,16 @@ Map *NewMap(Map *optional) {
   return map;
 }
 
-void FreeMapMemory(Map *map) {
+void MapFreeMemory(Map *map) {
+  for (size_t i = 0; i < MapSize(map); i++) {
+    free(map->keys->entries[i]);
+    free(map->values->entries[i]);
+  }
+
   free(map->keys->entries);
   free(map->values->entries);
   free(map->keys);
   free(map->values);
-
-  map->keys = NULL;
-  map->values = NULL;
 
   free(map);
 }
@@ -60,7 +62,7 @@ void MapPut(Map *map, void *key, void *value) {
                 "MEMORY\n");
       }
 
-      FreeMapMemory(map);
+      MapFreeMemory(map);
     }
   }
 
@@ -73,10 +75,7 @@ void MapPut(Map *map, void *key, void *value) {
 }
 
 void *MapGet(Map *map, void *key) {
-  if (isMapEmpty(map)) {
-    fprintf(stderr, "Cannot use #MapGet() on an Empty Map!\n");
-    return NULL;
-  }
+  if (isMapEmpty(map)) return NULL;
 
   for (size_t i = 0; i < map->keys->size; i++) {
     if (map->keys->entries[i] == key) {
@@ -87,11 +86,13 @@ void *MapGet(Map *map, void *key) {
   return NULL;
 }
 
+bool MapContains(Map *map, void *key) {
+  if (isMapEmpty(map)) return false;
+  return MapGet(map, key);
+}
+
 void *MapDelete(Map *map, void *key) {
-    if (isMapEmpty(map)) {
-    fprintf(stderr, "Cannot perform #MapDelete() on an Empty Map!\n");
-    return NULL;
-  }
+    if (isMapEmpty(map)) return NULL;
 
   void *ret = MapGet(map, key);
 
@@ -118,19 +119,12 @@ void MapClear(Map *map) {
 }
 
 void *MapKeys(Map *map) {
-  if (isMapEmpty(map)) {
-    fprintf(stderr, "Cannot fetch #MapKeys() of an Empty Map!\n");
-    return NULL;
-  }
+  if (isMapEmpty(map)) return NULL;
   return map->keys->entries;
 }
 
 void *MapValues(Map *map) {
-  if (isMapEmpty(map)) {
-    fprintf(stderr, "Cannot fetch #MapValues() of an Empty Map!\n");
-    return NULL;
-  }
-
+  if (isMapEmpty(map)) return NULL;
   return map->values->entries;
 }
 

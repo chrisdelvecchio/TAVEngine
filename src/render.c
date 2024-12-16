@@ -177,10 +177,17 @@ void SendToShader(SceneObject *object) {
         setVec3(*instanceShader, "color", &object->color);
         setInt(*instanceShader, "instanceCount", instanceCount);
 
-        if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+        if (object->type == OBJECT_SPRITE_STATIC || object->type == OBJECT_SPRITE_BILLBOARD || object->type == OBJECT_CAMERA) {
             setBool(*object->shader, "isSprite", GLFW_TRUE);
+
+            if (object->type & OBJECT_SPRITE_BILLBOARD) {
+                setBool(*object->shader, "isBillboard", GLFW_TRUE);
+            } else {
+                setBool(*object->shader, "isBillboard", GLFW_FALSE);
+            }
         } else {
             setBool(*object->shader, "isSprite", GLFW_FALSE);
+            setBool(*object->shader, "isBillboard", GLFW_FALSE);
         }
 
         HandleShaderTransform(object, instanceShader, GLFW_TRUE);
@@ -197,10 +204,12 @@ void SendToShader(SceneObject *object) {
         setMat4(*object->shader, "view", &camera->view);
         setVec3(*object->shader, "color", &object->color);
 
-        if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+        if (object->type & (OBJECT_SPRITE_BILLBOARD | OBJECT_SPRITE_STATIC | OBJECT_CAMERA)) {
             setBool(*object->shader, "isSprite", GLFW_TRUE);
+            setBool(*object->shader, "isBillboard", GLFW_TRUE);
         } else {
             setBool(*object->shader, "isSprite", GLFW_FALSE);
+            setBool(*object->shader, "isBillboard", GLFW_FALSE);
         }
 
         HandleShaderTransform(object, object->shader, GLFW_FALSE);
@@ -218,7 +227,7 @@ static void DrawSceneObject(SceneObject *object) {
     SendToShader(object);
     glBindVertexArray(object->VAO);
 
-    if (object->type == OBJECT_SPRITE || object->type == OBJECT_CAMERA) {
+    if (object->type == OBJECT_SPRITE_STATIC || object->type == OBJECT_SPRITE_BILLBOARD || object->type == OBJECT_CAMERA) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
@@ -281,7 +290,7 @@ SceneObject *NewSceneObject(SceneObject builder) {
     return newSceneObject;
 }
 
-SceneObject *NewSprite(vec3s position, float size, const char *path) {
+SceneObject *NewSprite(vec3s position, float size, bool billboard, const char *path) {
     Vertex vertices[] = {
         // Position         // Normal            // TexCoords
         {{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},   // Top-left
@@ -300,14 +309,13 @@ SceneObject *NewSprite(vec3s position, float size, const char *path) {
 
     MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
 
-    printf("DEBUG :: CREATED SPRITE\n");
     return (SceneObject *)NewSceneObject((SceneObject){
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
         .indices = meshData->indicesCopy,
         .vertexCount = vertexCount,
         .indexCount = indexCount,
-        .type = OBJECT_SPRITE,
+        .type = (billboard) ? OBJECT_SPRITE_BILLBOARD : OBJECT_SPRITE_STATIC,
         .tag = "SPRITE",
         .texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, path),
         .transforms = NewTransforms(1, (Transform[]){{.position = position,
@@ -407,6 +415,12 @@ Texture *NewTexture(TextureType type, const char *path) {
         stbi_set_flip_vertically_on_load(GLFW_FALSE);
     }
 
+    char *temp = malloc(strlen(path) * sizeof(char));
+    strcpy(temp, path);
+
+    if (!MapContains(engine->textures, temp)) {
+        MapPut(engine->textures, temp, texture);
+    }
     return texture;
 }
 

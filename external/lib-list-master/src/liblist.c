@@ -30,6 +30,12 @@ List *NewList(List *optional) {
 }
 
 void ListFreeMemory(List *list) {
+    foreach (void *i, list) {
+        if (i != NULL) {
+            free(i);
+        }
+    }
+    
     free(list->data);
     free(list);
 }

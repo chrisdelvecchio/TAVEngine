@@ -9,7 +9,7 @@
 FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
 
 SceneObject *NewSceneObject(SceneObject builder);
-SceneObject *NewSprite(vec3s position, float size, const char *path);
+SceneObject *NewSprite(vec3s position, float size, bool billboard, const char *path);
 
 SceneObject *CopySceneObject(SceneObject *object);
 
@@ -52,21 +52,40 @@ static inline void UnbindBufferObj(SceneObject *object) {
     object->EBO = 0;
 }
 
+static inline void RemoveTextures(void) {
+    int counter = 0;
+
+    List *temp = (List *)NewList(NULL);
+    ListAddArray(temp, engine->textures->values->entries);
+
+    foreach (Texture *texture, temp) {
+        if (texture == NULL) continue;
+        counter++;
+    }
+
+    if (!isListEmpty(temp)) {
+        ListClear(temp);
+        ListFreeMemory(temp);
+    }
+
+    if (!isMapEmpty(engine->textures)) {
+        MapClear(engine->textures);
+    }
+
+    printf("[TAV ENGINE] %d Textures have been freed!\n", counter);
+}
+
 static inline void FreeupObject(SceneObject *object) {
-    if (object != NULL) {
+    if (ObjectExists(object)) {
         UnbindBufferObj(object);
 
-        freeMeshData(object->meshData);
+        // freeMeshData(object->meshData);
 
-        if (object->texture != NULL) {
-            free(object->texture);
-        }
+        // if (object->transforms != NULL) {
+        //     free(object->transforms);
+        // }
 
-        if (object->transforms != NULL) {
-            free(object->transforms);
-        }
-
-        free(object);
+        // free(object);
     }
 }
 
@@ -86,7 +105,7 @@ static inline void UnbindFrameBufferObj(FrameBufferObject *frameBuffer) {
 static inline void RemoveSceneObjects(void) {
     int counter = 0;
     foreach (SceneObject *object, engine->sceneObjects) {
-        if (!ObjectExists(object) || object->type == OBJECT_CAMERA) continue;
+        if (!ObjectExists(object)) continue;
         FreeupObject(object);
         counter++;
     }

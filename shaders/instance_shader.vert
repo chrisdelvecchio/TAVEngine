@@ -13,10 +13,11 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform int instanceCount;
 uniform bool isSprite;
+uniform bool isBillboard;
 
 void main()
 {
-    if (isSprite) {
+    if (isSprite && isBillboard) {
     // Extract sprite position from the model matrix (translation is in the 4th column)
         vec3 spritePos = vec3(aInstancePos[3][0], aInstancePos[3][1], aInstancePos[3][2]);
 

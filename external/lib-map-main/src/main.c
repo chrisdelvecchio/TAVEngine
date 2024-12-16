@@ -7,7 +7,7 @@
 // -> Create a new Empty Map                                    = Map
 // *NewMap(Map *optional);
 // -> Free all map memory allocated                             = void
-// FreeMapMemory(Map *map);
+// MapFreeMemory(Map *map);
 // -> Insert a key with a value                                 = void
 // MapPut(Map *map, void *key, void *value);
 // -> Return a value from key                                   = void
@@ -70,7 +70,7 @@ int main() {
 
   // ----------------------------------------------------------------
   // Remember to free the map after you are done with it!
-  FreeMapMemory(map);
+  MapFreeMemory(map);
 
   long long endTimeMillis = currentTimeInMillis();
   printf("\nTime taken: %lld ms\n", endTimeMillis - startTimeMillis);

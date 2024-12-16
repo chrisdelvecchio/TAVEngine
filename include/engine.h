@@ -59,7 +59,9 @@ typedef struct Engine {
     int defaultFont;
 
     char *mainPath, *settingsFile, *shaderDir, *assetDir, *fontDir;
-    List *sceneObjects, *shaders;
+    
+    List *sceneObjects, *cameras, *shaders;
+    Map *textures;
 
     /*
      -> Skybox struct for handling the Skybox Cubemap
@@ -101,14 +103,15 @@ typedef struct Shader {
 } Shader;
 
 typedef enum ObjectType {
-    OBJECT_NONE,
-    OBJECT_LIGHT,
-    OBJECT_3D,
-    OBJECT_2D,
-    OBJECT_CAMERA,
-    OBJECT_SPRITE,
-    OBJECT_FLOOR,
-    OBJECT_FRAMEBUFFER_QUAD
+    OBJECT_NONE               = 0x00, // No type
+    OBJECT_LIGHT              = 0x01, // 0000 0001
+    OBJECT_3D                 = 0x02, // 0000 0010
+    OBJECT_2D                 = 0x04, // 0000 0100
+    OBJECT_CAMERA             = 0x08, // 0000 1000
+    OBJECT_SPRITE_STATIC      = 0x10, // 0001 0000
+    OBJECT_SPRITE_BILLBOARD   = 0x20, // 0010 0000
+    OBJECT_FLOOR              = 0x40, // 0100 0000
+    OBJECT_FRAMEBUFFER_QUAD   = 0x80  // 1000 0000
 } ObjectType;
 
 typedef struct Vertex {

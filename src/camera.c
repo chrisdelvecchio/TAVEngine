@@ -33,11 +33,11 @@ Camera *NewCamera(vec3s position, float fov) {
 
     UpdateCameraVectors(camera);
 
-    camera->object = (SceneObject *)NewSprite(position, 10.0f, "camera_texture.png");
+    camera->object = (SceneObject *)NewSprite(position, 10.0f, GLFW_TRUE, "camera_texture.png");
     camera->object->color = (vec3s){0.3f, 0.0f, 0.3f};
-    camera->object->type = OBJECT_CAMERA;
+    camera->object->type |= OBJECT_CAMERA;
 
-    printf("Created camera successfully\n");
+    ListAdd(engine->cameras, camera);
     return camera;
 }
 

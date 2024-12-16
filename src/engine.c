@@ -101,6 +101,8 @@ Engine *init(void) {
     engine->deltaTime = (float)0.0f;
     engine->shaders = (List *)NewList(NULL);
     engine->sceneObjects = (List *)NewList(NULL);
+    engine->cameras = (List *)NewList(NULL);
+    engine->textures = (Map *)NewMap(NULL);
     engine->antiAliasing = GLFW_TRUE;
     engine->vSync = GLFW_TRUE;
     engine->wireframeMode = GLFW_FALSE;
@@ -168,15 +170,16 @@ int cleanup(void) {
     destroyUI();
     freeShaders();
 
-    free(camera);
-    free(cam2);
-
+    RemoveTextures();
+    RemoveCameras();
     RemoveSceneObjects();
+
+    MapFreeMemory(engine->textures);
+    ListFreeMemory(engine->cameras);
     ListFreeMemory(engine->sceneObjects);
-
     ListFreeMemory(engine->shaders);
-
     ListFreeMemory(menu->elements);
+
     free(menu);
 
     if (timerManager->totalTimers > 0) {
