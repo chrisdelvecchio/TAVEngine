@@ -13,6 +13,10 @@ static inline void UpdateCameraVectors(Camera *camera) {
     camera->front = glms_vec3_normalize(front);
     camera->right = glms_vec3_normalize(glms_vec3_cross(camera->front, camera->worldUp));
     camera->up = glms_vec3_normalize(glms_vec3_cross(camera->right, camera->front));
+
+    mat4 projectionXview;
+    glm_mat4_mul(camera->projection.raw, camera->view.raw, projectionXview);
+    UpdateFrustum(camera, (float *)projectionXview);
 }
 
 Camera *NewCamera(vec3s position, float fov) {
@@ -33,8 +37,8 @@ Camera *NewCamera(vec3s position, float fov) {
 
     UpdateCameraVectors(camera);
 
-    camera->object = (SceneObject *)NewSprite(position, 10.0f, GLFW_TRUE, "camera_texture.png");
-    camera->object->color = (vec3s){0.3f, 0.0f, 0.3f};
+    camera->object = (SceneObject *)NewSprite(position, 15.0f, GLFW_TRUE, "camera_texture.png");
+    camera->object->color = (vec3s){0.66f, 0.77f, 0.66f};
     camera->object->type |= OBJECT_CAMERA;
 
     ListAdd(engine->cameras, camera);

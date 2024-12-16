@@ -252,6 +252,7 @@ void render(void) {
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
+        if (!ObjectInFrustum(camera, object->transforms->position, object->transforms->scale.x)) continue;
 
         object->draw(object);
     }

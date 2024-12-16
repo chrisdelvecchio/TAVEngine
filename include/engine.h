@@ -169,8 +169,16 @@ typedef struct SceneObject {
     void (*draw)(struct SceneObject *self);
 } SceneObject;
 
+typedef struct {
+    /* Plane equation: ax + by + cz + d = 0 */
+    float a, b, c, d;
+} Plane;
+
 typedef struct Camera {
     SceneObject *object;
+
+    /* 6 planes (near, far, left, right, top, bottom) */
+    Plane frustum[6];
 
     mat4s projection, view;
 

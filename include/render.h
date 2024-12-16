@@ -30,6 +30,64 @@ Skybox *NewSkybox(List *textureNames);
 
 void UseTexture(Texture *texture);
 
+// Extract the frustum planes from the projection * view matrix
+static inline void UpdateFrustum(Camera *camera, float projViewMatrix[16]) {
+    // Left Plane
+    camera->frustum[0].a = projViewMatrix[3] + projViewMatrix[0];
+    camera->frustum[0].b = projViewMatrix[7] + projViewMatrix[4];
+    camera->frustum[0].c = projViewMatrix[11] + projViewMatrix[8];
+    camera->frustum[0].d = projViewMatrix[15] + projViewMatrix[12];
+
+    // Right Plane
+    camera->frustum[1].a = projViewMatrix[3] - projViewMatrix[0];
+    camera->frustum[1].b = projViewMatrix[7] - projViewMatrix[4];
+    camera->frustum[1].c = projViewMatrix[11] - projViewMatrix[8];
+    camera->frustum[1].d = projViewMatrix[15] - projViewMatrix[12];
+
+    // Bottom Plane
+    camera->frustum[2].a = projViewMatrix[3] + projViewMatrix[1];
+    camera->frustum[2].b = projViewMatrix[7] + projViewMatrix[5];
+    camera->frustum[2].c = projViewMatrix[11] + projViewMatrix[9];
+    camera->frustum[2].d = projViewMatrix[15] + projViewMatrix[13];
+
+    // Top Plane
+    camera->frustum[3].a = projViewMatrix[3] - projViewMatrix[1];
+    camera->frustum[3].b = projViewMatrix[7] - projViewMatrix[5];
+    camera->frustum[3].c = projViewMatrix[11] - projViewMatrix[9];
+    camera->frustum[3].d = projViewMatrix[15] - projViewMatrix[13];
+
+    // Near Plane
+    camera->frustum[4].a = projViewMatrix[3] + projViewMatrix[2];
+    camera->frustum[4].b = projViewMatrix[7] + projViewMatrix[6];
+    camera->frustum[4].c = projViewMatrix[11] + projViewMatrix[10];
+    camera->frustum[4].d = projViewMatrix[15] + projViewMatrix[14];
+
+    // Far Plane
+    camera->frustum[5].a = projViewMatrix[3] - projViewMatrix[2];
+    camera->frustum[5].b = projViewMatrix[7] - projViewMatrix[6];
+    camera->frustum[5].c = projViewMatrix[11] - projViewMatrix[10];
+    camera->frustum[5].d = projViewMatrix[15] - projViewMatrix[14];
+
+    // Normalize the planes
+    for (int i = 0; i < 6; i++) {
+        float length = sqrtf(camera->frustum[i].a * camera->frustum[i].a +
+                             camera->frustum[i].b * camera->frustum[i].b +
+                             camera->frustum[i].c * camera->frustum[i].c);
+        camera->frustum[i].a /= length;
+        camera->frustum[i].b /= length;
+        camera->frustum[i].c /= length;
+        camera->frustum[i].d /= length;
+    }
+}
+
+static inline bool ObjectInFrustum(Camera *camera, vec3s objectPosition, float radius) {
+    for (int i = 0; i < 6; i++) {
+        if (camera->frustum[i].a * objectPosition.x + camera->frustum[i].b * objectPosition.y + camera->frustum[i].c * objectPosition.z + camera->frustum[i].d <= -radius)
+            return GLFW_FALSE; // Outside this plane
+    }
+    return GLFW_TRUE; // Inside all planes
+}
+
 static inline bool ObjectExists(SceneObject *object) {
     return object && object->VAO != 0;
 }
@@ -53,26 +111,13 @@ static inline void UnbindBufferObj(SceneObject *object) {
 }
 
 static inline void RemoveTextures(void) {
-    int counter = 0;
-
-    List *temp = (List *)NewList(NULL);
-    ListAddArray(temp, engine->textures->values->entries);
-
-    foreach (Texture *texture, temp) {
-        if (texture == NULL) continue;
-        counter++;
-    }
-
-    if (!isListEmpty(temp)) {
-        ListClear(temp);
-        ListFreeMemory(temp);
-    }
+    size_t size = MapSize(engine->textures);
 
     if (!isMapEmpty(engine->textures)) {
         MapClear(engine->textures);
     }
 
-    printf("[TAV ENGINE] %d Textures have been freed!\n", counter);
+    printf("[TAV ENGINE] %zu Textures have been freed!\n", size);
 }
 
 static inline void FreeupObject(SceneObject *object) {

@@ -49,7 +49,7 @@ Shader *NewShader(const char *vertexPath, const char *fragmentPath) {
 
     // 4. Add the shader to the engine's shader list
     ListAdd(engine->shaders, shader);
-    printf("[Shader] Successfully loaded new shaders (%s) & (%s)\n", vertexPath, fragmentPath);
+    printf("[Shader] '%s' & '%s'\n", vertexPath, fragmentPath);
 
     return shader;
 }
