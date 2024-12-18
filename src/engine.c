@@ -6,6 +6,7 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include "callbacks.h"
 #include "camera.h"
+#include "model3d.h"
 #include "nanovg_gl.h"
 #include "object.h"
 #include "render.h"
@@ -21,7 +22,8 @@ FrameBufferObject *antiAlias;
 
 /* DEBUG STUFF FOR TESTING & TROUBLESHOOTING ENGINE */
 static Element *button, *fpstextBox, *coordinatestextBox;
-static SceneObject *plane, *cube;
+static SceneObject *plane;
+static Model3D *cube;
 static Camera *cam2;
 // static Timer *timer;
 
@@ -101,6 +103,7 @@ Engine *init(void) {
     engine->deltaTime = (float)0.0f;
     engine->shaders = (List *)NewList(NULL);
     engine->sceneObjects = (List *)NewList(NULL);
+    engine->models = (List *)NewList(NULL);
     engine->cameras = (List *)NewList(NULL);
     engine->textures = (Map *)NewMap(NULL);
     engine->antiAliasing = GLFW_TRUE;
@@ -158,8 +161,15 @@ Engine *init(void) {
         .alignment = NVG_ALIGN_TOP | NVG_ALIGN_RIGHT});
 
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
-    cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
-    cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
+    // cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
+    // cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
+
+    cube = (Model3D *)NewModel3D((Model3D){
+        .tag = "CubeModel3D",
+        .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){10.0, -10.0f, 10.0f}}}),
+        .texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, "cube_texture.png"),
+        .gammaCorrection = GLFW_FALSE}, "models/cube.obj");
+
     return engine;
 }
 
@@ -172,10 +182,12 @@ int cleanup(void) {
 
     RemoveTextures();
     RemoveCameras();
+    RemoveModels();
     RemoveSceneObjects();
 
     MapFreeMemory(engine->textures);
     ListFreeMemory(engine->cameras);
+    ListFreeMemory(engine->models);
     ListFreeMemory(engine->sceneObjects);
     ListFreeMemory(engine->shaders);
     ListFreeMemory(menu->elements);
@@ -255,6 +267,13 @@ void render(void) {
         if (!ObjectInFrustum(camera, object->transforms->position, object->transforms->scale.x)) continue;
 
         object->draw(object);
+    }
+
+    foreach (Model3D *model, engine->models) {
+        if (!ModelExists(model)) continue;
+        // if (!ObjectInFrustum(camera, model->transforms->position, model->transforms->scale.x)) continue;
+
+        model->draw(model);
     }
 
     if (menu != NULL) {

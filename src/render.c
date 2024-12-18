@@ -6,8 +6,6 @@
 
 static SceneObject *mainFrameBufferScreenQuad = NULL;
 
-void SendToShader(SceneObject *object);
-void UpdateInstancedBufferObj(SceneObject *object, mat4s *matrices, int newCount);
 void BindBufferObj(SceneObject *object);
 
 static SceneObject *CreateScreenQuad(FrameBufferObject *frameBuffer) {
@@ -128,12 +126,15 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer) {
     return newFrameBuffer;
 }
 
-static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isInstanced) {
-    if (isInstanced) {
-        mat4s instanceMatrices[object->instanceCount];
+static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader *shader, bool isInstanced) {
+    int instanceCount = (object != NULL) ? object->instanceCount : ourModel->instanceCount;
+    Transform *transforms = (object != NULL) ? object->transforms : ourModel->transforms;
 
-        for (int i = 0; i < object->instanceCount; i++) {
-            Transform transform = object->transforms[i];
+    if (isInstanced) {
+        mat4s instanceMatrices[instanceCount];
+
+        for (int i = 0; i < instanceCount; i++) {
+            Transform transform = transforms[i];
             mat4s model = glms_mat4_identity();
 
             model = glms_translate(model, transform.position);
@@ -147,10 +148,10 @@ static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isIn
             instanceMatrices[i] = model;
         }
 
-        UpdateInstancedBufferObj(object, instanceMatrices, object->instanceCount);
+        UpdateInstancedBufferObj(object, ourModel, instanceMatrices, instanceCount);
     } else {
         // Non-instanced handling
-        Transform transform = object->transforms[0];
+        Transform transform = transforms[0];
         mat4s model = glms_mat4_identity();
 
         if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
@@ -161,82 +162,94 @@ static void HandleShaderTransform(SceneObject *object, Shader *shader, bool isIn
         model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
         model = glms_scale(model, transform.scale);
 
+        if (ourModel != NULL) {
+            printf("Model3D '%s' -> position x=%.2f y=%.2f z=%.2f\n", ourModel->tag, transform.position.x, transform.position.y, transform.position.z);
+        }
+
         setMat4(*shader, "model", &model);
     }
 }
 
-void SendToShader(SceneObject *object) {
+void SendToShader(SceneObject *object, Model3D *model) {
     camera->update(camera);
 
-    int instanceCount = object->instanceCount;
+    int instanceCount = (object != NULL) ? object->instanceCount : model->instanceCount;
+
+    Shader *shader = (object != NULL) ? object->shader : model->shader;
+    Texture *texture = (object != NULL) ? object->texture : model->texture;
+    vec3s color = (object != NULL) ? object->color : model->color;
+
+    ObjectType type;
+    if (object != NULL) {
+        type = object->type;
+    }
 
     if (instanceCount > 1) {
         UseShader(*instanceShader);
         setMat4(*instanceShader, "projection", &camera->projection);
         setMat4(*instanceShader, "view", &camera->view);
-        setVec3(*instanceShader, "color", &object->color);
+        setVec3(*instanceShader, "color", &color);
         setInt(*instanceShader, "instanceCount", instanceCount);
 
-        if (object->type == OBJECT_SPRITE_STATIC || object->type == OBJECT_SPRITE_BILLBOARD || object->type == OBJECT_CAMERA) {
-            setBool(*object->shader, "isSprite", GLFW_TRUE);
+        if (type & (OBJECT_SPRITE_BILLBOARD | OBJECT_SPRITE_STATIC | OBJECT_CAMERA)) {
+            setBool(*shader, "isSprite", GLFW_TRUE);
 
-            if (object->type & OBJECT_SPRITE_BILLBOARD) {
-                setBool(*object->shader, "isBillboard", GLFW_TRUE);
-            } else {
-                setBool(*object->shader, "isBillboard", GLFW_FALSE);
+            if (type & OBJECT_SPRITE_BILLBOARD) {
+                setBool(*shader, "isBillboard", GLFW_TRUE);
             }
         } else {
-            setBool(*object->shader, "isSprite", GLFW_FALSE);
-            setBool(*object->shader, "isBillboard", GLFW_FALSE);
+            setBool(*shader, "isSprite", GLFW_FALSE);
+            setBool(*shader, "isBillboard", GLFW_FALSE);
         }
 
-        HandleShaderTransform(object, instanceShader, GLFW_TRUE);
+        HandleShaderTransform(object, model, instanceShader, GLFW_TRUE);
 
-        if (object->texture != NULL) {
+        if (texture != NULL) {
             setBool(*instanceShader, "useTexture", GLFW_TRUE);
             setInt(*instanceShader, "texture1", 0);
         } else {
             setBool(*instanceShader, "useTexture", GLFW_FALSE);
         }
     } else {
-        UseShader(*object->shader);
-        setMat4(*object->shader, "projection", &camera->projection);
-        setMat4(*object->shader, "view", &camera->view);
-        setVec3(*object->shader, "color", &object->color);
+        UseShader(*shader);
+        setMat4(*shader, "projection", &camera->projection);
+        setMat4(*shader, "view", &camera->view);
+        setVec3(*shader, "color", &color);
 
-        if (object->type & (OBJECT_SPRITE_BILLBOARD | OBJECT_SPRITE_STATIC | OBJECT_CAMERA)) {
-            setBool(*object->shader, "isSprite", GLFW_TRUE);
-            setBool(*object->shader, "isBillboard", GLFW_TRUE);
+        if (type & (OBJECT_SPRITE_BILLBOARD | OBJECT_SPRITE_STATIC | OBJECT_CAMERA)) {
+            setBool(*shader, "isSprite", GLFW_TRUE);
+
+            if (type & (OBJECT_SPRITE_BILLBOARD)) {
+                setBool(*shader, "isBillboard", GLFW_TRUE);
+            }
         } else {
-            setBool(*object->shader, "isSprite", GLFW_FALSE);
-            setBool(*object->shader, "isBillboard", GLFW_FALSE);
+            setBool(*shader, "isSprite", GLFW_FALSE);
+            setBool(*shader, "isBillboard", GLFW_FALSE);
         }
 
-        HandleShaderTransform(object, object->shader, GLFW_FALSE);
+        HandleShaderTransform(object, model, shader, GLFW_FALSE);
 
-        if (object->texture != NULL) {
-            setBool(*object->shader, "useTexture", GLFW_TRUE);
-            setInt(*object->shader, "texture1", 0);
+        if (texture != NULL) {
+            setBool(*shader, "useTexture", GLFW_TRUE);
+            setInt(*shader, "texture1", 0);
         } else {
-            setBool(*object->shader, "useTexture", GLFW_FALSE);
+            setBool(*shader, "useTexture", GLFW_FALSE);
         }
     }
 }
 
 static void DrawSceneObject(SceneObject *object) {
-    SendToShader(object);
-    glBindVertexArray(object->VAO);
+    char *tag = object->tag;
 
     if (object->type == OBJECT_SPRITE_STATIC || object->type == OBJECT_SPRITE_BILLBOARD || object->type == OBJECT_CAMERA) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    UseTexture(object->texture);
+    SendToShader(object, NULL);
 
-    if (object->model3D != NULL) {
-        object->model3D->draw(object->model3D, object->shader);
-    }
+    glBindVertexArray(object->VAO);
+    UseTexture(object->texture);
 
     int indexCount = object->indexCount;
 
@@ -248,7 +261,7 @@ static void DrawSceneObject(SceneObject *object) {
         } else {
             glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
         }
-    } else {
+    } else if (object->vertices != NULL && object->vertexCount > 0) {
         glDrawArrays(GL_TRIANGLES, 0, object->vertexCount);
     }
 
@@ -288,7 +301,9 @@ SceneObject *NewSceneObject(SceneObject builder) {
         newSceneObject->draw = DrawSceneObject;
     }
 
-    BindBufferObj(newSceneObject);
+    if (newSceneObject->vertices != NULL && newSceneObject->indices != NULL) {
+        BindBufferObj(newSceneObject);
+    }
 
     ListAdd(engine->sceneObjects, newSceneObject);
     return newSceneObject;
@@ -512,9 +527,18 @@ Skybox *NewSkybox(List *textureNames) {
     }
 }
 
-void UpdateInstancedBufferObj(SceneObject *object, mat4s *instanceMatrices, int instanceCount) {
-    glBindBuffer(GL_ARRAY_BUFFER, object->IVBO);
-    glBufferData(GL_ARRAY_BUFFER, instanceCount * sizeof(mat4s), instanceMatrices, GL_DYNAMIC_DRAW);
+void UpdateInstancedBufferObj(SceneObject *object, Model3D *model, mat4s *instanceMatrices, int instanceCount) {
+    if (object != NULL) {
+        glBindBuffer(GL_ARRAY_BUFFER, object->IVBO);
+        glBufferData(GL_ARRAY_BUFFER, instanceCount * sizeof(mat4s), instanceMatrices, GL_DYNAMIC_DRAW);
+    }
+
+    if (model != NULL) {
+        foreach (Mesh *mesh, model->meshes) {
+            glBindBuffer(GL_ARRAY_BUFFER, mesh->IVBO);
+            glBufferData(GL_ARRAY_BUFFER, instanceCount * sizeof(mat4s), instanceMatrices, GL_DYNAMIC_DRAW);
+        }
+    }
 }
 
 void BindBufferObj(SceneObject *object) {
@@ -542,15 +566,15 @@ void BindBufferObj(SceneObject *object) {
     vec3s normal = object->vertices[0].normal;
     if (normal.x != 0 && normal.y != 0 && normal.z != 0) {
         // Normal attribute (layout = 2)
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, normal)));
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, normal)));
         glEnableVertexAttribArray(2);
     }
-
+    
+    int instanceCount = object->instanceCount;
     // Instance matrix attribute (layout = 3)
-    if (object->instanceCount > 1) {
+    if (instanceCount > 1) {
         glBindBuffer(GL_ARRAY_BUFFER, object->IVBO);
-
-        glBufferData(GL_ARRAY_BUFFER, object->instanceCount * sizeof(mat4s), &object->transforms->model.raw[0], GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, instanceCount * sizeof(mat4s), &object->transforms->model.raw[0], GL_DYNAMIC_DRAW);
 
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)0);

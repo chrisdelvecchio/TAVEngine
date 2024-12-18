@@ -8,58 +8,146 @@
 #include <assimp/scene.h>
 
 #include "engine.h"
+#include "render.h"
 #include "shader.h"
 #include "utils.h"
 
-Mesh *NewMesh(List *vertices, List *indices, List *textures);
-Model3D *NewModel3D(const char *path, bool gammaCorrection);
+Model3D *NewModel3D(Model3D builder, const char *path);
 
-static inline void SetupMesh(Mesh *mesh) {
+static inline bool ModelExists(Model3D *model) {
+    return model && ListSize(model->meshes) > 0;
+}
+
+static inline void RemoveModels(void) {
+    int counter = 0;
+    foreach (Model3D *model, engine->models) {
+        if (!ModelExists(model)) continue;
+
+        UnbindBufferObj(NULL, model);
+        counter++;
+    }
+
+    ListClear(engine->models);
+
+    printf("[TAV ENGINE] %d 3D Models have been freed!\n", counter);
+}
+
+static inline void SetupMesh(Model3D *model, Mesh *mesh) {
     glGenVertexArrays(1, &mesh->VAO);
     glGenBuffers(1, &mesh->VBO);
     glGenBuffers(1, &mesh->EBO);
+    glGenBuffers(1, &mesh->IVBO);
+
+    int vertexCount = mesh->vertexCount;
+    int indexCount = mesh->indexCount;
+
+    // printf("SetupMesh -> Vertices size %zu\n", vertexCount);
+
+    // printf("Vertices Unit Test Begin\n");
+
+    // for (int i = 0; i < vertexCount; i++) {
+    //     Vertex v = mesh->vertices[i];
+    //     printf("Vertex %i: (%f, %f, %f)\n", i, v.position.x, v.position.y, v.position.z);
+    // }
+
+    // printf("Vertices Unit Test End\n");
 
     glBindVertexArray(mesh->VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
 
-    glBufferData(GL_ARRAY_BUFFER, ListSize(mesh->vertices) * sizeof(Vertex), &mesh->vertices->data[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexCount, mesh->vertices, GL_STATIC_DRAW);
+
+    // printf("SetupMesh -> Indices size %zu\n", indexCount);
+
+    // printf("Indices Unit Test Begin\n");
+
+    // for (int i = 0; i < indexCount; i++) {
+    //     GLuint index = mesh->indices[i];
+    //     printf("Index %i: (%u)\n", i, index);
+    // }
+
+    // printf("Indices Unit Test End\n");
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, ListSize(mesh->indices) * sizeof(unsigned int),
-                 &mesh->indices->data[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indexCount, mesh->indices, GL_STATIC_DRAW);
 
-    // vertex positions
-    glEnableVertexAttribArray(0);
+    // printf("Size of Vertex: %zu\n", sizeof(Vertex));
+
+    GLint vboSize, eboSize;
+    glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &vboSize);
+    glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &eboSize);
+    // printf("VBO Size: %d, Expected: %zu\n", vboSize, vertexCount * sizeof(Vertex));
+    // printf("EBO Size: %d, Expected: %zu\n", eboSize, indexCount * sizeof(GLuint));
+
+    // printf("SetupMesh -> Binding attributes now\n");
+
+    // Position attribute (layout = 0)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    // Texture coordinate attribute (layout = 1)
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, texCoords)));
+    glEnableVertexAttribArray(1);
 
     // vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, normal));
+    vec3s normal = mesh->vertices[0].normal;
+    if (normal.x != 0 && normal.y != 0 && normal.z != 0) {
+        // Normal attribute (layout = 2)
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, normal));
+    }
 
-    // vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, texCoords));
+    // // vertex tangent
+    // glEnableVertexAttribArray(3);
+    // glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tangent));
 
-    // vertex tangent
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tangent));
+    // // vertex bitangent
+    // glEnableVertexAttribArray(4);
+    // glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, bitangent));
 
-    // vertex bitangent
-    glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, bitangent));
+    // // ids
+    // glEnableVertexAttribArray(5);
+    // glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void *)offsetof(Vertex, boneIDs));
 
-    // ids
-    glEnableVertexAttribArray(5);
-    glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void *)offsetof(Vertex, boneIDs));
+    // // weights
+    // glEnableVertexAttribArray(6);
+    // glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, boneWeights));
 
-    // weights
-    glEnableVertexAttribArray(6);
-    glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, boneWeights));
+    int instanceCount = model->instanceCount;
+    // Instance matrix attribute (layout = 3)
+    if (instanceCount > 1) {
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->IVBO);
 
+        // mat4s matrix_model = model->transforms->model;
+        // printf("Our translation units x=%.2f y=%.2f z=%.2f\n", matrix_model.raw[3][0], matrix_model.raw[3][1], matrix_model.raw[3][2]);
+        glBufferData(GL_ARRAY_BUFFER, instanceCount * sizeof(mat4s), &model->transforms->model.raw[0], GL_DYNAMIC_DRAW);
+
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)0);
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)(sizeof(vec4s)));
+        glEnableVertexAttribArray(5);
+        glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)(2 * sizeof(vec4s)));
+        glEnableVertexAttribArray(6);
+        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(mat4s), (void *)(3 * sizeof(vec4s)));
+
+        glVertexAttribDivisor(3, 1);
+        glVertexAttribDivisor(4, 1);
+        glVertexAttribDivisor(5, 1);
+        glVertexAttribDivisor(6, 1);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    // printf("SetupMesh -> Internal Set up mesh\n");
 }
 
-static inline void DrawMesh(Mesh *mesh, Shader *shader) {
+static inline void DrawMesh(Model3D *model, Mesh *mesh) {
+    // printf("[!IMPORTANT] DRAWMESH -> TOP of Draw Mesh\n");
+
+    UseShader(*model->shader);
+    SendToShader(NULL, model);
+    // printf("Sent to shader\n");
     // bind appropriate textures
     GLuint diffuseNr = 1;
     GLuint specularNr = 1;
@@ -67,56 +155,110 @@ static inline void DrawMesh(Mesh *mesh, Shader *shader) {
     GLuint heightNr = 1;
 
     int counter = 0;
-    foreach (Texture *texture, mesh->textures) {
-        counter++;
-        // active proper texture unit before binding
-        glActiveTexture(GL_TEXTURE0 + counter);
 
-        // retrieve texture number (the N in texture_diffuseN)
-        char number[16];
-        char combined[128];
-        char *name = textureTypetoString(texture->type);
+    // if (!isListEmpty(mesh->textures)) {
+    //     foreach (Texture *texture, mesh->textures) {
+    //         if (texture != NULL) {
+    //             counter++;
+    //             // active proper texture unit before binding
+    //             glActiveTexture(GL_TEXTURE0 + counter);
 
-        if (strcmp(name, "texture_diffuse") == 0)
-            sprintf(number, "%u", diffuseNr++);
-        else if (strcmp(name, "texture_specular") == 0)
-            sprintf(number, "%u", specularNr++);
-        else if (strcmp(name, "texture_normal") == 0)
-            sprintf(number, "%u", normalNr++);
-        else if (strcmp(name, "texture_height") == 0)
-            sprintf(number, "%u", heightNr++);
+    //             // retrieve texture number (the N in texture_diffuseN)
+    //             char number[16];
+    //             char combined[128];
+    //             char *name = textureTypetoString(texture->type);
 
-        sprintf(combined, "%s%s", name, number);
+    //             if (strcmp(name, "texture_diffuse") == 0)
+    //                 sprintf(number, "%u", diffuseNr++);
+    //             else if (strcmp(name, "texture_specular") == 0)
+    //                 sprintf(number, "%u", specularNr++);
+    //             else if (strcmp(name, "texture_normal") == 0)
+    //                 sprintf(number, "%u", normalNr++);
+    //             else if (strcmp(name, "texture_height") == 0)
+    //                 sprintf(number, "%u", heightNr++);
 
-        // now set the sampler to the correct texture unit
-        setInt(*shader, combined, counter);
+    //             sprintf(combined, "%s%s", name, number);
 
-        // and finally bind the texture
-        glBindTexture(GL_TEXTURE_2D, texture->textureID);
+    //             // now set the sampler to the correct texture unit
+    //             setInt(*model->shader, combined, counter);
+
+    //             // and finally bind the texture
+    //             glBindTexture(GL_TEXTURE_2D, texture->textureID);
+
+    //             printf("DrawMesh -> Looped texture\n");
+    //         } else {
+    //             printf("DrawMesh -> Something is wrong with mesh->textures\n");
+    //         }
+    //     }
+    // }
+
+    // printf("DrawMesh-> MIDDLE\n");
+
+    // printf("Before bind -> VAO: %d, indexCount: %d\n", mesh->VAO, mesh->indexCount);
+    glBindVertexArray(mesh->VAO);
+    // printf("After bind -> VAO: %d, indexCount: %d\n", mesh->VAO, mesh->indexCount);
+    UseTexture(model->texture);
+
+    int indexCount = mesh->indexCount;
+    int vertexCount = mesh->vertexCount;
+    int instanceCount = model->instanceCount;
+    // printf("DrawMesh -> Index count: %d\n", indexCount);
+
+    if (mesh->indices != NULL && indexCount > 0) {
+        if (instanceCount > 1) {
+            glDrawElementsInstanced(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0, instanceCount);
+        } else {
+            glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
+        }
+    } else if (mesh->vertices != NULL && vertexCount > 0) {
+        glDrawArrays(GL_TRIANGLES, 0, vertexCount);
     }
 
-    // Draw Mesh
-    glBindVertexArray(mesh->VAO);
-    glDrawElements(GL_TRIANGLES, ListSize(mesh->indices), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-
     // reset to default texture unit
-    glActiveTexture(GL_TEXTURE0);
+    // if (!isListEmpty(mesh->textures)) {
+    //     glActiveTexture(GL_TEXTURE0);
+    // }
+
+    glBindVertexArray(0);
 }
 
-static inline void DrawModel(Model3D *model, Shader *shader) {
+static inline Mesh *NewMesh(Mesh builder, Model3D *model) {
+    Mesh *mesh = (Mesh *)malloc(sizeof(Mesh));
+    if (mesh == NULL) {
+        fprintf(stderr, "[MEMORY ERROR] Failed creating NewMesh();, ERROR ALLOCATING MEMORY\n");
+        free(mesh);
+        return NULL;
+    }
+
+    memcpy(mesh, &builder, sizeof(Mesh));
+
+    mesh->draw = DrawMesh;
+
+    // printf("[Mesh] VertexCount = %d | IndexCount = %d\n", mesh->vertexCount, mesh->indexCount);
+
+    SetupMesh(model, mesh);
+    // printf("NEWMESH -> Set up mesh\n");
+    return mesh;
+}
+
+static inline void DrawModel(Model3D *model) {
+    // printf("[!IMPORTANT] DRAWMODEL -> Top of Draw Model\n");
+
     foreach (Mesh *mesh, model->meshes) {
-        mesh->draw(mesh, shader);
+        if (mesh == NULL) continue;
+
+        mesh->draw(model, mesh);
+        // printf("DrawModel -> Drawing mesh\n");
     }
 }
 
 /* Checks all material textures of a given type and loads the textures if they're not loaded yet. */
-List *loadMaterialTextures(Model3D *model, CSTRUCT aiMaterial *mat, CSTRUCT aiTextureType type, char *typeName) {
+static inline List *loadMaterialTextures(Model3D *model, C_STRUCT aiMaterial *mat, C_ENUM aiTextureType type, char *typeName) {
     List *textures = (List *)NewList(NULL);
 
-    for (GLuint i = 0; i < mat->GetTextureCount(type); i++) {
-        CSTRUCT aiString str;
-        mat->GetTexture(type, i, &str);
+    for (GLuint i = 0; i < aiGetMaterialTextureCount(mat, type); i++) {
+        C_STRUCT aiString str;
+        aiGetMaterialTexture(mat, type, i, &str, NULL, NULL, NULL, NULL, NULL, NULL);
 
         /* Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture */
         bool skip = false;
@@ -125,67 +267,78 @@ List *loadMaterialTextures(Model3D *model, CSTRUCT aiMaterial *mat, CSTRUCT aiTe
             Texture *tex = (Texture *)ListGet(model->texturesLoaded, j);
 
             if (tex != NULL) {
-                if (strcmp(tex->path, str) == 0) {
+                // printf("Found tex in loadMaterialTexs()\n");
+                if (strcmp(tex->path, str.data) == 0) {
                     ListAdd(textures, tex);
                     skip = true; /* A 'Texture' with the same filepath has already been loaded, continue to next one. (optimization) */
+
+                    // printf("LOADMATERIALTEXTURES -> ADD TO FUNCTION LIST CHECK\n");
                     break;
                 }
             }
         }
 
-        if (!skip) { /* If texture hasn't been loaded already, load it */
-            TextureType type;
+        TextureType ourTextureType = TEXTURE_TYPE_NONE;
 
-            switch (typeName) {
-                case "texture_diffuse":
-                    type = TEXTURE_TYPE_DIFFUSE;
-                    break;
-                case "texture_specular":
-                    type = TEXTURE_TYPE_SPECULAR;
-                    break;
-                case "texture_normal":
-                    type = TEXTURE_TYPE_NORMAL;
-                    break;
-                case "texture_height":
-                    type = TEXTURE_TYPE_HEIGHT;
-                    break;
-                default:
-                    break;
+        /* If texture hasn't been loaded already, load it */
+        if (!skip) {
+            if (strcmp(typeName, "texture_diffuse") == 0) {
+                ourTextureType = TEXTURE_TYPE_DIFFUSE;
+            } else if (strcmp(typeName, "texture_specular") == 0) {
+                ourTextureType = TEXTURE_TYPE_SPECULAR;
+            } else if (strcmp(typeName, "texture_normal") == 0) {
+                ourTextureType = TEXTURE_TYPE_NORMAL;
+            } else if (strcmp(typeName, "texture_height") == 0) {
+                ourTextureType = TEXTURE_TYPE_HEIGHT;
             }
+        }
 
-            Texture *texture = (Texture *)NewTexture(type, str);
+        Texture *texture = (Texture *)NewTexture(ourTextureType, str.data);
+
+        if (texture != NULL) {
             ListAdd(textures, texture);
             ListAdd(model->texturesLoaded, texture);
         }
+
+        // printf("LOADMATERIALTEXTURES -> Loading new texture for Model3D %s w/ type: (%s)\n", str.data, typeName);
     }
+
+    // printf("Returning material textures list with size %zu\n", ListSize(textures));
 
     return textures;
 }
 
-Mesh *ProcessOurMesh(Model3D *model, CSTRUCT aiMesh *mesh, const CSTRUCT aiScene *scene) {
+static inline Mesh *ProcessOurMesh(Model3D *model, C_STRUCT aiMesh *mesh, const C_STRUCT aiScene *scene) {
+    Mesh ourMesh;
+    ourMesh.vertexCount = mesh->mNumVertices;
+
     /* Data to fill */
-    List *vertices = (List *)NewList(NULL); /* <Vertex *> */
-    List *indices = (List *)NewList(NULL);  /* <GLuint *> */
     List *textures = (List *)NewList(NULL); /* <Texture *> */
+    ourMesh.vertices = (Vertex *)malloc(ourMesh.vertexCount * sizeof(Vertex));
 
     /* Loop through each of the mesh's vertices */
     for (GLuint i = 0; i < mesh->mNumVertices; i++) {
-        Vertex *vertex = (Vertex *)malloc(sizeof(Vertex));
+        Vertex vertex;
         vec3s vector;
 
         vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
 
-        vertex->position = vector;
+        // printf("OBJ Vertex Parsed: %f, %f, %f\n", vector.x, vector.y, vector.z);
+
+        vertex.position = vector;
+
+        // printf("PROCESSOURMESH -> VERTEXES CHECK\n");
 
         /* Normals */
-        if (mesh->HasNormals()) {
+        if (mesh->mNormals != NULL) {
             vector.x = mesh->mNormals[i].x;
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
 
-            vertex->normal = vector;
+            vertex.normal = vector;
+            // printf("PROCESSOURMESH -> NORMALS CHECK\n");
         }
 
         /* Tex Coords */
@@ -197,41 +350,59 @@ Mesh *ProcessOurMesh(Model3D *model, CSTRUCT aiMesh *mesh, const CSTRUCT aiScene
             */
             vec.x = mesh->mTextureCoords[0][i].x;
             vec.y = mesh->mTextureCoords[0][i].y;
-            vertex->texCoords = vec;
+            vertex.texCoords = vec;
 
-            /* Tangent */
-            vector.x = mesh->mTangents[i].x;
-            vector.y = mesh->mTangents[i].y;
-            vector.z = mesh->mTangents[i].z;
-            vertex->tangent = vector;
+            // /* Tangent */
+            // vector.x = mesh->mTangents[i].x;
+            // vector.y = mesh->mTangents[i].y;
+            // vector.z = mesh->mTangents[i].z;
+            // vertex.tangent = vector;
 
-            /* Bitangent */
-            vector.x = mesh->mBitangents[i].x;
-            vector.y = mesh->mBitangents[i].y;
-            vector.z = mesh->mBitangents[i].z;
-            vertex->bitangent = vector;
+            // /* Bitangent */
+            // vector.x = mesh->mBitangents[i].x;
+            // vector.y = mesh->mBitangents[i].y;
+            // vector.z = mesh->mBitangents[i].z;
+            // vertex.bitangent = vector;
+
+            // printf("PROCESSOURMESH -> TEXCOORDS | TANGENT | BITANGENT CHECK\n");
         } else {
-            vertex->texCoords = (vec2s){0.0f, 0.0f};
+            vertex.texCoords = (vec2s){0.0f, 0.0f};
+            // printf("PROCESSOURMESH -> SORRY TEXCOORDS DEFAULTED\n");
         }
 
-        ListAdd(vertices, vertex);
+        // printf("Adding Vertex to mesh vertices array %i: (%f, %f, %f)\n", i, vertex.position.x, vertex.position.y, vertex.position.z);
+        if (i < ourMesh.vertexCount) {
+            ourMesh.vertices[i] = vertex;
+        } else {
+            printf("[INDEX ARRAY OUT OF BOUNDS ERROR]  Vertex counter out of bounds when Processing our Mesh: %d\n", i);
+        }
+
+        // printf("PROCESSOURMESH -> ONE FULL LOOP\n");
     }
 
     /* Now walk through each of the Mesh's faces and retrieve the corresponding vertex indices. */
+    GLuint indexCounter = 0;
     for (GLuint i = 0; i < mesh->mNumFaces; i++) {
-        CSTRUCT aiFace face = (aiFace)mesh->mFaces[i];
+        C_STRUCT aiFace face = (C_STRUCT aiFace)mesh->mFaces[i];
+        ourMesh.indexCount = mesh->mNumFaces * face.mNumIndices;
+
+        if (ourMesh.indices == NULL) {
+            ourMesh.indices = (GLuint *)malloc(ourMesh.indexCount * sizeof(GLuint));
+        }
 
         /* Retrieve all indices of the face and store them in the indices list */
         for (GLuint j = 0; j < face.mNumIndices; j++) {
-            GLuint *indicesCopy = (GLuint *)malloc(sizeof(GLuint));
-            *indicesCopy = face.mIndices[j];
-
-            ListAdd(indices, indicesCopy);
+            if (indexCounter < ourMesh.indexCount) {
+                ourMesh.indices[indexCounter++] = face.mIndices[j];
+            } else {
+                printf("[INDEX ARRAY OUT OF BOUNDS ERROR] Index counter out of bounds when Processing our Mesh: %d\n", indexCounter);
+            }
+            // printf("PROCESSOURMESH -> INDICES LOOP & CHECK\n");
         }
     }
 
     /* Process materials */
-    CSTRUCT aiMaterial *material = (aiMaterial *)scene->mMaterials[mesh->mMaterialIndex];
+    C_STRUCT aiMaterial *material = (C_STRUCT aiMaterial *)scene->mMaterials[mesh->mMaterialIndex];
 
     /*
         Each diffuse texture should be named as 'texture_diffuseN',
@@ -245,40 +416,55 @@ Mesh *ProcessOurMesh(Model3D *model, CSTRUCT aiMesh *mesh, const CSTRUCT aiScene
 
     /* 1. diffuse maps */
     List *diffuseMaps = (List *)loadMaterialTextures(model, material, aiTextureType_DIFFUSE, "texture_diffuse");
-    ListAddAll(textures, diffuseMaps);
+
+    if (!isListEmpty(diffuseMaps)) {
+        ListAddAll(textures, diffuseMaps);
+    }
 
     /* 2. specular maps */
     List *specularMaps = (List *)loadMaterialTextures(model, material, aiTextureType_SPECULAR, "texture_specular");
-    ListAddAll(textures, specularMaps);
+
+    if (!isListEmpty(specularMaps)) {
+        ListAddAll(textures, specularMaps);
+    }
 
     /* 3. normal maps */
     List *normalMaps = (List *)loadMaterialTextures(model, material, aiTextureType_HEIGHT, "texture_normal");
-    ListAddAll(textures, normalMaps);
+
+    if (!isListEmpty(normalMaps)) {
+        ListAddAll(textures, normalMaps);
+    }
 
     /* 4. height maps */
     List *heightMaps = (List *)loadMaterialTextures(model, material, aiTextureType_AMBIENT, "texture_height");
-    ListAddAll(textures, heightMaps);
 
-    return (Mesh *)NewMesh(vertices, indices, textures);
+    if (!isListEmpty(heightMaps)) {
+        ListAddAll(textures, heightMaps);
+    }
+
+    // printf("PROCESSOURMESH -> ENTIRE FUNCTION\n");
+    return (Mesh *)NewMesh(ourMesh, model);
 }
 
 /*
     Processes a node in a recursive fashion.
     Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
 */
-static inline void ProcessRootNode(Model3D *model, CSTRUCT aiNode *node, const CSTRUCT aiScene *scene) {
+static inline void ProcessRootNode(Model3D *model, C_STRUCT aiNode *node, const C_STRUCT aiScene *scene) {
     /* Process each 'Mesh' located at the current node */
     for (GLuint i = 0; i < node->mNumMeshes; i++) {
         /* The node object only contains indices to index the actual objects in the scene.
            the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         */
-        CSTRUCT aiMesh *mesh = (aiMesh *)scene->mMeshes[node->mMeshes[i]];
+        C_STRUCT aiMesh *mesh = (C_STRUCT aiMesh *)scene->mMeshes[node->mMeshes[i]];
         ListAdd(model->meshes, (Mesh *)ProcessOurMesh(model, mesh, scene));
+        // printf("PROCESSROOTNODE -> MESHES LOOP & CHECK\n");
     }
 
     /* After we've processed all of the Meshes (if any) we then recursively process each of the children nodes */
     for (GLuint i = 0; i < node->mNumChildren; i++) {
         ProcessRootNode(model, node->mChildren[i], scene);
+        // printf("PROCESSROOTNODE -> CHILDREN LOOP & CHECK\n");
     }
 }
 

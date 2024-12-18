@@ -26,4 +26,11 @@ https://learnopengl.com/code_viewer_gh.php?code=src/3.model_loading/1.model_load
 - THEN PHYSICS OH NO
 - (NOT ORDERED HERE) DRAG & DROP assets into the scene hiarchy & into the scene itself..
 
+[!IMPORTANT] DRAWMODEL -> Top of Draw Model
+[!IMPORTANT] DRAWMESH -> Top of Draw Mesh
+DrawMesh -> Index count: 36
+DrawMesh -> Internal drawing mesh
+DrawModel -> Drawing mesh
+Error 00000501 after tex paint tex
+
 #endif // TAVENGINE_TODO

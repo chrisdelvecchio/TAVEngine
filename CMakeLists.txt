@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.29.3)
-project(game)
+project(engine)
 
 # Specify the C standard
 set(CMAKE_C_STANDARD 23)

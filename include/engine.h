@@ -24,6 +24,7 @@
 #define MAX_BONE_INFLUENCE 4
 
 typedef enum TextureType {
+    TEXTURE_TYPE_NONE,
     TEXTURE_TYPE_2D,
     TEXTURE_TYPE_CUBEMAP,
     TEXTURE_TYPE_DIFFUSE,
@@ -62,7 +63,7 @@ typedef struct Engine {
 
     char *mainPath, *settingsFile, *shaderDir, *assetDir, *fontDir;
     
-    List *sceneObjects, *cameras, *shaders;
+    List *sceneObjects, *models, *cameras, *shaders;
     Map *textures;
 
     /*
@@ -113,21 +114,22 @@ typedef enum ObjectType {
     OBJECT_SPRITE_STATIC      = 0x10, // 0001 0000
     OBJECT_SPRITE_BILLBOARD   = 0x20, // 0010 0000
     OBJECT_FLOOR              = 0x40, // 0100 0000
-    OBJECT_FRAMEBUFFER_QUAD   = 0x80  // 1000 0000
+    OBJECT_FRAMEBUFFER_QUAD   = 0x80,  // 1000 0000
+    OBJECT_3D_MODEL           = 0x100 // 0001 0000 0000 (Next byte)
 } ObjectType;
 
 typedef struct Vertex {
     vec3s position;
     vec3s normal;
     vec2s texCoords;
-    vec3s tangent;
-    vec3s bitangent;
+    // vec3s tangent;
+    // vec3s bitangent;
 	
-    // bone indexes which will influence this vertex
-	int boneIDs[MAX_BONE_INFLUENCE];
+    // // bone indexes which will influence this vertex
+	// int boneIDs[MAX_BONE_INFLUENCE];
 	
-    // weights from each bone
-	float boneWeights[MAX_BONE_INFLUENCE];
+    // // weights from each bone
+	// float boneWeights[MAX_BONE_INFLUENCE];
 } Vertex;
 
 typedef struct MeshData {
@@ -139,25 +141,35 @@ typedef struct MeshData {
     void (*free)(struct MeshData *self);
 } MeshData;
 
-typedef struct Mesh {
-    List *vertices;  // (List *) <Vertex>
-    List *indices;   // (List *) <GLuint>
-    List *textures;  // (List *) <Texture>
-
-    GLuint VAO, VBO, EBO;
-
-    void (*draw)(struct Mesh *self, Shader *shader);
-} Mesh;
-
 typedef struct Model3D {
+    char *tag;
+    
+    Shader *shader;
+    Texture *texture;
+    Transform *transforms;
+
     List *texturesLoaded;
     List *meshes;
 
-    char *path;
     bool gammaCorrection;
+    int instanceCount;
 
-    void (*draw)(struct Model3D *self, Shader *shader);
+    vec3s color;
+
+    void (*draw)(struct Model3D *self);
 } Model3D;
+
+typedef struct Mesh {
+    int vertexCount, indexCount;
+
+    Vertex *vertices;
+    GLuint *indices;
+    List *textures;  // (List *) <Texture>
+
+    GLuint VAO, VBO, EBO, IVBO;
+
+    void (*draw)(Model3D *model, struct Mesh *self);
+} Mesh;
 
 typedef struct SceneObject {
     char *tag;
@@ -167,7 +179,6 @@ typedef struct SceneObject {
 
     Shader *shader;
     Texture *texture;
-    Model3D *model3D;
 
     MeshData *meshData;
     GLuint VAO, VBO, EBO, IVBO;

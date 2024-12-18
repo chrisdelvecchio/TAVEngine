@@ -23,12 +23,15 @@ Order of operation:
     -X (left)
     +Y (top)
     -Y (bottom)
-    +Z (front) 
+    +Z (front)
     -Z (back)
 */
 Skybox *NewSkybox(List *textureNames);
 
 void UseTexture(Texture *texture);
+
+void SendToShader(SceneObject *object, Model3D *model);
+void UpdateInstancedBufferObj(SceneObject *object, Model3D *model, mat4s *matrices, int newCount);
 
 static inline float CalcDistance(vec3s cameraPos, vec3s objectPos) {
     return sqrtf(powf(cameraPos.x - objectPos.x, 2) +
@@ -89,31 +92,49 @@ static inline void UpdateFrustum(Camera *camera, float projViewMatrix[16]) {
 static inline bool ObjectInFrustum(Camera *camera, vec3s objectPosition, float radius) {
     for (int i = 0; i < 6; i++) {
         if (camera->frustum[i].a * objectPosition.x + camera->frustum[i].b * objectPosition.y + camera->frustum[i].c * objectPosition.z + camera->frustum[i].d <= -radius)
-            return GLFW_FALSE; // Outside this plane
+            return GLFW_FALSE;  // Outside this plane
     }
-    return GLFW_TRUE; // Inside all planes
+    return GLFW_TRUE;  // Inside all planes
 }
 
 static inline bool ObjectExists(SceneObject *object) {
     return object && object->VAO != 0;
 }
 
-static inline void UnbindBufferObj(SceneObject *object) {
+static inline void UnbindBufferObj(SceneObject *object, Model3D *model) {
     // Unbind VAO, VBO, and EBO
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // Delete the buffers
-    glDeleteVertexArrays(1, &object->VAO);
-    glDeleteBuffers(1, &object->VBO);
-    glDeleteBuffers(1, &object->IVBO);
-    glDeleteBuffers(1, &object->EBO);
+    if (object != NULL) {
+        glDeleteVertexArrays(1, &object->VAO);
+        glDeleteBuffers(1, &object->VBO);
+        glDeleteBuffers(1, &object->IVBO);
+        glDeleteBuffers(1, &object->EBO);
 
-    object->VAO = 0;
-    object->VBO = 0;
-    object->IVBO = 0;
-    object->EBO = 0;
+        object->VAO = 0;
+        object->VBO = 0;
+        object->IVBO = 0;
+        object->EBO = 0;
+    }
+
+    if (model != NULL) {
+        if (!isListEmpty(model->meshes)) {
+            foreach (Mesh *mesh, model->meshes) {
+                glDeleteVertexArrays(1, &mesh->VAO);
+                glDeleteBuffers(1, &mesh->VBO);
+                glDeleteBuffers(1, &mesh->IVBO);
+                glDeleteBuffers(1, &mesh->EBO);
+
+                mesh->VAO = 0;
+                mesh->VBO = 0;
+                mesh->IVBO = 0;
+                mesh->EBO = 0;
+            }
+        }
+    }
 }
 
 static inline void RemoveTextures(void) {
@@ -128,15 +149,7 @@ static inline void RemoveTextures(void) {
 
 static inline void FreeupObject(SceneObject *object) {
     if (ObjectExists(object)) {
-        UnbindBufferObj(object);
-
-        // freeMeshData(object->meshData);
-
-        // if (object->transforms != NULL) {
-        //     free(object->transforms);
-        // }
-
-        // free(object);
+        UnbindBufferObj(object, NULL);
     }
 }
 
@@ -176,4 +189,4 @@ static inline char *getAssetPath(const char *path) {
     return (char *)CreatePath(engine->assetDir, path);
 }
 
-#endif // RENDER_H
+#endif  // RENDER_H

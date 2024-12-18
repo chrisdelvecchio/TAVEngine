@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: game
+# Project: engine
 # Configurations: 
 # =============================================================================
 
@@ -36,139 +36,148 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/Chris/Desktop/Chris/Coding/Engine/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target game
+# Object build statements for EXECUTABLE target engine
 
 
 #############################################
-# Order-only phony target for game
+# Order-only phony target for engine
 
-build cmake_object_order_depends_target_game: phony || cmake_object_order_depends_target_cglm cmake_object_order_depends_target_io cmake_object_order_depends_target_list cmake_object_order_depends_target_map cmake_object_order_depends_target_nanovg
+build cmake_object_order_depends_target_engine: phony || cmake_object_order_depends_target_cglm cmake_object_order_depends_target_io cmake_object_order_depends_target_list cmake_object_order_depends_target_map cmake_object_order_depends_target_nanovg
 
-build CMakeFiles/game.dir/external/glad/src/glad.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/src/glad.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\external\glad\src\glad.c.obj.d
+build CMakeFiles/engine.dir/external/glad/src/glad.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/src/glad.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\external\glad\src\glad.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\external\glad\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\external\glad\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/callbacks.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/callbacks.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\callbacks.c.obj.d
+build CMakeFiles/engine.dir/src/callbacks.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/callbacks.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\callbacks.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/camera.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/camera.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\camera.c.obj.d
+build CMakeFiles/engine.dir/src/camera.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/camera.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\camera.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/engine.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/engine.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\engine.c.obj.d
+build CMakeFiles/engine.dir/src/engine.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/engine.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\engine.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/main.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/main.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\main.c.obj.d
+build CMakeFiles/engine.dir/src/main.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/main.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\main.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/object.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/object.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\object.c.obj.d
+build CMakeFiles/engine.dir/src/model3d.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/model3d.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\model3d.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/physics.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/physics.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\physics.c.obj.d
+build CMakeFiles/engine.dir/src/object.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/object.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\object.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/render.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/render.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\render.c.obj.d
+build CMakeFiles/engine.dir/src/physics.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/physics.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\physics.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/shader.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/shader.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\shader.c.obj.d
+build CMakeFiles/engine.dir/src/render.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/render.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\render.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/timings.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/timings.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\timings.c.obj.d
+build CMakeFiles/engine.dir/src/shader.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/shader.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\shader.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/ui.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/ui.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\ui.c.obj.d
+build CMakeFiles/engine.dir/src/timings.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/timings.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\timings.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
-build CMakeFiles/game.dir/src/utils.c.obj: C_COMPILER__game_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/utils.c || cmake_object_order_depends_target_game
-  DEP_FILE = CMakeFiles\game.dir\src\utils.c.obj.d
+build CMakeFiles/engine.dir/src/ui.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/ui.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\ui.c.obj.d
   FLAGS = -std=gnu2x
   INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
-  OBJECT_DIR = CMakeFiles\game.dir
-  OBJECT_FILE_DIR = CMakeFiles\game.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_PDB = game.pdb
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
+
+build CMakeFiles/engine.dir/src/utils.c.obj: C_COMPILER__engine_unscanned_ C$:/Users/Chris/Desktop/Chris/Coding/Engine/src/utils.c || cmake_object_order_depends_target_engine
+  DEP_FILE = CMakeFiles\engine.dir\src\utils.c.obj.d
+  FLAGS = -std=gnu2x
+  INCLUDES = -IC:/Users/Chris/Desktop/Chris/Coding/Engine/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/glad/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/cglm-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/nanovg-master/src -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-list-master/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-io-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main/include -IC:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/include
+  OBJECT_DIR = CMakeFiles\engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\engine.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_PDB = engine.pdb
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target game
+# Link build statements for EXECUTABLE target engine
 
 
 #############################################
-# Link the executable game.exe
+# Link the executable engine.exe
 
-build game.exe: C_EXECUTABLE_LINKER__game_ CMakeFiles/game.dir/external/glad/src/glad.c.obj CMakeFiles/game.dir/src/callbacks.c.obj CMakeFiles/game.dir/src/camera.c.obj CMakeFiles/game.dir/src/engine.c.obj CMakeFiles/game.dir/src/main.c.obj CMakeFiles/game.dir/src/object.c.obj CMakeFiles/game.dir/src/physics.c.obj CMakeFiles/game.dir/src/render.c.obj CMakeFiles/game.dir/src/shader.c.obj CMakeFiles/game.dir/src/timings.c.obj CMakeFiles/game.dir/src/ui.c.obj CMakeFiles/game.dir/src/utils.c.obj | external/cglm-master/libcglm.dll.a external/nanovg-master/libnanovg.a external/lib-list-master/liblist.a external/lib-io-main/libio.a external/lib-map-main/libmap.a C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/build/lib/libassimp.dll.a C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW/lib/libglfw3.a || external/cglm-master/libcglm-0.dll external/lib-io-main/libio.a external/lib-list-master/liblist.a external/lib-map-main/libmap.a external/nanovg-master/libnanovg.a
+build engine.exe: C_EXECUTABLE_LINKER__engine_ CMakeFiles/engine.dir/external/glad/src/glad.c.obj CMakeFiles/engine.dir/src/callbacks.c.obj CMakeFiles/engine.dir/src/camera.c.obj CMakeFiles/engine.dir/src/engine.c.obj CMakeFiles/engine.dir/src/main.c.obj CMakeFiles/engine.dir/src/model3d.c.obj CMakeFiles/engine.dir/src/object.c.obj CMakeFiles/engine.dir/src/physics.c.obj CMakeFiles/engine.dir/src/render.c.obj CMakeFiles/engine.dir/src/shader.c.obj CMakeFiles/engine.dir/src/timings.c.obj CMakeFiles/engine.dir/src/ui.c.obj CMakeFiles/engine.dir/src/utils.c.obj | external/cglm-master/libcglm.dll.a external/nanovg-master/libnanovg.a external/lib-list-master/liblist.a external/lib-io-main/libio.a external/lib-map-main/libmap.a C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/build/lib/libassimp.dll.a C$:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW/lib/libglfw3.a || external/cglm-master/libcglm-0.dll external/lib-io-main/libio.a external/lib-list-master/liblist.a external/lib-map-main/libmap.a external/nanovg-master/libnanovg.a
   LINK_LIBRARIES = external/cglm-master/libcglm.dll.a  external/nanovg-master/libnanovg.a  external/lib-list-master/liblist.a  external/lib-io-main/libio.a  external/lib-map-main/libmap.a  C:/Users/Chris/Desktop/Chris/Coding/Engine/external/assimp/build/lib/libassimp.dll.a  C:/Users/Chris/Desktop/Chris/Coding/Engine/external/GLFW/lib/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\game.dir
+  OBJECT_DIR = CMakeFiles\engine.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\game.dir\
-  TARGET_FILE = game.exe
-  TARGET_IMPLIB = libgame.dll.a
-  TARGET_PDB = game.pdb
+  TARGET_COMPILE_PDB = CMakeFiles\engine.dir\
+  TARGET_FILE = engine.exe
+  TARGET_IMPLIB = libengine.dll.a
+  TARGET_PDB = engine.pdb
 
 
 #############################################
@@ -1345,7 +1354,7 @@ build external/lib-map-main/install/strip: phony external/lib-map-main/CMakeFile
 
 build cglm: phony external/cglm-master/libcglm-0.dll
 
-build game: phony game.exe
+build engine: phony engine.exe
 
 build io: phony external/lib-io-main/libio.a
 
@@ -1373,7 +1382,7 @@ build nanovg: phony external/nanovg-master/libnanovg.a
 #############################################
 # Folder: C:/Users/Chris/Desktop/Chris/Coding/Engine/build
 
-build all: phony game.exe external/cglm-master/all external/nanovg-master/all external/lib-list-master/all external/lib-io-main/all external/lib-map-main/all
+build all: phony engine.exe external/cglm-master/all external/nanovg-master/all external/lib-list-master/all external/lib-io-main/all external/lib-map-main/all
 
 # =============================================================================
 

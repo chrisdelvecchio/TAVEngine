@@ -157,12 +157,7 @@ void *ListRemove(List *list, void *data) {
 }
 
 void ListClear(List *list) {
-    if (isListEmpty(list)) {
-        fprintf(
-            stderr,
-            "LIST CLEAR EXCEPTION: Failed to clear list. List is already empty\n");
-        return;
-    }
+    if (isListEmpty(list)) return;
 
     for (size_t i = 0; i < list->size; i++) {
         list->data[i] = NULL;
