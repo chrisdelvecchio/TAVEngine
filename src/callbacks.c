@@ -3,10 +3,11 @@
 #include <stdio.h>
 
 #include "camera.h"
+#include "model3d.h"
+#include "render.h"
 #include "shader.h"
 #include "ui.h"
 #include "utils.h"
-#include "render.h"
 
 void init_callbacks(Engine *engine) {
     glfwSetKeyCallback(engine->window, key_callback);
@@ -50,7 +51,12 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
-        element->isHovered = isPointInsideElement(element, (vec2s){xpos, ypos});
+        element->clickable.isHovered = isPointInsideElement(element, (vec2s){xpos, ypos});
+    }
+
+    foreach (Model3D *model, engine->models) {
+        if (!ModelExists(model)) continue;
+        model->clickable.isHovered = isPointInsideModel(model, (vec2s){xpos, ypos});
     }
 }
 
@@ -62,8 +68,16 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
         foreach (Element *element, menu->elements) {
             if (element == NULL || element->type != ELEMENT_BUTTON) continue;
 
-            if (element->isHovered && element->onClick) {
-                element->onClick(element);
+            if (element->clickable.isHovered && element->clickable.onClick) {
+                element->clickable.onClick(element);
+            }
+        }
+
+        foreach (Model3D *model, engine->models) {
+            if (!ModelExists(model)) continue;
+
+            if (model->clickable.isHovered && model->clickable.onClick) {
+                model->clickable.onClick(model);
             }
         }
     }
@@ -82,11 +96,11 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     engine->aspectRatio = (float)width / (float)height;
 
     if (engine->antiAliasing) {
-        UnbindFrameBufferObj(antiAlias); // Clean up the old framebuffer
+        UnbindFrameBufferObj(antiAlias);  // Clean up the old framebuffer
+        
         antiAlias = BindFrameBuffer((FrameBufferObject){
             .bufferWidth = width,
-            .bufferHeight = height
-        });  // Recreate framebuffer with new dimensions
+            .bufferHeight = height});  // Recreate framebuffer with new dimensions
     }
 }
 

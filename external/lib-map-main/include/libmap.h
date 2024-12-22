@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __LIBMAP__
 #define __LIBMAP__
 

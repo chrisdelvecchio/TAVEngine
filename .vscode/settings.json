@@ -34,7 +34,13 @@
         "importer.hpp": "c",
         "string": "cpp",
         "string_view": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "libtasks.h": "c",
+        "model3d.h": "c",
+        "pthread_compat.h": "c",
+        "pthread_time.h": "c",
+        "pthread_signal.h": "c",
+        "pthread_unistd.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

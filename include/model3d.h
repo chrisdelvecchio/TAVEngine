@@ -11,6 +11,7 @@
 #include "render.h"
 #include "shader.h"
 #include "utils.h"
+#include "ui.h"
 
 Model3D *NewModel3D(Model3D builder, const char *path);
 
@@ -382,13 +383,19 @@ static inline Mesh *ProcessOurMesh(Model3D *model, C_STRUCT aiMesh *mesh, const 
 
     /* Now walk through each of the Mesh's faces and retrieve the corresponding vertex indices. */
     GLuint indexCounter = 0;
+    GLuint totalIndices = 0;
+    for (GLuint i = 0; i < mesh->mNumFaces; i++) {
+        totalIndices += mesh->mFaces[i].mNumIndices;
+    }
+
+    ourMesh.indexCount = totalIndices;
+
+    if (ourMesh.indices == NULL) {
+        ourMesh.indices = (GLuint *)malloc(ourMesh.indexCount * sizeof(GLuint));
+    }
+
     for (GLuint i = 0; i < mesh->mNumFaces; i++) {
         C_STRUCT aiFace face = (C_STRUCT aiFace)mesh->mFaces[i];
-        ourMesh.indexCount = mesh->mNumFaces * face.mNumIndices;
-
-        if (ourMesh.indices == NULL) {
-            ourMesh.indices = (GLuint *)malloc(ourMesh.indexCount * sizeof(GLuint));
-        }
 
         /* Retrieve all indices of the face and store them in the indices list */
         for (GLuint j = 0; j < face.mNumIndices; j++) {
@@ -451,20 +458,22 @@ static inline Mesh *ProcessOurMesh(Model3D *model, C_STRUCT aiMesh *mesh, const 
     Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
 */
 static inline void ProcessRootNode(Model3D *model, C_STRUCT aiNode *node, const C_STRUCT aiScene *scene) {
-    /* Process each 'Mesh' located at the current node */
-    for (GLuint i = 0; i < node->mNumMeshes; i++) {
-        /* The node object only contains indices to index the actual objects in the scene.
-           the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-        */
-        C_STRUCT aiMesh *mesh = (C_STRUCT aiMesh *)scene->mMeshes[node->mMeshes[i]];
-        ListAdd(model->meshes, (Mesh *)ProcessOurMesh(model, mesh, scene));
-        // printf("PROCESSROOTNODE -> MESHES LOOP & CHECK\n");
-    }
+    if (scene != NULL) {
+        /* Process each 'Mesh' located at the current node */
+        for (GLuint i = 0; i < node->mNumMeshes; i++) {
+            /* The node object only contains indices to index the actual objects in the scene.
+               the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+            */
+            C_STRUCT aiMesh *mesh = (C_STRUCT aiMesh *)scene->mMeshes[node->mMeshes[i]];
+            ListAdd(model->meshes, (Mesh *)ProcessOurMesh(model, mesh, scene));
+            // printf("PROCESSROOTNODE -> MESHES LOOP & CHECK\n");
+        }
 
-    /* After we've processed all of the Meshes (if any) we then recursively process each of the children nodes */
-    for (GLuint i = 0; i < node->mNumChildren; i++) {
-        ProcessRootNode(model, node->mChildren[i], scene);
-        // printf("PROCESSROOTNODE -> CHILDREN LOOP & CHECK\n");
+        /* After we've processed all of the Meshes (if any) we then recursively process each of the children nodes */
+        for (GLuint i = 0; i < node->mNumChildren; i++) {
+            ProcessRootNode(model, node->mChildren[i], scene);
+            // printf("PROCESSROOTNODE -> CHILDREN LOOP & CHECK\n");
+        }
     }
 }
 

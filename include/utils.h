@@ -101,6 +101,15 @@ static inline NVGcolor getOppositeColor(NVGcolor color) {
     return nvgRGBA(255 - color.r, 255 - color.g, 255 - color.b, color.a);
 }
 
+static inline vec3s getOppositeColorV3S(vec3s color) {
+    return (vec3s){255 - color.x, 255 - color.y, 255 - color.z};
+}
+
+static inline vec3s nvgColorToV3S(NVGcolor color) {
+    return (vec3s){color.r, color.g, color.b};
+}
+
 bool isPointInsideElement(Element *element, vec2s cursor);
+bool isPointInsideModel(Model3D *model, vec2s cursor);
 
 #endif  // UTILS_H

@@ -162,10 +162,6 @@ static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader
         model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
         model = glms_scale(model, transform.scale);
 
-        if (ourModel != NULL) {
-            printf("Model3D '%s' -> position x=%.2f y=%.2f z=%.2f\n", ourModel->tag, transform.position.x, transform.position.y, transform.position.z);
-        }
-
         setMat4(*shader, "model", &model);
     }
 }

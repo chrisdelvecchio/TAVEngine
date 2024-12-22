@@ -7,7 +7,9 @@
 #include "engine.h"
 #include "ui.h"
 
-static inline void onClickPlayButton(Element *element) {
+static inline void onClickPlayButton(void *data) {
+    Element *element = (Element *)data;
+    
     printf("Play button clicked!\n");
     RemoveElement(element);
 }

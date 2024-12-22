@@ -17,13 +17,12 @@ typedef struct Element {
     ElementType type;
     Transform transform;
     
-    void (*onClick)(struct Element *element);
+    Clickable clickable;
 
     NVGcolor color;
     NVGcolor textColor;
     NVGcolor hoverColor;
 
-    bool isHovered;
     bool created;
     char text[256];
     float width, height, textScale;
@@ -49,9 +48,7 @@ static inline bool ElementExists(Element *element) {
 
 static inline void FreeupElement(Element *element) {
     if (!ElementExists(element)) return;
-
     element->created = GLFW_FALSE;
-    element->onClick = NULL;
 
     free(element);
 }

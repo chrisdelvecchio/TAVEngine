@@ -10,9 +10,17 @@ bool isPointInsideElement(Element *element, vec2s cursor) {
 
         if (cursor.x >= elementX && cursor.x <= elementX + rectWidth &&
             cursor.y >= elementY && cursor.y <= elementY + rectHeight) {
-            return true;
+            return GLFW_TRUE;
         }
     }
 
-    return false;
+    return GLFW_FALSE;
+}
+
+bool isPointInsideModel(Model3D *model, vec2s cursor) {
+    float modelX = model->transforms->position.x;
+    float modelY = model->transforms->position.y;
+    float modelZ = model->transforms->position.z;
+
+    return GLFW_TRUE;
 }

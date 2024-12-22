@@ -11,6 +11,7 @@
 #include "libio.h"
 #include "liblist.h"
 #include "libmap.h"
+#include "libtasks.h"
 #include "nanovg.h"
 #include "timings.h"
 
@@ -141,19 +142,28 @@ typedef struct MeshData {
     void (*free)(struct MeshData *self);
 } MeshData;
 
+typedef struct Clickable {
+    bool isHovered;
+    vec3s hoverColor;
+
+    void (*onClick)(void *data);
+} Clickable;
+
 typedef struct Model3D {
     char *tag;
     
+    Clickable clickable;
+
     Shader *shader;
     Texture *texture;
     Transform *transforms;
-
     List *texturesLoaded;
     List *meshes;
 
     bool gammaCorrection;
     int instanceCount;
 
+    vec3s hoverColor;
     vec3s color;
 
     void (*draw)(struct Model3D *self);
@@ -175,11 +185,11 @@ typedef struct SceneObject {
     char *tag;
 
     ObjectType type;
-    Transform *transforms;
+    Clickable clickable;
 
+    Transform *transforms;
     Shader *shader;
     Texture *texture;
-
     MeshData *meshData;
     GLuint VAO, VBO, EBO, IVBO;
     Vertex *vertices;

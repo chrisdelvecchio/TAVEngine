@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef TIMINGS_H
 #define TIMINGS_H
 

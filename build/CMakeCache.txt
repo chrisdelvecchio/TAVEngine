@@ -386,6 +386,15 @@ libmap_IS_TOP_LEVEL:STATIC=OFF
 libmap_SOURCE_DIR:STATIC=C:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-map-main
 
 //Value Computed by CMake
+libtasks_BINARY_DIR:STATIC=C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/lib-tasks
+
+//Value Computed by CMake
+libtasks_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+libtasks_SOURCE_DIR:STATIC=C:/Users/Chris/Desktop/Chris/Coding/Engine/external/lib-tasks
+
+//Value Computed by CMake
 nanovg_BINARY_DIR:STATIC=C:/Users/Chris/Desktop/Chris/Coding/Engine/build/external/nanovg-master
 
 //Value Computed by CMake

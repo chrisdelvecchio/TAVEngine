@@ -13,7 +13,7 @@ https://learnopengl.com/code_viewer_gh.php?code=src/3.model_loading/1.model_load
 
 - SKYBOX [COMPLETED]
 - SPRITES & BILLBOARDS w/ Instancing Support [COMPLETED]
-- MODEL3D [WORK IN PROGRESS]
+- MODEL3D [ALMOST COMPLETED] NEED TO STRESS-TEST FULLY & LOAD ASYNCHRONOUSLY ON SEPERATE THREAD
 - AABB's FOR LATER USE (SUPER USEFUL) might be fun as well little treat after working hard on model support :)
 - Selecting SceneObject's with cursor
 - Highlighting SceneObject's with cursor

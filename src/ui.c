@@ -79,8 +79,13 @@ Element *NewUIElement(Element element) {
         newElement->textColor = nvgRGBA(255, 255, 255, 255);
     }
 
-    if (newElement->hoverColor.a == 0 && newElement->hoverColor.r == 0 && newElement->hoverColor.g == 0 && newElement->hoverColor.b == 0) {
+    if (!newElement->clickable.onClick && newElement->clickable.hoverColor.x == 0 && newElement->clickable.hoverColor.y == 0 && newElement->clickable.hoverColor.z == 0) {
         newElement->hoverColor = getOppositeColor(newElement->color);
+        
+        newElement->clickable = (Clickable){
+            .onClick = NULL,
+            .hoverColor = nvgColorToV3S(newElement->hoverColor)
+        };
     }
 
     switch (newElement->type) {
@@ -191,7 +196,7 @@ void DrawElement(Element *element, void (*update)(void)) {
             nvgBeginFrame(engine->vgContext, engine->windowWidth, engine->windowHeight, engine->aspectRatio);
 
             if (element->type == ELEMENT_BUTTON) {
-                nvgFillColor(engine->vgContext, (element->isHovered) ? element->hoverColor : element->color);
+                nvgFillColor(engine->vgContext, (element->clickable.isHovered) ? element->hoverColor : element->color);
             } else {
                 nvgFillColor(engine->vgContext, element->color);
             }

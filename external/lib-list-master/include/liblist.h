@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __LIB_HEADER__
 #define __LIB_HEADER__
 
