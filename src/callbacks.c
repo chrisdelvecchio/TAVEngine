@@ -9,6 +9,8 @@
 #include "ui.h"
 #include "utils.h"
 
+static vec2s cursor;
+
 void init_callbacks(Engine *engine) {
     glfwSetKeyCallback(engine->window, key_callback);
     glfwSetMouseButtonCallback(engine->window, mouse_button_callback);
@@ -45,26 +47,44 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 }
 
 void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
+    float xposF = (float)xpos;
+    float yposF = (float)ypos;
+    
     // printf("Cursor at (%f, %f)\n", xpos, ypos);
 
-    processMouse(camera, xpos, ypos);
+    if (engine->mouseDragging) {
+        processMouse(camera, xposF, yposF);
+    }
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
-        element->clickable.isHovered = isPointInsideElement(element, (vec2s){xpos, ypos});
+        element->clickable.isHovered = isPointInsideElement(element, (vec2s){xposF, yposF});
     }
 
     foreach (Model3D *model, engine->models) {
         if (!ModelExists(model)) continue;
-        model->clickable.isHovered = isPointInsideModel(model, (vec2s){xpos, ypos});
+        model->clickable.isHovered = isPointInside3DObj(NULL, model, (vec2s){xposF, yposF});
     }
+
+    foreach (SceneObject *object, engine->sceneObjects) {
+        if (!ObjectExists(object)) continue;
+        object->clickable.isHovered = isPointInside3DObj(object, NULL, (vec2s){xposF, yposF});
+    }
+
+    cursor = (vec2s){xposF, yposF};
 }
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        // press
-    } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-        // release
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+        if (action == GLFW_PRESS) {
+            engine->mouseDragging = GLFW_TRUE;
+            engine->firstMouse = GLFW_TRUE;  // Reset first mouse flag
+        } else if (action == GLFW_RELEASE) {
+            engine->mouseDragging = GLFW_FALSE;
+        }
+    }
+    
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
         foreach (Element *element, menu->elements) {
             if (element == NULL || element->type != ELEMENT_BUTTON) continue;
 
@@ -97,7 +117,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 
     if (engine->antiAliasing) {
         UnbindFrameBufferObj(antiAlias);  // Clean up the old framebuffer
-        
+
         antiAlias = BindFrameBuffer((FrameBufferObject){
             .bufferWidth = width,
             .bufferHeight = height});  // Recreate framebuffer with new dimensions

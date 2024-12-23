@@ -24,7 +24,6 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
 
     memcpy(model, &builder, sizeof(Model3D));
 
-    /* TODO COMPLETE (ASYNC LOAD)*/
     pthread_t thread;
     if (pthread_create(&thread, NULL, LoadAsync, (void *)path) != 0) {
         printf("[THREAD ERROR] Failed to create thread #NewModel3D.\n");
@@ -41,18 +40,25 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
         printf("[THREAD] 'asset_thread' Join Success\n");
     }
 
-    /* Check if the scene was loaded successfully */
     if (!scene) {
         printf("[Model3D] ERROR: Failed to load the model 'scene' from thread: %s\n", path);
         return NULL;
     }
 
+    if (model->shader == NULL) {
+        model->shader = defaultShader;
+    }
+
     if (!model->clickable.onClick && model->clickable.hoverColor.x == 0 && model->clickable.hoverColor.y == 0 && model->clickable.hoverColor.z == 0) {
-        model->hoverColor = getOppositeColorV3S(model->color);
+        model->hoverColor = (vec3s){HOVER_COLOR};
 
         model->clickable = (Clickable){
             .onClick = NULL,
             .hoverColor = model->hoverColor};
+    }
+
+    if (model->texture != NULL && model->color.x == 0 && model->color.y == 0 && model->color.z == 0) {
+        model->color = (vec3s){1.0f, 1.0f, 1.0f};
     }
 
     if (model->meshes == NULL) {
@@ -76,13 +82,15 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
         model->draw = DrawModel;
     }
 
-    if (model->shader == NULL) {
-        model->shader = defaultShader;
+    if (model->transforms->scale.x == 0.0f && model->transforms->scale.y == 0.0f && model->transforms->scale.z == 0.0f) {
+        model->transforms->scale = (vec3s)GLMS_VEC3_ONE;
     }
 
-    if (model->color.x == 0 && model->color.y == 0 && model->color.z == 0) {
-        model->color = (vec3s){1.0f, 1.0f, 1.0f};
-    }
+    const float halfScale = 0.5f;
+    vec3s min = glms_vec3_sub(model->transforms->position, glms_vec3_scale(model->transforms->scale, halfScale));
+    vec3s max = glms_vec3_add(model->transforms->position, glms_vec3_scale(model->transforms->scale, halfScale));
+
+    model->transforms->boundingBox = (BoundingBox){min, max};
 
     // process ASSIMP's root node recursively
     ProcessRootNode(model, scene->mRootNode, scene);

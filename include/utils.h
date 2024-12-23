@@ -110,6 +110,6 @@ static inline vec3s nvgColorToV3S(NVGcolor color) {
 }
 
 bool isPointInsideElement(Element *element, vec2s cursor);
-bool isPointInsideModel(Model3D *model, vec2s cursor);
+bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s cursor);
 
 #endif  // UTILS_H

@@ -59,6 +59,7 @@ Engine *init(void) {
     engine->aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 
     engine->firstMouse = GLFW_TRUE;
+    engine->mouseDragging = GLFW_FALSE;
     engine->lastX = SCREEN_WIDTH / 2.0f;
     engine->lastY = SCREEN_HEIGHT / 2.0f;
 
@@ -165,14 +166,10 @@ Engine *init(void) {
     // cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
     // cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
 
-    // TODO WORK ON ASYNC UGHH ITS PISSIN ME OFF CHAT!
         testModel = (Model3D *)NewModel3D((Model3D){
         .tag = "TestModel3D",
-        .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){10.0, -10.0f, 10.0f},
-        .scale = (vec3s){20.0f, 20.0f, 20.0f}}}),
-        .color = (vec3s){0.25f, 0.35f, 0.30f},
-        // .texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, "grass_block.png"),
-        .gammaCorrection = GLFW_FALSE}, "models/pyramid.obj");
+        .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){0.0, 0.01f, -10.0f}}}),
+        .gammaCorrection = GLFW_FALSE}, "models/cube.obj");
     return engine;
 }
 

@@ -24,6 +24,9 @@
 /* MODELING */
 #define MAX_BONE_INFLUENCE 4
 
+/* UI */
+#define HOVER_COLOR 0.0f, 0.0f, 0.27f
+
 typedef enum TextureType {
     TEXTURE_TYPE_NONE,
     TEXTURE_TYPE_2D,
@@ -88,10 +91,16 @@ typedef struct Engine {
     */
     Skybox *skybox;
 
-    bool vSync, antiAliasing, wireframeMode, firstMouse;
+    bool vSync, antiAliasing, wireframeMode, firstMouse, mouseDragging;
 } Engine;
 
+typedef struct BoundingBox {
+    vec3s min, max;
+} BoundingBox;
+
 typedef struct Transform {
+    BoundingBox boundingBox;
+
     mat4s model;
     vec3s position, rotation, scale;
     float rotationDegrees;
@@ -197,6 +206,7 @@ typedef struct SceneObject {
 
     int indexCount, vertexCount, instanceCount;
 
+    vec3s hoverColor;
     vec3s color;
 
     /* Do NOT call this function; */

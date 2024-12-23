@@ -73,7 +73,7 @@ SceneObject *CreatePlane(vec3s position) {
                                            {.position = position,
                                             .rotationDegrees = -90.0f,
                                             .rotation = (vec3s){1.0f, 0.0f, 0.0f},
-                                            .scale = (vec3s){100.0f, 100.0f, 100.0f}}}),
+                                            .scale = (vec3s){100.0f, 100.0f, 0.0f}}}),
         .color = (vec3s){1.0f, 1.0f, 1.0f},
         .meshData = meshData,
         .vertices = meshData->verticesCopy,

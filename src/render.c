@@ -140,9 +140,9 @@ static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader
             model = glms_translate(model, transform.position);
             model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
 
-            if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
-                transform.scale = (vec3s)GLMS_VEC3_ONE;
-            }
+            // if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
+            //     transform.scale = (vec3s)GLMS_VEC3_ONE;
+            // }
 
             model = glms_scale(model, transform.scale);
             instanceMatrices[i] = model;
@@ -154,9 +154,9 @@ static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader
         Transform transform = transforms[0];
         mat4s model = glms_mat4_identity();
 
-        if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
-            transform.scale = (vec3s)GLMS_VEC3_ONE;
-        }
+        // if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
+        //     transform.scale = (vec3s)GLMS_VEC3_ONE;
+        // }
 
         model = glms_translate(model, transform.position);
         model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
@@ -174,6 +174,7 @@ void SendToShader(SceneObject *object, Model3D *model) {
     Shader *shader = (object != NULL) ? object->shader : model->shader;
     Texture *texture = (object != NULL) ? object->texture : model->texture;
     vec3s color = (object != NULL) ? object->color : model->color;
+    Clickable clickable = (object != NULL) ? object->clickable : model->clickable;
 
     ObjectType type;
     if (object != NULL) {
@@ -210,7 +211,7 @@ void SendToShader(SceneObject *object, Model3D *model) {
         UseShader(*shader);
         setMat4(*shader, "projection", &camera->projection);
         setMat4(*shader, "view", &camera->view);
-        setVec3(*shader, "color", &color);
+        setVec3(*shader, "color", (!clickable.isHovered) ? &color : &clickable.hoverColor);
 
         if (type & (OBJECT_SPRITE_BILLBOARD | OBJECT_SPRITE_STATIC | OBJECT_CAMERA)) {
             setBool(*shader, "isSprite", GLFW_TRUE);
@@ -280,7 +281,15 @@ SceneObject *NewSceneObject(SceneObject builder) {
         newSceneObject->shader = defaultShader;
     }
 
-    if (newSceneObject->color.x == 0 && newSceneObject->color.y == 0 && newSceneObject->color.z == 0) {
+    if (!newSceneObject->clickable.onClick && newSceneObject->clickable.hoverColor.x == 0 && newSceneObject->clickable.hoverColor.y == 0 && newSceneObject->clickable.hoverColor.z == 0) {
+        newSceneObject->hoverColor = (vec3s){HOVER_COLOR};
+
+        newSceneObject->clickable = (Clickable){
+            .onClick = NULL,
+            .hoverColor = newSceneObject->hoverColor};
+    }
+
+    if (newSceneObject->texture != NULL && newSceneObject->color.x == 0 && newSceneObject->color.y == 0 && newSceneObject->color.z == 0) {
         newSceneObject->color = (vec3s){1.0f, 1.0f, 1.0f};
     }
 
@@ -300,6 +309,16 @@ SceneObject *NewSceneObject(SceneObject builder) {
     if (newSceneObject->vertices != NULL && newSceneObject->indices != NULL) {
         BindBufferObj(newSceneObject);
     }
+
+    if (newSceneObject->transforms->scale.x == 0.0f && newSceneObject->transforms->scale.y == 0.0f && newSceneObject->transforms->scale.z == 0.0f) {
+        newSceneObject->transforms->scale = (vec3s)GLMS_VEC3_ONE;
+    }
+
+    const float halfScale = 0.5f;
+    vec3s min = glms_vec3_sub(newSceneObject->transforms->position, glms_vec3_scale(newSceneObject->transforms->scale, halfScale));
+    vec3s max = glms_vec3_add(newSceneObject->transforms->position, glms_vec3_scale(newSceneObject->transforms->scale, halfScale));
+
+    newSceneObject->transforms->boundingBox = (BoundingBox){min, max};
 
     ListAdd(engine->sceneObjects, newSceneObject);
     return newSceneObject;
@@ -565,7 +584,7 @@ void BindBufferObj(SceneObject *object) {
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, normal)));
         glEnableVertexAttribArray(2);
     }
-    
+
     int instanceCount = object->instanceCount;
     // Instance matrix attribute (layout = 3)
     if (instanceCount > 1) {
