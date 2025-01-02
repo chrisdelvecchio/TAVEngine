@@ -51,6 +51,7 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     float yposF = (float)ypos;
     
     // printf("Cursor at (%f, %f)\n", xpos, ypos);
+    cursor = (vec2s){xposF, yposF};
 
     if (engine->mouseDragging) {
         processMouse(camera, xposF, yposF);
@@ -58,20 +59,19 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
-        element->clickable.isHovered = isPointInsideElement(element, (vec2s){xposF, yposF});
+        element->clickable.isHovered = isPointInsideElement(element, cursor);
     }
 
     foreach (Model3D *model, engine->models) {
         if (!ModelExists(model)) continue;
-        model->clickable.isHovered = isPointInside3DObj(NULL, model, (vec2s){xposF, yposF});
+        model->clickable.isHovered = isPointInside3DObj(NULL, model, cursor);
     }
 
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
-        object->clickable.isHovered = isPointInside3DObj(object, NULL, (vec2s){xposF, yposF});
+        object->clickable.isHovered = isPointInside3DObj(object, NULL, cursor);
     }
 
-    cursor = (vec2s){xposF, yposF};
 }
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {

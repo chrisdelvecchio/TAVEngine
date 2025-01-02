@@ -16,7 +16,8 @@
 #include "utils.h"
 
 Engine *engine = NULL;
-Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader;
+Shader *defaultShader, *boundingBoxShader, *instanceShader,
+    *antiAliasShader, *skyboxShader;
 Camera *camera;
 FrameBufferObject *antiAlias;
 
@@ -128,6 +129,7 @@ Engine *init(void) {
     glFrontFace(GL_CCW);
 
     defaultShader = (Shader *)NewShader("shader.vert", "shader.frag");
+    boundingBoxShader = (Shader *)NewShader("bounding_box.vert", "bounding_box.frag");
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
     skyboxShader = (Shader *)NewShader("skybox.vert", "skybox.frag");
 
@@ -149,8 +151,7 @@ Engine *init(void) {
         .color = nvgRGBA(169, 169, 169, 255),
         .textColor = nvgRGBA(100, 0, 0, 255),
         .transform = (Transform){0},
-        .clickable = (Clickable){.onClick = onClickPlayButton}
-        });
+        .clickable = (Clickable){.onClick = onClickPlayButton}});
 
     fpstextBox = (Element *)NewUIElement((Element){
         .type = ELEMENT_TEXTBOX,
@@ -163,13 +164,12 @@ Engine *init(void) {
         .alignment = NVG_ALIGN_TOP | NVG_ALIGN_RIGHT});
 
     plane = (SceneObject *)CreatePlane((vec3s){0.0f, 0.0f, 0.0f});
-    // cube = (SceneObject *)CreateCube((vec3s){10.0f, -10.0f, 10.0f});
-    // cube->transforms->scale = (vec3s){7.0f, 7.0f, 7.0f};
 
-        testModel = (Model3D *)NewModel3D((Model3D){
-        .tag = "TestModel3D",
-        .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){0.0, 0.01f, -10.0f}}}),
-        .gammaCorrection = GLFW_FALSE}, "models/cube.obj");
+    testModel = (Model3D *)NewModel3D((Model3D){
+                                          .tag = "TestModel3D",
+                                          .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){0.0, 0.01f, -10.0f}}}),
+                                          .gammaCorrection = GLFW_FALSE},
+                                      "models/cube.obj");
     return engine;
 }
 

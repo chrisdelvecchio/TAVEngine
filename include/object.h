@@ -143,5 +143,6 @@ static inline void debugObject(SceneObject *object) {
 SceneObject *CreateTriangle(vec3s position);
 SceneObject *CreatePlane(vec3s position);
 SceneObject *CreateCube(vec3s position);
+BoundingBox *CreateBoundingBox(BoundingBox builder);
 
 #endif  // OBJECT_H

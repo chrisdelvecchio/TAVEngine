@@ -139,12 +139,8 @@ static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader
 
             model = glms_translate(model, transform.position);
             model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
-
-            // if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
-            //     transform.scale = (vec3s)GLMS_VEC3_ONE;
-            // }
-
             model = glms_scale(model, transform.scale);
+
             instanceMatrices[i] = model;
         }
 
@@ -153,10 +149,6 @@ static void HandleShaderTransform(SceneObject *object, Model3D *ourModel, Shader
         // Non-instanced handling
         Transform transform = transforms[0];
         mat4s model = glms_mat4_identity();
-
-        // if (transform.scale.x == 0.0f && transform.scale.y == 0.0f && transform.scale.z == 0.0f) {
-        //     transform.scale = (vec3s)GLMS_VEC3_ONE;
-        // }
 
         model = glms_translate(model, transform.position);
         model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
@@ -235,8 +227,46 @@ void SendToShader(SceneObject *object, Model3D *model) {
     }
 }
 
+void ExpandBoundingBox(SceneObject *object, Model3D *model, vec3s offset) {
+    BoundingBox *boundingBox = (object != NULL) ? object->transforms->boundingBox : model->transforms->boundingBox;
+    Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
+
+    if (boundingBox != NULL) {
+        boundingBox->min = glms_vec3_sub(boundingBox->min, offset);
+        boundingBox->max = glms_vec3_add(boundingBox->max, offset);
+
+        mat4s modelMatrix = glms_mat4_identity();
+        modelMatrix = glms_translate(modelMatrix, transforms->position);
+        modelMatrix = glms_rotate(modelMatrix, glm_rad(transforms->rotationDegrees), transforms->rotation);
+
+        vec3s scalar = (vec3s)glms_vec3_add(transforms->scale, offset);
+        modelMatrix = glms_scale(modelMatrix, scalar);
+
+        boundingBox->model = modelMatrix;
+    }
+}
+
+void DrawBoundingBox(SceneObject *object, Model3D *ourModel) {
+    BoundingBox *boundingBox = (object != NULL) ? object->transforms->boundingBox : ourModel->transforms->boundingBox;
+    Transform *transforms = (object != NULL) ? object->transforms : ourModel->transforms;
+
+    if (boundingBox != NULL) {
+        UseShader(*boundingBoxShader);
+        setMat4(*boundingBoxShader, "projection", &camera->projection);
+        setMat4(*boundingBoxShader, "view", &camera->view);
+        setMat4(*boundingBoxShader, "model", &boundingBox->model);
+        setVec3(*boundingBoxShader, "color", &boundingBox->color);
+
+        glBindVertexArray(boundingBox->VAO);
+        glDrawElements(GL_LINES, BOUNDING_BOX_VERTEX_COUNT, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+}
+
 static void DrawSceneObject(SceneObject *object) {
     char *tag = object->tag;
+
+    glLineWidth(1.0f);
 
     if (object->type == OBJECT_SPRITE_STATIC || object->type == OBJECT_SPRITE_BILLBOARD || object->type == OBJECT_CAMERA) {
         glEnable(GL_BLEND);
@@ -263,8 +293,73 @@ static void DrawSceneObject(SceneObject *object) {
     }
 
     glBindVertexArray(0);
-
     glDisable(GL_BLEND);
+
+    if (object->transforms->boundingBox != NULL) {
+        glLineWidth(2.0f);
+        DrawBoundingBox(object, NULL);
+    }
+}
+
+void GenerateBoundingBox(SceneObject *object, Model3D *model) {
+    Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
+
+    vec3s min = (vec3s){FLT_MAX, FLT_MAX, FLT_MAX};
+    vec3s max = (vec3s){-FLT_MAX, -FLT_MAX, -FLT_MAX};
+
+    if (object != NULL) {
+        mat4s modelMatrix = glms_mat4_identity();
+        modelMatrix = glms_translate(modelMatrix, transforms->position);
+        modelMatrix = glms_rotate(modelMatrix, glm_rad(transforms->rotationDegrees), transforms->rotation);
+        modelMatrix = glms_scale(modelMatrix, transforms->scale);
+
+        Vertex *vertices = (Vertex *)object->meshData->verticesCopy;
+        vec3s boxPosition = (vec3s){vertices->position.x,
+                                    vertices->position.y,
+                                    vertices->position.z};
+
+        min = glms_vec3_minv(min, glms_vec3_negate(boxPosition));
+        max = glms_vec3_maxv(max, boxPosition);
+
+        BoundingBox *boundingBox = (BoundingBox *)CreateBoundingBox((BoundingBox){
+            .min = min,
+            .max = max});
+
+        boundingBox->min = min;
+        boundingBox->max = max;
+        boundingBox->model = modelMatrix;
+
+        object->transforms->boundingBox = boundingBox;
+    } else {
+        mat4s modelMatrix = glms_mat4_identity();
+        modelMatrix = glms_translate(modelMatrix, transforms->position);
+        modelMatrix = glms_rotate(modelMatrix, glm_rad(transforms->rotationDegrees), transforms->rotation);
+        modelMatrix = glms_scale(modelMatrix, transforms->scale);
+
+        Mesh *mesh = (Mesh *)ListFirst(model->meshes);
+
+        if (mesh != NULL) {
+            Vertex *vertices = (Vertex *)mesh->vertices;
+            vec3s boxPosition = (vec3s){vertices->position.x,
+                                        vertices->position.y,
+                                        vertices->position.z};
+
+            min = glms_vec3_minv(min, glms_vec3_negate(boxPosition));
+            max = glms_vec3_maxv(max, boxPosition);
+
+            BoundingBox *boundingBox = (BoundingBox *)CreateBoundingBox((BoundingBox){
+                .min = min,
+                .max = max});
+
+            boundingBox->min = min;
+            boundingBox->max = max;
+            boundingBox->model = modelMatrix;
+
+            model->transforms->boundingBox = boundingBox;
+        } else {
+            fprintf(stderr, "[MODEL3D ERROR] Failed generating bounding box for Model 3D, no meshes found\n");
+        }
+    }
 }
 
 SceneObject *NewSceneObject(SceneObject builder) {
@@ -314,11 +409,7 @@ SceneObject *NewSceneObject(SceneObject builder) {
         newSceneObject->transforms->scale = (vec3s)GLMS_VEC3_ONE;
     }
 
-    const float halfScale = 0.5f;
-    vec3s min = glms_vec3_sub(newSceneObject->transforms->position, glms_vec3_scale(newSceneObject->transforms->scale, halfScale));
-    vec3s max = glms_vec3_add(newSceneObject->transforms->position, glms_vec3_scale(newSceneObject->transforms->scale, halfScale));
-
-    newSceneObject->transforms->boundingBox = (BoundingBox){min, max};
+    GenerateBoundingBox(newSceneObject, NULL);
 
     ListAdd(engine->sceneObjects, newSceneObject);
     return newSceneObject;

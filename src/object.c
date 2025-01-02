@@ -12,7 +12,7 @@ void freeMeshData(MeshData *meshData) {
         if (meshData->rawVerticesCopy != NULL) {
             free(meshData->rawVerticesCopy);
         }
-        
+
         free(meshData);
     }
 }
@@ -73,7 +73,7 @@ SceneObject *CreatePlane(vec3s position) {
                                            {.position = position,
                                             .rotationDegrees = -90.0f,
                                             .rotation = (vec3s){1.0f, 0.0f, 0.0f},
-                                            .scale = (vec3s){100.0f, 100.0f, 0.0f}}}),
+                                            .scale = (vec3s){100.0f, 100.0f, 100.0f}}}),
         .color = (vec3s){1.0f, 1.0f, 1.0f},
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
@@ -152,4 +152,65 @@ SceneObject *CreateCube(vec3s position) {
         .vertexCount = vertexCount,
         .indexCount = indexCount});
     return object;
+}
+
+BoundingBox *CreateBoundingBox(BoundingBox builder) {
+    BoundingBox *box = (BoundingBox *)malloc(sizeof(BoundingBox));
+    if (box == NULL) {
+        printf("[MEMORY ERROR] Failed to allocate memory for BoundingBox\n");
+        return NULL;
+    }
+
+    if (builder.color.x == 0 && builder.color.y == 0 && builder.color.z == 0) {
+        builder.color = (vec3s){0.0f, 0.0f, 0.37f};
+    }
+
+    memcpy(box, &builder, sizeof(BoundingBox));
+
+    GLfloat vertices[] = {
+        box->min.x, box->min.y, box->min.z,  // Bottom-left-front
+        box->max.x, box->min.y, box->min.z,  // Bottom-right-front
+        box->max.x, box->max.y, box->min.z,  // Top-right-front
+        box->min.x, box->max.y, box->min.z,  // Top-left-front
+        box->min.x, box->min.y, box->max.z,  // Bottom-left-back
+        box->max.x, box->min.y, box->max.z,  // Bottom-right-back
+        box->max.x, box->max.y, box->max.z,  // Top-right-back
+        box->min.x, box->max.y, box->max.z   // Top-left-back
+    };
+
+    // Define the edges of the bounding box as line segments
+    GLuint indices[] = {
+        0, 1, 1, 2, 2, 3, 3, 0,  // Front face
+        4, 5, 5, 6, 6, 7, 7, 4,  // Back face
+        0, 4, 1, 5, 2, 6, 3, 7   // Connecting edges
+    };
+
+    int vertexCount = getArraySize(vertices);
+    int indexCount = getArraySize(indices);
+
+    // MeshData *meshData = (MeshData *)GetMeshCopiesRaw(vertices, vertexCount, indices, indexCount);
+
+    // Create and bind VAO
+    glGenVertexArrays(1, &box->VAO);
+    glGenBuffers(1, &box->VBO);
+    glGenBuffers(1, &box->EBO);
+
+    glBindVertexArray(box->VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, box->VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertexCount, vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, box->EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indexCount, indices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    // box->meshData = meshData;
+
+    printf("[DEBUG] Created bounding box\n");
+    return box;
 }

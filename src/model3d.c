@@ -86,16 +86,12 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
         model->transforms->scale = (vec3s)GLMS_VEC3_ONE;
     }
 
-    const float halfScale = 0.5f;
-    vec3s min = glms_vec3_sub(model->transforms->position, glms_vec3_scale(model->transforms->scale, halfScale));
-    vec3s max = glms_vec3_add(model->transforms->position, glms_vec3_scale(model->transforms->scale, halfScale));
-
-    model->transforms->boundingBox = (BoundingBox){min, max};
-
     // process ASSIMP's root node recursively
     ProcessRootNode(model, scene->mRootNode, scene);
     printf("[Model3D] '%s' loaded.\n", path);
 
+    GenerateBoundingBox(NULL, model);
+    
     ListAdd(engine->models, model);
     return model;
 }

@@ -20,12 +20,21 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define UPDATE_INTERVAL 1.0f / 60.0f
+/* END WINDOW */
 
 /* MODELING */
+#define BOUNDING_BOX_VERTEX_COUNT 24
 #define MAX_BONE_INFLUENCE 4
+/* END MODELING */
 
 /* UI */
-#define HOVER_COLOR 0.0f, 0.0f, 0.27f
+
+/* COLORS */
+#define ENGINE_WHITE 1.0f, 1.0f, 1.0f
+#define ENGINE_BLACK 0.0f, 0.0f, 0.0f
+
+#define HOVER_COLOR 0.0f, 0.17f, 0.0f
+/* END UI */
 
 typedef enum TextureType {
     TEXTURE_TYPE_NONE,
@@ -94,12 +103,38 @@ typedef struct Engine {
     bool vSync, antiAliasing, wireframeMode, firstMouse, mouseDragging;
 } Engine;
 
+typedef struct Vertex {
+    vec3s position;
+    vec3s normal;
+    vec2s texCoords;
+    // vec3s tangent;
+    // vec3s bitangent;
+	
+    // // bone indexes which will influence this vertex
+	// int boneIDs[MAX_BONE_INFLUENCE];
+	
+    // // weights from each bone
+	// float boneWeights[MAX_BONE_INFLUENCE];
+} Vertex;
+
+typedef struct MeshData {
+    Vertex *verticesCopy;
+    float *rawVerticesCopy;
+    GLuint *indicesCopy;
+
+    /* Do NOT call this function; */
+    void (*free)(struct MeshData *self);
+} MeshData;
+
 typedef struct BoundingBox {
-    vec3s min, max;
+    mat4s model;
+    vec3s min, max, color;
+
+    GLuint VAO, VBO, EBO;
 } BoundingBox;
 
 typedef struct Transform {
-    BoundingBox boundingBox;
+    BoundingBox *boundingBox;
 
     mat4s model;
     vec3s position, rotation, scale;
@@ -127,29 +162,6 @@ typedef enum ObjectType {
     OBJECT_FRAMEBUFFER_QUAD   = 0x80,  // 1000 0000
     OBJECT_3D_MODEL           = 0x100 // 0001 0000 0000 (Next byte)
 } ObjectType;
-
-typedef struct Vertex {
-    vec3s position;
-    vec3s normal;
-    vec2s texCoords;
-    // vec3s tangent;
-    // vec3s bitangent;
-	
-    // // bone indexes which will influence this vertex
-	// int boneIDs[MAX_BONE_INFLUENCE];
-	
-    // // weights from each bone
-	// float boneWeights[MAX_BONE_INFLUENCE];
-} Vertex;
-
-typedef struct MeshData {
-    Vertex *verticesCopy;
-    float *rawVerticesCopy;
-    GLuint *indicesCopy;
-
-    /* Do NOT call this function; */
-    void (*free)(struct MeshData *self);
-} MeshData;
 
 typedef struct Clickable {
     bool isHovered;
@@ -270,7 +282,8 @@ typedef struct Entity {
 
 extern Engine *engine;
 extern FrameBufferObject *antiAlias;
-extern Shader *defaultShader, *instanceShader, *antiAliasShader, *skyboxShader, *spriteShader;
+extern Shader *defaultShader, *boundingBoxShader, *instanceShader,
+              *antiAliasShader, *skyboxShader;
 extern Camera *camera;
 
 Engine *init(void);

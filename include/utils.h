@@ -109,7 +109,29 @@ static inline vec3s nvgColorToV3S(NVGcolor color) {
     return (vec3s){color.r, color.g, color.b};
 }
 
+static inline Transform Mat4ToTransform(mat4s model) {
+    Transform transform;
+
+    transform.position = (vec3s){
+        model.m30,
+        model.m31,
+        model.m32
+    };
+
+    transform.scale = (vec3s){
+        glms_vec3_norm((vec3s){ model.m00, model.m10, model.m20 }),
+        glms_vec3_norm((vec3s){ model.m01, model.m11, model.m21 }),
+        glms_vec3_norm((vec3s){ model.m02, model.m12, model.m22 })
+    };
+
+    transform.rotation.y = atan2f(model.m20, model.m00);  // Yaw
+    transform.rotation.x = asinf(-model.m21);             // Pitch
+    transform.rotation.z = atan2f(model.m01, model.m11);  // Roll
+
+    return transform;
+}
+
 bool isPointInsideElement(Element *element, vec2s cursor);
-bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s cursor);
+bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s worldCursor);
 
 #endif  // UTILS_H

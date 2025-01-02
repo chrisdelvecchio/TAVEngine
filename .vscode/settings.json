@@ -40,7 +40,8 @@
         "pthread_compat.h": "c",
         "pthread_time.h": "c",
         "pthread_signal.h": "c",
-        "pthread_unistd.h": "c"
+        "pthread_unistd.h": "c",
+        "regex": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

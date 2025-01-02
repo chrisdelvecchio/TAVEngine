@@ -10,8 +10,11 @@ FrameBufferObject *BindFrameBuffer(FrameBufferObject frameBuffer);
 
 SceneObject *NewSceneObject(SceneObject builder);
 SceneObject *NewSprite(vec3s position, float size, bool billboard, const char *path);
-
 SceneObject *CopySceneObject(SceneObject *object);
+
+void ExpandBoundingBox(SceneObject *object, Model3D *model, vec3s offset);
+void GenerateBoundingBox(SceneObject *object, Model3D *model);
+void DrawBoundingBox(SceneObject *object, Model3D *ourModel);
 
 Transform *NewTransforms(int instanceCount, Transform *transforms);
 

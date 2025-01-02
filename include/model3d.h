@@ -249,6 +249,7 @@ static inline void DrawModel(Model3D *model) {
         if (mesh == NULL) continue;
 
         mesh->draw(model, mesh);
+        DrawBoundingBox(NULL, model);
         // printf("DrawModel -> Drawing mesh\n");
     }
 }
