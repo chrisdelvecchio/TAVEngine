@@ -16,7 +16,7 @@
 #include "utils.h"
 
 Engine *engine = NULL;
-Shader *defaultShader, *boundingBoxShader, *instanceShader,
+Shader *defaultShader, *miscShader, *instanceShader,
     *antiAliasShader, *skyboxShader;
 Camera *camera;
 FrameBufferObject *antiAlias;
@@ -129,7 +129,7 @@ Engine *init(void) {
     glFrontFace(GL_CCW);
 
     defaultShader = (Shader *)NewShader("shader.vert", "shader.frag");
-    boundingBoxShader = (Shader *)NewShader("bounding_box.vert", "bounding_box.frag");
+    miscShader = (Shader *)NewShader("misc_shader.vert", "misc_shader.frag");
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
     skyboxShader = (Shader *)NewShader("skybox.vert", "skybox.frag");
 
@@ -275,6 +275,13 @@ void render(void) {
 
         model->draw(model);
     }
+
+    DrawLine((Line){
+        .start = (vec3s){-1.0f, -1.0f, 0.0f},
+        .end = (vec3s){1.0f, -1.0f, 0.0f},
+        .color = (vec3s){ENGINE_RED},
+        .width = 3.0f
+    });
 
     if (menu != NULL) {
         DrawElement(button, NULL);

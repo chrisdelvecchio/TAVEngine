@@ -32,8 +32,14 @@
 /* COLORS */
 #define ENGINE_WHITE 1.0f, 1.0f, 1.0f
 #define ENGINE_BLACK 0.0f, 0.0f, 0.0f
+#define ENGINE_RED 1.0f, 0.0f, 0.0f
+#define ENGINE_GREEN 0.0f, 1.0f, 0.0f
+#define ENGINE_BLUE 0.0f, 0.0f, 1.0f
 
-#define HOVER_COLOR 0.0f, 0.17f, 0.0f
+#define ENGINE_SELECTED_COLOR 0.0f, 0.0f, 1.0f
+#define ENGINE_ACTIVE_COLOR 0.0f, 1.0f, 0.0f
+#define ENGINE_INACTIVE_COLOR 0.5f, 0.5f, 0.5f
+#define ENGINE_DISABLED_COLOR 0.5f, 0.5f, 0.5f
 /* END UI */
 
 typedef enum TextureType {
@@ -102,6 +108,18 @@ typedef struct Engine {
 
     bool vSync, antiAliasing, wireframeMode, firstMouse, mouseDragging;
 } Engine;
+
+typedef struct Ray {
+    vec3s origin;
+    vec3s direction;
+} Ray;
+
+typedef struct Line {
+    vec3s start, end, color;
+
+    GLuint VAO, VBO;
+    float width;
+} Line;
 
 typedef struct Vertex {
     vec3s position;
@@ -282,7 +300,7 @@ typedef struct Entity {
 
 extern Engine *engine;
 extern FrameBufferObject *antiAlias;
-extern Shader *defaultShader, *boundingBoxShader, *instanceShader,
+extern Shader *defaultShader, *miscShader, *instanceShader,
               *antiAliasShader, *skyboxShader;
 extern Camera *camera;
 

@@ -80,8 +80,8 @@ Element *NewUIElement(Element element) {
     }
 
     if (!newElement->clickable.onClick && newElement->clickable.hoverColor.x == 0 && newElement->clickable.hoverColor.y == 0 && newElement->clickable.hoverColor.z == 0) {
-        newElement->hoverColor = getOppositeColor(newElement->color);
-        
+        newElement->hoverColor = (NVGcolor)nvgSmoothHoverColor(nvgColorToV3S(newElement->color), GLFW_FALSE);
+
         newElement->clickable = (Clickable){
             .onClick = NULL,
             .hoverColor = nvgColorToV3S(newElement->hoverColor)

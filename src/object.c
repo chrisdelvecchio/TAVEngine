@@ -138,13 +138,11 @@ SceneObject *CreateCube(vec3s position) {
     int indexCount = getArraySize(indices);
 
     MeshData *meshData = (MeshData *)GetMeshCopies(vertices, vertexCount, indices, indexCount);
-    Texture *texture = (Texture *)NewTexture(TEXTURE_TYPE_2D, "grass_block.png");
 
     SceneObject *object = (SceneObject *)NewSceneObject((SceneObject){
         .type = OBJECT_3D,
         .tag = "CUBE",
         .color = (vec3s){0.0f, 0.0f, 0.0f},
-        .texture = texture,
         .transforms = NewTransforms(1, (Transform[]){{.position = position}}),
         .meshData = meshData,
         .vertices = meshData->verticesCopy,
@@ -188,8 +186,6 @@ BoundingBox *CreateBoundingBox(BoundingBox builder) {
     int vertexCount = getArraySize(vertices);
     int indexCount = getArraySize(indices);
 
-    // MeshData *meshData = (MeshData *)GetMeshCopiesRaw(vertices, vertexCount, indices, indexCount);
-
     // Create and bind VAO
     glGenVertexArrays(1, &box->VAO);
     glGenBuffers(1, &box->VBO);
@@ -208,9 +204,5 @@ BoundingBox *CreateBoundingBox(BoundingBox builder) {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    // box->meshData = meshData;
-
-    printf("[DEBUG] Created bounding box\n");
     return box;
 }

@@ -251,16 +251,62 @@ void DrawBoundingBox(SceneObject *object, Model3D *ourModel) {
     Transform *transforms = (object != NULL) ? object->transforms : ourModel->transforms;
 
     if (boundingBox != NULL) {
-        UseShader(*boundingBoxShader);
-        setMat4(*boundingBoxShader, "projection", &camera->projection);
-        setMat4(*boundingBoxShader, "view", &camera->view);
-        setMat4(*boundingBoxShader, "model", &boundingBox->model);
-        setVec3(*boundingBoxShader, "color", &boundingBox->color);
+        UseShader(*miscShader);
+        setMat4(*miscShader, "projection", &camera->projection);
+        setMat4(*miscShader, "view", &camera->view);
+        setMat4(*miscShader, "model", &boundingBox->model);
+        setVec3(*miscShader, "color", &boundingBox->color);
 
         glBindVertexArray(boundingBox->VAO);
         glDrawElements(GL_LINES, BOUNDING_BOX_VERTEX_COUNT, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
+}
+
+void DrawLine(Line line) {
+    float width = line.width;
+
+    mat4s model = glms_mat4_identity();
+    model = glms_translate(model, line.start);
+    model = glms_scale(model, (vec3s){width, width, width});
+
+    UseShader(*miscShader);
+    setMat4(*miscShader, "projection", &camera->projection);
+    setMat4(*miscShader, "view", &camera->view);
+    setMat4(*miscShader, "model", &model);
+    setVec3(*miscShader, "color", &line.color);
+    setBool(*miscShader, "isSprite", GLFW_FALSE);
+    setBool(*miscShader, "isBillboard", GLFW_FALSE);
+    setBool(*miscShader, "useTexture", GLFW_FALSE);
+
+    vec3s start = line.start;
+    vec3s end = line.end;
+
+    float vertices[] = {
+        start.raw[0], start.raw[1], start.raw[2],
+        end.raw[0], end.raw[1], end.raw[2]};
+
+    GLuint VAO, VBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Enable vertex attributes
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);  // Position
+    glEnableVertexAttribArray(0);
+
+    // Draw the line
+    glBindVertexArray(VAO);
+    glLineWidth(line.width);
+    glDrawArrays(GL_LINES, 0, 2);
+    glBindVertexArray(0);
+
+    // Cleanup
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
 }
 
 static void DrawSceneObject(SceneObject *object) {
@@ -377,7 +423,7 @@ SceneObject *NewSceneObject(SceneObject builder) {
     }
 
     if (!newSceneObject->clickable.onClick && newSceneObject->clickable.hoverColor.x == 0 && newSceneObject->clickable.hoverColor.y == 0 && newSceneObject->clickable.hoverColor.z == 0) {
-        newSceneObject->hoverColor = (vec3s){HOVER_COLOR};
+        newSceneObject->hoverColor = (vec3s)SmoothHoverColor(newSceneObject->color, newSceneObject->clickable.isHovered);
 
         newSceneObject->clickable = (Clickable){
             .onClick = NULL,

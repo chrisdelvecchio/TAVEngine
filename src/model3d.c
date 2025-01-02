@@ -50,7 +50,7 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
     }
 
     if (!model->clickable.onClick && model->clickable.hoverColor.x == 0 && model->clickable.hoverColor.y == 0 && model->clickable.hoverColor.z == 0) {
-        model->hoverColor = (vec3s){HOVER_COLOR};
+        model->hoverColor = (vec3s)SmoothHoverColor(model->color, model->clickable.isHovered);
 
         model->clickable = (Clickable){
             .onClick = NULL,

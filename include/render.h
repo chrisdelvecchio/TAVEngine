@@ -16,6 +16,8 @@ void ExpandBoundingBox(SceneObject *object, Model3D *model, vec3s offset);
 void GenerateBoundingBox(SceneObject *object, Model3D *model);
 void DrawBoundingBox(SceneObject *object, Model3D *ourModel);
 
+void DrawLine(Line line);
+
 Transform *NewTransforms(int instanceCount, Transform *transforms);
 
 Texture *NewTexture(TextureType type, const char *path);
@@ -105,6 +107,8 @@ static inline bool ObjectExists(SceneObject *object) {
 }
 
 static inline void UnbindBufferObj(SceneObject *object, Model3D *model) {
+    BoundingBox *boundingBox = (object != NULL) ? object->transforms->boundingBox : model->transforms->boundingBox;
+
     // Unbind VAO, VBO, and EBO
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -137,6 +141,16 @@ static inline void UnbindBufferObj(SceneObject *object, Model3D *model) {
                 mesh->EBO = 0;
             }
         }
+    }
+
+    if (boundingBox != NULL) {
+        glDeleteVertexArrays(1, &boundingBox->VAO);
+        glDeleteBuffers(1, &boundingBox->VBO);
+        glDeleteBuffers(1, &boundingBox->EBO);
+
+        boundingBox->VAO = 0;
+        boundingBox->VBO = 0;
+        boundingBox->EBO = 0;
     }
 }
 

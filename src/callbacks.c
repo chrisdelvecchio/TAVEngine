@@ -59,16 +59,22 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
+
+        element->hoverColor = (NVGcolor)nvgSmoothHoverColor(nvgColorToV3S(element->color), element->clickable.isHovered);
         element->clickable.isHovered = isPointInsideElement(element, cursor);
     }
 
     foreach (Model3D *model, engine->models) {
         if (!ModelExists(model)) continue;
+
+        model->hoverColor = (vec3s)SmoothHoverColor(model->color, model->clickable.isHovered);
         model->clickable.isHovered = isPointInside3DObj(NULL, model, cursor);
     }
 
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
+
+        object->hoverColor = (vec3s)SmoothHoverColor(object->color, object->clickable.isHovered);
         object->clickable.isHovered = isPointInside3DObj(object, NULL, cursor);
     }
 

@@ -109,20 +109,56 @@ static inline vec3s nvgColorToV3S(NVGcolor color) {
     return (vec3s){color.r, color.g, color.b};
 }
 
+static inline NVGcolor V3SToNVGColor(vec3s color) {
+    // Scale the normalized values (0.0 - 1.0) to the 255 range and clamp them
+    int red   = fminf(fmaxf(color.x * 255.0f, 0.0f), 255.0f);
+    int green = fminf(fmaxf(color.y * 255.0f, 0.0f), 255.0f);
+    int blue  = fminf(fmaxf(color.z * 255.0f, 0.0f), 255.0f);
+
+    // Return an NVGColor with scaled values
+    return nvgRGBA(red, green, blue, 255);
+}
+
+static inline vec3s ClampColor(vec3s color) {
+    color.x = fminf(color.x, 1.0f);
+    color.y = fminf(color.y, 1.0f);
+    color.z = fminf(color.z, 1.0f);
+    return color;
+}
+
+static inline vec3s SmoothHoverColor(vec3s baseColor, bool isHovered) {
+    vec3s targetColor = isHovered
+                            ? glms_vec3_add(baseColor, (vec3s){{0.1f, 0.1f, 0.1f}})
+                            : baseColor;
+
+    targetColor = ClampColor(targetColor);
+
+    return glms_vec3_lerp(baseColor, targetColor, engine->deltaTime * 5.0f);
+}
+
+static inline NVGcolor nvgSmoothHoverColor(vec3s baseColor, bool isHovered) {
+    vec3s targetColor = isHovered
+                            ? glms_vec3_add(baseColor, (vec3s){{0.1f, 0.1f, 0.1f}})
+                            : baseColor;
+
+    targetColor = ClampColor(targetColor);
+
+    vec3s retColor = glms_vec3_lerp(baseColor, targetColor, engine->deltaTime * 5.0f);
+    return nvgRGBA(retColor.x, retColor.y, retColor.z, 255);
+}
+
 static inline Transform Mat4ToTransform(mat4s model) {
     Transform transform;
 
     transform.position = (vec3s){
         model.m30,
         model.m31,
-        model.m32
-    };
+        model.m32};
 
     transform.scale = (vec3s){
-        glms_vec3_norm((vec3s){ model.m00, model.m10, model.m20 }),
-        glms_vec3_norm((vec3s){ model.m01, model.m11, model.m21 }),
-        glms_vec3_norm((vec3s){ model.m02, model.m12, model.m22 })
-    };
+        glms_vec3_norm((vec3s){model.m00, model.m10, model.m20}),
+        glms_vec3_norm((vec3s){model.m01, model.m11, model.m21}),
+        glms_vec3_norm((vec3s){model.m02, model.m12, model.m22})};
 
     transform.rotation.y = atan2f(model.m20, model.m00);  // Yaw
     transform.rotation.x = asinf(-model.m21);             // Pitch
