@@ -36,7 +36,7 @@ Ray GenerateRay(Camera *camera, vec2s cursor) {
 
     // Unproject to eye space
     vec4s eyeCoords;
-    glms_mat4_inv(projection);  // Invert projection matrix
+    glm_mat4_inv(projection.raw, projection.raw);  // Invert projection matrix
     glm_mat4_mulv(projection.raw, clipCoords.raw, eyeCoords.raw);
 
     eyeCoords.raw[2] = -1.0f;  // Set forward direction in eye space
@@ -44,7 +44,7 @@ Ray GenerateRay(Camera *camera, vec2s cursor) {
 
     // Unproject to world space
     vec4s worldCoords;
-    glms_mat4_inv(view);  // Invert view matrix
+    glm_mat4_inv(view.raw, view.raw);  // Invert view matrix
     glm_mat4_mulv(view.raw, eyeCoords.raw, worldCoords.raw);
 
     // Normalize the ray direction
@@ -52,7 +52,6 @@ Ray GenerateRay(Camera *camera, vec2s cursor) {
     glm_vec3_normalize(ray.direction.raw);
 
     // Ray origin is the camera's position
-    // glm_mat4_pick3(view.raw, ray.origin.raw);
     ray.origin.raw[0] = view.raw[3][0];
     ray.origin.raw[1] = view.raw[3][1];
     ray.origin.raw[2] = view.raw[3][2];

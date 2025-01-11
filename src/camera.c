@@ -2,7 +2,7 @@
 #include "render.h"
 
 static inline void UpdateCameraVectors(Camera *camera) {
-    camera->projection = glms_perspective(glm_rad(camera->fov), engine->aspectRatio, 0.1f, camera->renderDistance);
+    camera->projection = glms_perspective(glm_rad(camera->fov), engine->aspectRatio, ENGINE_CAMERA_DEFAULT_NEAR_PLANE, camera->renderDistance);
     camera->view = glms_lookat(camera->position, glms_vec3_add(camera->position, camera->front), camera->up);
 
     vec3s front;
@@ -23,9 +23,10 @@ Camera *NewCamera(vec3s position, float fov) {
     Camera *camera = (Camera *)malloc(sizeof(Camera));
     camera->position = position;
     camera->fov = fov;
-    camera->movementSpeed = 60.0f;
+    camera->maxFov = ENGINE_CAMERA_DEFAULT_MAX_FOV;
+    camera->movementSpeed = ENGINE_CAMERA_DEFAULT_MOVE_SPEED;
     camera->mouseSensitivity = 0.2f;
-    camera->renderDistance = 1000.0f;
+    camera->renderDistance = ENGINE_CAMERA_DEFAULT_FAR_PLANE;
     camera->yaw = -90.0f;
     camera->pitch = 0.0f;
     camera->up = (vec3s){0.0f, 1.0f, 0.0f};

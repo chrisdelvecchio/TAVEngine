@@ -167,7 +167,45 @@ static inline Transform Mat4ToTransform(mat4s model) {
     return transform;
 }
 
+static inline vec3s ScreenToWorld(vec2s screenPos) {
+    // Convert screen coordinates to normalized device coordinates (-1 to 1 range)
+    vec4s ndc = (vec4s){
+        .x = (2.0f * screenPos.raw[0]) / engine->windowWidth - 1.0f,
+        .y = 1.0f - (2.0f * screenPos.raw[1]) / engine->windowHeight,
+        .z = 0.0f,
+        .w = 1.0f
+    };
+
+    // Unproject NDC to world space
+    vec4s worldPos = glms_mat4_mulv(glms_mat4_inv(glms_mat4_mul(camera->projection, camera->view)), ndc);
+
+    // Convert back to vec3 and normalize if needed
+    return glms_vec3_scale((vec3s){worldPos.x, worldPos.y, worldPos.z}, 1.0f / worldPos.w);
+}
+
+
+static inline vec3s CalculateDelta(vec2s currentCursor, vec2s previousCursor, vec3s selectedAxis) {
+    // Convert screen-space cursor positions to world-space
+    vec3s worldCurrent = ScreenToWorld(currentCursor);
+    vec3s worldPrevious = ScreenToWorld(previousCursor);
+
+    // Calculate raw delta in world-space
+    vec3s rawDelta = glms_vec3_sub(worldCurrent, worldPrevious);
+
+    // Constrain delta along the selected axis
+    vec3s constrainedDelta = glms_vec3_scale(selectedAxis, glms_vec3_dot(rawDelta, selectedAxis));
+    
+    return constrainedDelta;
+}
+
+static inline bool IsAxisSelectionActive(void) {
+    vec3s axis = engine->selectedAxis;
+    return axis.x != 0 && axis.y != 0 && axis.z != 0;
+}
+
 bool isPointInsideElement(Element *element, vec2s cursor);
 bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s worldCursor);
+
+void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec3s delta, vec2s cursor);
 
 #endif  // UTILS_H

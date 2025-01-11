@@ -249,9 +249,11 @@ static inline void DrawModel(Model3D *model) {
         if (mesh == NULL) continue;
 
         mesh->draw(model, mesh);
-        DrawBoundingBox(NULL, model);
         // printf("DrawModel -> Drawing mesh\n");
     }
+
+    DrawBoundingBox(NULL, model);
+    DrawTransformGizmo(NULL, model);
 }
 
 /* Checks all material textures of a given type and loads the textures if they're not loaded yet. */

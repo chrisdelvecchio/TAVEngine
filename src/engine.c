@@ -48,21 +48,21 @@ Engine *init(void) {
         return NULL;
     }
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Prototype Engine", NULL, NULL);
+    window = glfwCreateWindow(ENGINE_SCREEN_WIDTH, ENGINE_SCREEN_HEIGHT, "Prototype Engine", NULL, NULL);
     if (!window) {
         printf("[TAV ENGINE] => Failed to create GLFW window\n");
         glfwTerminate();
         return NULL;
     }
 
-    engine->windowWidth = (float)SCREEN_WIDTH;
-    engine->windowHeight = (float)SCREEN_HEIGHT;
-    engine->aspectRatio = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
+    engine->windowWidth = (float)ENGINE_SCREEN_WIDTH;
+    engine->windowHeight = (float)ENGINE_SCREEN_HEIGHT;
+    engine->aspectRatio = (float)ENGINE_SCREEN_WIDTH / (float)ENGINE_SCREEN_HEIGHT;
 
     engine->firstMouse = GLFW_TRUE;
     engine->mouseDragging = GLFW_FALSE;
-    engine->lastX = SCREEN_WIDTH / 2.0f;
-    engine->lastY = SCREEN_HEIGHT / 2.0f;
+    engine->lastX = ENGINE_SCREEN_WIDTH / 2.0f;
+    engine->lastY = ENGINE_SCREEN_HEIGHT / 2.0f;
 
     glfwMakeContextCurrent(window);
 
@@ -129,18 +129,18 @@ Engine *init(void) {
     glFrontFace(GL_CCW);
 
     defaultShader = (Shader *)NewShader("shader.vert", "shader.frag");
-    miscShader = (Shader *)NewShader("misc_shader.vert", "misc_shader.frag");
+    miscShader = (Shader *)NewShader("misc_shader.vert", "shader.frag");
     instanceShader = (Shader *)NewShader("instance_shader.vert", "shader.frag");
     skyboxShader = (Shader *)NewShader("skybox.vert", "skybox.frag");
 
-    camera = (Camera *)NewCamera((vec3s){1.0f, 1.0f, 1.0f}, 45.0f);
-    cam2 = (Camera *)NewCamera((vec3s){15.0f, -10.0f, 10.0f}, 45.0f);
+    camera = (Camera *)NewCamera((vec3s){10.0f, 1.0f, 10.0f}, ENGINE_CAMERA_DEFAULT_FOV);
+    cam2 = (Camera *)NewCamera((vec3s){15.0f, -10.0f, 10.0f}, ENGINE_CAMERA_DEFAULT_FOV);
 
     if (engine->antiAliasing) {
         antiAliasShader = (Shader *)NewShader("aa_post.vert", "aa_post.frag");
         antiAlias = (FrameBufferObject *)BindFrameBuffer((FrameBufferObject){
-            .bufferWidth = SCREEN_WIDTH,
-            .bufferHeight = SCREEN_HEIGHT});
+            .bufferWidth = ENGINE_SCREEN_WIDTH,
+            .bufferHeight = ENGINE_SCREEN_HEIGHT});
     }
 
     button = (Element *)NewUIElement((Element){
@@ -167,7 +167,10 @@ Engine *init(void) {
 
     testModel = (Model3D *)NewModel3D((Model3D){
                                           .tag = "TestModel3D",
-                                          .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){0.0, 0.01f, -10.0f}}}),
+                                          .color = (vec3s){ENGINE_RED},
+                                          .transforms = NewTransforms(1, (Transform[]){{.position = (vec3s){0.0, 0.01f, -10.0f},
+                                          .rotation = (vec3s){0.0f, 0.45f, 1.0f},
+                                          .rotationDegrees = 45.0f}}),
                                           .gammaCorrection = GLFW_FALSE},
                                       "models/cube.obj");
     return engine;
@@ -240,13 +243,13 @@ void render(void) {
         glfwSwapInterval(0);
     }
 
-    glClearColor(BACKGROUND_COLOR);
+    glClearColor(ENGINE_BACKGROUND_COLOR);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 
     if (engine->antiAliasing) {
         glBindFramebuffer(GL_FRAMEBUFFER, antiAlias->frameBufferID);
-        glClearColor(BACKGROUND_COLOR);
+        glClearColor(ENGINE_BACKGROUND_COLOR);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
     }
@@ -264,7 +267,7 @@ void render(void) {
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
         if (object->type == OBJECT_FRAMEBUFFER_QUAD) continue;
-        if (!ObjectInFrustum(camera, object->transforms->position, object->transforms->scale.x)) continue;
+        // if (!ObjectInFrustum(camera, object->transforms->position, object->transforms->scale.x)) continue;
 
         object->draw(object);
     }
@@ -275,13 +278,6 @@ void render(void) {
 
         model->draw(model);
     }
-
-    DrawLine((Line){
-        .start = (vec3s){-1.0f, -1.0f, 0.0f},
-        .end = (vec3s){1.0f, -1.0f, 0.0f},
-        .color = (vec3s){ENGINE_RED},
-        .width = 3.0f
-    });
 
     if (menu != NULL) {
         DrawElement(button, NULL);

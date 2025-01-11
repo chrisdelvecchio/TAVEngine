@@ -16,7 +16,11 @@ void ExpandBoundingBox(SceneObject *object, Model3D *model, vec3s offset);
 void GenerateBoundingBox(SceneObject *object, Model3D *model);
 void DrawBoundingBox(SceneObject *object, Model3D *ourModel);
 
+void GenerateTransformGizmo(SceneObject *object, Model3D *model);
+void DrawTransformGizmo(SceneObject *object, Model3D *model);
+
 void DrawLine(Line line);
+void DrawTriangle(Triangle triangle);
 
 Transform *NewTransforms(int instanceCount, Transform *transforms);
 

@@ -9,7 +9,7 @@
 #include "ui.h"
 #include "utils.h"
 
-static vec2s cursor;
+static vec2s cursor, previousCursor;
 
 void init_callbacks(Engine *engine) {
     glfwSetKeyCallback(engine->window, key_callback);
@@ -49,13 +49,17 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     float xposF = (float)xpos;
     float yposF = (float)ypos;
-    
+
     // printf("Cursor at (%f, %f)\n", xpos, ypos);
     cursor = (vec2s){xposF, yposF};
 
-    if (engine->mouseDragging) {
+    bool isDragging = engine->mouseDragging;
+
+    if (isDragging) {
         processMouse(camera, xposF, yposF);
     }
+
+    vec3s delta = CalculateDelta(cursor, previousCursor, engine->selectedAxis);
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
@@ -67,6 +71,10 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     foreach (Model3D *model, engine->models) {
         if (!ModelExists(model)) continue;
 
+        if (isDragging && IsAxisSelectionActive()) {
+            TransformGizmoUpdateObject(NULL, model, delta, cursor);
+        }
+
         model->hoverColor = (vec3s)SmoothHoverColor(model->color, model->clickable.isHovered);
         model->clickable.isHovered = isPointInside3DObj(NULL, model, cursor);
     }
@@ -74,10 +82,17 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
 
+        if (isDragging && IsAxisSelectionActive()) {
+            TransformGizmoUpdateObject(object, NULL, delta, cursor);
+        }
+
         object->hoverColor = (vec3s)SmoothHoverColor(object->color, object->clickable.isHovered);
         object->clickable.isHovered = isPointInside3DObj(object, NULL, cursor);
     }
 
+    if (engine->mouseDragging) {
+        previousCursor = cursor;
+    }
 }
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
@@ -85,11 +100,13 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
         if (action == GLFW_PRESS) {
             engine->mouseDragging = GLFW_TRUE;
             engine->firstMouse = GLFW_TRUE;  // Reset first mouse flag
+
+            previousCursor = cursor;  // Initialize previousCursor
         } else if (action == GLFW_RELEASE) {
             engine->mouseDragging = GLFW_FALSE;
         }
     }
-    
+
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
         foreach (Element *element, menu->elements) {
             if (element == NULL || element->type != ELEMENT_BUTTON) continue;
@@ -106,11 +123,30 @@ void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
                 model->clickable.onClick(model);
             }
         }
+
+        foreach (SceneObject *object, engine->sceneObjects) {
+            if (!ObjectExists(object)) continue;
+
+            if (object->clickable.isHovered && object->clickable.onClick) {
+                object->clickable.onClick(object);
+            }
+        }
     }
 }
 
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
     // printf("Scrolled %f units horizontally and %f units vertically\n", xoffset, yoffset);
+    static float initalFov = 0.0f;
+
+    if (initalFov == 0.0f) {
+        initalFov = camera->fov;
+    }
+
+    camera->fov -= (float)yoffset;
+    if (camera->fov < 1.0f)
+        camera->fov = 1.0f;
+    if (camera->fov > initalFov)
+        camera->fov = initalFov;
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {

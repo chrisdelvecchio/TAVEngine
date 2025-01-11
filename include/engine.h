@@ -16,15 +16,24 @@
 #include "timings.h"
 
 /* WINDOW */
-#define BACKGROUND_COLOR 0.53f, 0.81f, 0.98f, 1.0f
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define UPDATE_INTERVAL 1.0f / 60.0f
+#define ENGINE_BACKGROUND_COLOR 0.53f, 0.81f, 0.98f, 1.0f
+#define ENGINE_SCREEN_WIDTH 800
+#define ENGINE_SCREEN_HEIGHT 600
+#define ENGINE_UPDATE_INTERVAL 1.0f / 60.0f
+
+/* CAMERA */
+#define ENGINE_CAMERA_DEFAULT_FOV 45.0f
+#define ENGINE_CAMERA_DEFAULT_MAX_FOV 120.0f
+#define ENGINE_CAMERA_DEFAULT_NEAR_PLANE 0.1f
+#define ENGINE_CAMERA_DEFAULT_FAR_PLANE 1000.0f
+#define ENGINE_CAMERA_DEFAULT_MOVE_SPEED 75.0f
+/* END CAMERA */
+
 /* END WINDOW */
 
 /* MODELING */
-#define BOUNDING_BOX_VERTEX_COUNT 24
-#define MAX_BONE_INFLUENCE 4
+#define ENGINE_BOUNDING_BOX_VERTEX_COUNT 24
+#define ENGINE_MAX_BONE_INFLUENCE 4
 /* END MODELING */
 
 /* UI */
@@ -36,10 +45,10 @@
 #define ENGINE_GREEN 0.0f, 1.0f, 0.0f
 #define ENGINE_BLUE 0.0f, 0.0f, 1.0f
 
-#define ENGINE_SELECTED_COLOR 0.0f, 0.0f, 1.0f
-#define ENGINE_ACTIVE_COLOR 0.0f, 1.0f, 0.0f
-#define ENGINE_INACTIVE_COLOR 0.5f, 0.5f, 0.5f
+#define ENGINE_SELECTED_COLOR ENGINE_BLUE
 #define ENGINE_DISABLED_COLOR 0.5f, 0.5f, 0.5f
+/* END COLORS */
+
 /* END UI */
 
 typedef enum TextureType {
@@ -81,7 +90,7 @@ typedef struct Engine {
     int defaultFont;
 
     char *mainPath, *settingsFile, *shaderDir, *assetDir, *fontDir;
-    
+
     List *sceneObjects, *models, *cameras, *shaders;
     Map *textures;
 
@@ -107,6 +116,8 @@ typedef struct Engine {
     Skybox *skybox;
 
     bool vSync, antiAliasing, wireframeMode, firstMouse, mouseDragging;
+
+    vec3s selectedAxis;
 } Engine;
 
 typedef struct Ray {
@@ -114,25 +125,18 @@ typedef struct Ray {
     vec3s direction;
 } Ray;
 
-typedef struct Line {
-    vec3s start, end, color;
-
-    GLuint VAO, VBO;
-    float width;
-} Line;
-
 typedef struct Vertex {
     vec3s position;
     vec3s normal;
     vec2s texCoords;
     // vec3s tangent;
     // vec3s bitangent;
-	
+
     // // bone indexes which will influence this vertex
-	// int boneIDs[MAX_BONE_INFLUENCE];
-	
+    // int boneIDs[ENGINE_MAX_BONE_INFLUENCE];
+
     // // weights from each bone
-	// float boneWeights[MAX_BONE_INFLUENCE];
+    // float boneWeights[ENGINE_MAX_BONE_INFLUENCE];
 } Vertex;
 
 typedef struct MeshData {
@@ -150,6 +154,26 @@ typedef struct BoundingBox {
 
     GLuint VAO, VBO, EBO;
 } BoundingBox;
+
+typedef enum AxisType {
+    AXIS_NONE = 0x00,
+    AXIS_X = 0x01,
+    AXIS_Y = 0x02,
+    AXIS_Z = 0x04,
+    AXIS_W = 0x08,
+    AXIS_XY = AXIS_X | AXIS_Y,
+    AXIS_XZ = AXIS_X | AXIS_Z,
+    AXIS_YZ = AXIS_Y | AXIS_Z,
+    AXIS_XYZ = AXIS_X | AXIS_Y | AXIS_Z,
+    AXIS_XYZW = AXIS_X | AXIS_Y | AXIS_Z | AXIS_W  // 1111 1111 (4 bits)
+} AxisType;
+
+typedef struct Axis {
+    AxisType type;
+
+    vec3s position, rotation;
+    float rotationDegrees;
+} Axis;
 
 typedef struct Transform {
     BoundingBox *boundingBox;
@@ -169,16 +193,16 @@ typedef struct Shader {
 } Shader;
 
 typedef enum ObjectType {
-    OBJECT_NONE               = 0x00, // No type
-    OBJECT_LIGHT              = 0x01, // 0000 0001
-    OBJECT_3D                 = 0x02, // 0000 0010
-    OBJECT_2D                 = 0x04, // 0000 0100
-    OBJECT_CAMERA             = 0x08, // 0000 1000
-    OBJECT_SPRITE_STATIC      = 0x10, // 0001 0000
-    OBJECT_SPRITE_BILLBOARD   = 0x20, // 0010 0000
-    OBJECT_FLOOR              = 0x40, // 0100 0000
-    OBJECT_FRAMEBUFFER_QUAD   = 0x80,  // 1000 0000
-    OBJECT_3D_MODEL           = 0x100 // 0001 0000 0000 (Next byte)
+    OBJECT_NONE = 0x00,              // No type
+    OBJECT_LIGHT = 0x01,             // 0000 0001
+    OBJECT_3D = 0x02,                // 0000 0010
+    OBJECT_2D = 0x04,                // 0000 0100
+    OBJECT_CAMERA = 0x08,            // 0000 1000
+    OBJECT_SPRITE_STATIC = 0x10,     // 0001 0000
+    OBJECT_SPRITE_BILLBOARD = 0x20,  // 0010 0000
+    OBJECT_FLOOR = 0x40,             // 0100 0000
+    OBJECT_FRAMEBUFFER_QUAD = 0x80,  // 1000 0000
+    OBJECT_3D_MODEL = 0x100          // 0001 0000 0000 (Next byte)
 } ObjectType;
 
 typedef struct Clickable {
@@ -188,14 +212,37 @@ typedef struct Clickable {
     void (*onClick)(void *data);
 } Clickable;
 
+typedef struct Line {
+    Texture *texture;
+    vec3s start, end, color;
+    float width;
+
+    GLuint VAO, VBO;
+} Line;
+
+typedef struct Triangle {
+    Texture *texture;
+    Transform transform;
+    vec3s color;
+
+    GLuint VAO, VBO;
+} Triangle;
+
+typedef struct TransformGizmo {
+    Line lines[3];
+    Triangle triangles[3];
+    Axis axes[3];
+} TransformGizmo;
+
 typedef struct Model3D {
     char *tag;
-    
+
     Clickable clickable;
 
     Shader *shader;
     Texture *texture;
     Transform *transforms;
+    TransformGizmo gizmo;
     List *texturesLoaded;
     List *meshes;
 
@@ -227,6 +274,7 @@ typedef struct SceneObject {
     Clickable clickable;
 
     Transform *transforms;
+    TransformGizmo gizmo;
     Shader *shader;
     Texture *texture;
     MeshData *meshData;
@@ -256,21 +304,10 @@ typedef struct Camera {
 
     mat4s projection, view;
 
-    vec3s position;
-    vec3s front;
-    vec3s up;
-    vec3s right;
-    vec3s worldUp;
-    vec3s velocity;
+    vec3s position, front, up, right, worldUp, velocity;
 
-    float yaw;
-    float pitch;
-
-    float renderDistance;
-    float movementSpeed;
-    float maxVelocity;
-    float mouseSensitivity;
-    float fov;
+    float yaw, pitch, renderDistance, movementSpeed,
+        maxVelocity, mouseSensitivity, fov, maxFov;
 
     /* Do NOT call this function; */
     void (*update)(struct Camera *self);
@@ -301,7 +338,7 @@ typedef struct Entity {
 extern Engine *engine;
 extern FrameBufferObject *antiAlias;
 extern Shader *defaultShader, *miscShader, *instanceShader,
-              *antiAliasShader, *skyboxShader;
+    *antiAliasShader, *skyboxShader;
 extern Camera *camera;
 
 Engine *init(void);
@@ -322,7 +359,7 @@ static void tick(void) {
     if (currentTime >= nextUpdateTime) {
         update();
 
-        nextUpdateTime += UPDATE_INTERVAL;
+        nextUpdateTime += ENGINE_UPDATE_INTERVAL;
 
         if (currentTime > nextUpdateTime) {
             nextUpdateTime = currentTime;

@@ -52,7 +52,7 @@ static void DrawFrameBufferObject(FrameBufferObject *frameBuffer) {
 
     // 3. now render quad with scene's visuals as its texture image
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClearColor(BACKGROUND_COLOR);
+    glClearColor(ENGINE_BACKGROUND_COLOR);
     glClear(GL_COLOR_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
 
@@ -258,7 +258,7 @@ void DrawBoundingBox(SceneObject *object, Model3D *ourModel) {
         setVec3(*miscShader, "color", &boundingBox->color);
 
         glBindVertexArray(boundingBox->VAO);
-        glDrawElements(GL_LINES, BOUNDING_BOX_VERTEX_COUNT, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_LINES, ENGINE_BOUNDING_BOX_VERTEX_COUNT, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 }
@@ -266,47 +266,248 @@ void DrawBoundingBox(SceneObject *object, Model3D *ourModel) {
 void DrawLine(Line line) {
     float width = line.width;
 
-    mat4s model = glms_mat4_identity();
-    model = glms_translate(model, line.start);
-    model = glms_scale(model, (vec3s){width, width, width});
+    if (width <= 0.0f) {
+        width = 1.0f;
+    }
 
-    UseShader(*miscShader);
-    setMat4(*miscShader, "projection", &camera->projection);
-    setMat4(*miscShader, "view", &camera->view);
-    setMat4(*miscShader, "model", &model);
-    setVec3(*miscShader, "color", &line.color);
-    setBool(*miscShader, "isSprite", GLFW_FALSE);
-    setBool(*miscShader, "isBillboard", GLFW_FALSE);
-    setBool(*miscShader, "useTexture", GLFW_FALSE);
+    mat4s model = glms_mat4_identity();
+
+    UseShader(*defaultShader);
+    setMat4(*defaultShader, "projection", &camera->projection);
+    setMat4(*defaultShader, "view", &camera->view);
+    setMat4(*defaultShader, "model", &model);
+    setVec3(*defaultShader, "color", &line.color);
+    setBool(*defaultShader, "isSprite", GLFW_FALSE);
+    setBool(*defaultShader, "isBillboard", GLFW_FALSE);
+
+    if (line.texture != NULL) {
+        setInt(*defaultShader, "texture1", 0);
+        setBool(*defaultShader, "useTexture", GLFW_TRUE);
+    } else {
+        setBool(*defaultShader, "useTexture", GLFW_FALSE);
+    }
+
+    UseTexture(line.texture);
 
     vec3s start = line.start;
     vec3s end = line.end;
 
     float vertices[] = {
-        start.raw[0], start.raw[1], start.raw[2],
-        end.raw[0], end.raw[1], end.raw[2]};
+        start.raw[0], start.raw[1], start.raw[2], 0.0f, 0.0f,
+        end.raw[0], end.raw[1], end.raw[2], 1.0f, 1.0f};
 
-    GLuint VAO, VBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    // GLuint VAO, VBO;
+    glGenVertexArrays(1, &line.VAO);
+    glGenBuffers(1, &line.VBO);
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindVertexArray(line.VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, line.VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // Enable vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);  // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);  // Position
     glEnableVertexAttribArray(0);
 
+    if (line.texture != NULL) {
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));  // TexCoords
+        glEnableVertexAttribArray(1);
+    }
+
     // Draw the line
-    glBindVertexArray(VAO);
-    glLineWidth(line.width);
+    glBindVertexArray(line.VAO);
+    glLineWidth(width);
     glDrawArrays(GL_LINES, 0, 2);
     glBindVertexArray(0);
 
     // Cleanup
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &line.VAO);
+    glDeleteBuffers(1, &line.VBO);
+}
+
+void DrawTriangle(Triangle triangle) {
+    Transform transform = triangle.transform;
+    mat4s model = glms_mat4_identity();
+    model = glms_translate(model, transform.position);
+    model = glms_rotate(model, glm_rad(transform.rotationDegrees), transform.rotation);
+    model = glms_scale(model, transform.scale);
+
+    UseShader(*defaultShader);
+    setMat4(*defaultShader, "projection", &camera->projection);
+    setMat4(*defaultShader, "view", &camera->view);
+    setMat4(*defaultShader, "model", &model);
+    setVec3(*defaultShader, "color", &triangle.color);
+    setBool(*defaultShader, "isSprite", GLFW_FALSE);
+    setBool(*defaultShader, "isBillboard", GLFW_FALSE);
+
+    if (triangle.texture != NULL) {
+        setInt(*defaultShader, "texture1", 0);
+        setBool(*defaultShader, "useTexture", GLFW_TRUE);
+    } else {
+        setBool(*defaultShader, "useTexture", GLFW_FALSE);
+    }
+
+    float vertices[] = {
+        // Positions         // Texture Coords
+        0.0f, 0.5f, 0.0f, 0.5f, 1.0f,    // Top vertex
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  // Bottom-left vertex
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f    // Bottom-right vertex
+    };
+
+    // GLuint VAO, VBO;
+    glGenVertexArrays(1, &triangle.VAO);
+    glGenBuffers(1, &triangle.VBO);
+
+    glBindVertexArray(triangle.VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, triangle.VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Enable vertex attributes
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);  // Position
+    glEnableVertexAttribArray(0);
+
+    if (triangle.texture != NULL) {
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));  // Texture
+        glEnableVertexAttribArray(1);
+    }
+
+    // Draw the triangle
+    glBindVertexArray(triangle.VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(0);
+
+    // Cleanup
+    glDeleteVertexArrays(1, &triangle.VAO);
+    glDeleteBuffers(1, &triangle.VBO);
+}
+
+void GenerateTransformGizmo(SceneObject *object, Model3D *model) {
+    // printf("[DEBUG] => TOP OF mallocs\n");
+    // Line *lines = (Line *)malloc(3 * sizeof(Line));
+    // Triangle *triangles = (Triangle *)malloc(3 * sizeof(Triangle));
+    // Axis *axes = (Axis *)malloc(3 * sizeof(Axis));
+
+    // printf("[DEBUG] => Generated mallocs\n");
+
+    // TransformGizmo gizmo = (TransformGizmo){
+    //     .lines = (Line *)malloc(3 * sizeof(Line)),
+    //     .triangles = (Triangle *)malloc(3 * sizeof(Triangle)),
+    //     .axes = (Axis *)malloc(3 * sizeof(Axis))};
+
+    TransformGizmo gizmo = (TransformGizmo){0};
+    if (object != NULL) {
+        object->gizmo = gizmo;
+    } else if (model != NULL) {
+        model->gizmo = gizmo;
+    }
+}
+
+void DrawTransformGizmo(SceneObject *object, Model3D *model) {
+    Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
+    TransformGizmo gizmo = (object != NULL) ? object->gizmo : model->gizmo;
+
+    vec3s position = transforms->position;
+    vec3s rotation = transforms->rotation;
+    vec3s axisScale = (vec3s){0.75f, 0.75f, 0.75f};
+
+    float line_width = 3.5f;
+    float line_length = 2.0f;
+
+    Line *lines = (Line *)gizmo.lines;
+    Triangle *triangles = (Triangle *)gizmo.triangles;
+    Axis *axes = (Axis *)gizmo.axes;
+
+    // X-axis (Red)
+    Line x_line = (Line){
+        .start = position,
+        .end = (vec3s){position.raw[0] + line_length, position.raw[1], position.raw[2]},
+        .color = (vec3s){ENGINE_RED},
+        .width = line_width};
+
+    Triangle x_axis = (Triangle){
+        .transform = (Transform){
+            .position = (vec3s){position.raw[0] + line_length, position.raw[1], position.raw[2]},
+            .rotationDegrees = rotation.raw[2] - 90.0f,
+            .rotation = (vec3s){0.0f, 0.0f, 1.0f},
+            .scale = axisScale,
+        },
+        .color = (vec3s){ENGINE_RED}};
+
+    DrawLine(x_line);
+    DrawTriangle(x_axis);
+
+    lines[0] = x_line;
+    triangles[0] = x_axis;
+
+    axes[0] = (Axis){
+        .position = x_axis.transform.position,
+        .rotation = x_axis.transform.rotation,
+        .rotationDegrees = x_axis.transform.rotationDegrees,
+        .type = AXIS_X};
+
+    // Y-axis (Green)
+    Line y_line = (Line){
+        .start = position,
+        .end = (vec3s){position.raw[0], position.raw[1] + line_length, position.raw[2]},
+        .color = (vec3s){ENGINE_GREEN},
+        .width = line_width};
+
+    Triangle y_axis = (Triangle){
+        .transform = (Transform){
+            .position = (vec3s){position.raw[0], position.raw[1] + line_length, position.raw[2]},
+            .scale = axisScale,
+        },
+        .color = (vec3s){ENGINE_GREEN}};
+
+    DrawLine(y_line);
+    DrawTriangle(y_axis);
+
+    lines[1] = y_line;
+    triangles[1] = y_axis;
+
+    axes[1] = (Axis){
+        .position = y_axis.transform.position,
+        .rotation = y_axis.transform.rotation,
+        .rotationDegrees = y_axis.transform.rotationDegrees,
+        .type = AXIS_Y};
+
+    // Z-axis (Blue)
+    Line z_line = (Line){
+        .start = position,
+        .end = (vec3s){position.raw[0], position.raw[1], position.raw[2] + line_length},
+        .color = (vec3s){ENGINE_BLUE},
+        .width = line_width};
+
+    Triangle z_axis = (Triangle){
+        .transform = (Transform){
+            .position = (vec3s){position.raw[0], position.raw[1], position.raw[2] + line_length},
+            .rotationDegrees = rotation.raw[1] + 90.0f,
+            .rotation = (vec3s){1.0f, 0.0f, 0.0f},
+            .scale = axisScale,
+        },
+        .color = (vec3s){ENGINE_BLUE}};
+
+    DrawLine(z_line);
+    DrawTriangle(z_axis);
+
+    lines[2] = z_line;
+    triangles[2] = z_axis;
+
+    axes[2] = (Axis){
+        .position = z_axis.transform.position,
+        .rotation = z_axis.transform.rotation,
+        .rotationDegrees = z_axis.transform.rotationDegrees,
+        .type = AXIS_Z};
+
+    int axis_size = 3;
+    memcpy(gizmo.lines, lines, sizeof(Line) * axis_size);
+    memcpy(gizmo.triangles, triangles, sizeof(Triangle) * axis_size);
+    memcpy(gizmo.axes, axes, sizeof(Axis) * axis_size);
+
+    if (object != NULL) {
+        object->gizmo = gizmo;
+    } else if (model != NULL) {
+        model->gizmo = gizmo;
+    }
 }
 
 static void DrawSceneObject(SceneObject *object) {
@@ -339,12 +540,18 @@ static void DrawSceneObject(SceneObject *object) {
     }
 
     glBindVertexArray(0);
-    glDisable(GL_BLEND);
+
+    glEnable(GL_LINE_SMOOTH);
 
     if (object->transforms->boundingBox != NULL) {
         glLineWidth(2.0f);
         DrawBoundingBox(object, NULL);
     }
+
+    DrawTransformGizmo(object, NULL);
+
+    glDisable(GL_BLEND);
+    glDisable(GL_LINE_SMOOTH);
 }
 
 void GenerateBoundingBox(SceneObject *object, Model3D *model) {
@@ -455,6 +662,7 @@ SceneObject *NewSceneObject(SceneObject builder) {
         newSceneObject->transforms->scale = (vec3s)GLMS_VEC3_ONE;
     }
 
+    GenerateTransformGizmo(newSceneObject, NULL);
     GenerateBoundingBox(newSceneObject, NULL);
 
     ListAdd(engine->sceneObjects, newSceneObject);

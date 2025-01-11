@@ -90,6 +90,7 @@ Model3D *NewModel3D(Model3D builder, const char *path) {
     ProcessRootNode(model, scene->mRootNode, scene);
     printf("[Model3D] '%s' loaded.\n", path);
 
+    GenerateTransformGizmo(NULL, model);
     GenerateBoundingBox(NULL, model);
     
     ListAdd(engine->models, model);

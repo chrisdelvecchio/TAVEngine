@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "physics.h"
 
 bool isPointInsideElement(Element *element, vec2s cursor) {
     if (element != NULL) {
@@ -96,4 +97,85 @@ bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s cursor) {
     // TODO: isPointInside3DObj
 
     return GLFW_FALSE;
+}
+static inline void DetectSelectedAxis(SceneObject *object, Model3D *model, vec2s cursor) {
+    Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
+    TransformGizmo gizmo = (object != NULL) ? object->gizmo : model->gizmo;
+    Axis *axes = (Axis *)gizmo.axes;
+
+    vec3s position = transforms->position;
+    vec3s selectedAxis = (vec3s){0.0f, 0.0f, 0.0f};
+
+    float closestDistance = INFINITY;
+    float distance;
+
+    Ray ray = (Ray)GenerateRay(camera, cursor);
+
+    // X-axis
+    Axis x_axis = (Axis)axes[0];
+    if (RayIntersectsAxis(ray, position.raw, x_axis.position.raw, closestDistance, &distance)) {
+        printf("X_AXIS true\n");
+        selectedAxis = (vec3s){x_axis.rotation.x, x_axis.rotation.y, x_axis.rotation.z};
+        gizmo.lines[0].color = (vec3s){ENGINE_SELECTED_COLOR};
+        gizmo.triangles[0].color = (vec3s){ENGINE_SELECTED_COLOR};
+    }
+
+    // Y-axis
+    Axis y_axis = (Axis)axes[1];
+    if (RayIntersectsAxis(ray, position.raw, y_axis.position.raw, closestDistance, &distance)) {
+        printf("Y_AXIS true\n");
+        selectedAxis = (vec3s){y_axis.rotation.x, y_axis.rotation.y, y_axis.rotation.z};
+        gizmo.lines[1].color = (vec3s){ENGINE_SELECTED_COLOR};
+        gizmo.triangles[1].color = (vec3s){ENGINE_SELECTED_COLOR};
+    }
+
+    Axis z_axis = (Axis)axes[2];
+    // Z-axis
+    if (RayIntersectsAxis(ray, position.raw, z_axis.position.raw, closestDistance, &distance)) {
+        printf("Z_AXIS true\n");
+        selectedAxis = (vec3s){z_axis.rotation.x, z_axis.rotation.y, z_axis.rotation.z};
+        gizmo.lines[2].color = (vec3s){ENGINE_SELECTED_COLOR};
+        gizmo.triangles[2].color = (vec3s){ENGINE_SELECTED_COLOR};
+    }
+
+    if (object != NULL) {
+        object->gizmo = gizmo;
+    } else if (model != NULL) {
+        model->gizmo = gizmo;
+    }
+
+    engine->selectedAxis = selectedAxis;
+}
+
+void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec3s delta, vec2s cursor) {
+    Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
+    TransformGizmo gizmo = (object != NULL) ? object->gizmo : model->gizmo;
+    Axis *axes = (Axis *)gizmo.axes;
+
+    vec3s position = transforms->position;
+    vec3s selectedAxis = engine->selectedAxis;
+
+    DetectSelectedAxis(object, model, cursor);
+
+    if (axes[0].type == AXIS_X) {
+        printf("X_AXIS update true\n");
+        transforms->position.raw[0] += delta.raw[0];
+    } else if (axes[1].type == AXIS_Y) {
+        printf("Y_AXIS update true\n");
+        transforms->position.raw[1] += delta.raw[1];
+    } else if (axes[2].type == AXIS_Z) {
+        printf("Z_AXIS update true\n");
+        transforms->position.raw[2] += delta.raw[2];
+    }
+
+    // if (selectedAxis.x == 1.0f) {
+    //     printf("X_AXIS update true\n");
+    //     transforms->position.raw[0] += delta.raw[0];
+    // } else if (selectedAxis.y == 1.0f) {
+    //     printf("Y_AXIS update true\n");
+    //     transforms->position.raw[1] += delta.raw[1];
+    // } else if (selectedAxis.z == 1.0f) {
+    //     printf("Z_AXIS update true\n");
+    //     transforms->position.raw[2] += delta.raw[2];
+    // }
 }
