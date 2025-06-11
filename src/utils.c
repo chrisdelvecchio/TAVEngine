@@ -103,6 +103,7 @@ static inline void DetectSelectedAxis(SceneObject *object, Model3D *model, vec2s
     TransformGizmo gizmo = (object != NULL) ? object->gizmo : model->gizmo;
     Axis *axes = (Axis *)gizmo.axes;
 
+
     vec3s position = transforms->position;
     vec3s selectedAxis = (vec3s){0.0f, 0.0f, 0.0f};
 
@@ -147,7 +148,7 @@ static inline void DetectSelectedAxis(SceneObject *object, Model3D *model, vec2s
     engine->selectedAxis = selectedAxis;
 }
 
-void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec3s delta, vec2s cursor) {
+void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec2s cursor) {
     Transform *transforms = (object != NULL) ? object->transforms : model->transforms;
     TransformGizmo gizmo = (object != NULL) ? object->gizmo : model->gizmo;
     Axis *axes = (Axis *)gizmo.axes;
@@ -155,17 +156,19 @@ void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec3s delta
     vec3s position = transforms->position;
     vec3s selectedAxis = engine->selectedAxis;
 
+    float movementSpeed = 0.1f;
+
     DetectSelectedAxis(object, model, cursor);
 
-    if (axes[0].type == AXIS_X) {
+    if (IsAxisSelectionActive(axes[0].position)) {
         printf("X_AXIS update true\n");
-        transforms->position.raw[0] += delta.raw[0];
-    } else if (axes[1].type == AXIS_Y) {
+        transforms->position.raw[0] += movementSpeed;
+    } else if (IsAxisSelectionActive(axes[1].position)) {
         printf("Y_AXIS update true\n");
-        transforms->position.raw[1] += delta.raw[1];
-    } else if (axes[2].type == AXIS_Z) {
+        transforms->position.raw[1] += movementSpeed;
+    } else if (IsAxisSelectionActive(axes[2].position)) {
         printf("Z_AXIS update true\n");
-        transforms->position.raw[2] += delta.raw[2];
+        transforms->position.raw[2] += movementSpeed;
     }
 
     // if (selectedAxis.x == 1.0f) {

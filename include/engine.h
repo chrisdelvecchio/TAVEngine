@@ -155,22 +155,20 @@ typedef struct BoundingBox {
     GLuint VAO, VBO, EBO;
 } BoundingBox;
 
-typedef enum AxisType {
-    AXIS_NONE = 0x00,
-    AXIS_X = 0x01,
-    AXIS_Y = 0x02,
-    AXIS_Z = 0x04,
-    AXIS_W = 0x08,
-    AXIS_XY = AXIS_X | AXIS_Y,
-    AXIS_XZ = AXIS_X | AXIS_Z,
-    AXIS_YZ = AXIS_Y | AXIS_Z,
-    AXIS_XYZ = AXIS_X | AXIS_Y | AXIS_Z,
-    AXIS_XYZW = AXIS_X | AXIS_Y | AXIS_Z | AXIS_W  // 1111 1111 (4 bits)
-} AxisType;
+// typedef enum AxisType {
+//     AXIS_NONE = 0x00,
+//     AXIS_X = 0x01,
+//     AXIS_Y = 0x02,
+//     AXIS_Z = 0x04,
+//     AXIS_W = 0x08,
+//     AXIS_XY = AXIS_X | AXIS_Y,
+//     AXIS_XZ = AXIS_X | AXIS_Z,
+//     AXIS_YZ = AXIS_Y | AXIS_Z,
+//     AXIS_XYZ = AXIS_X | AXIS_Y | AXIS_Z,
+//     AXIS_XYZW = AXIS_X | AXIS_Y | AXIS_Z | AXIS_W  // 1111 1111 (4 bits)
+// } AxisType;
 
 typedef struct Axis {
-    AxisType type;
-
     vec3s position, rotation;
     float rotationDegrees;
 } Axis;

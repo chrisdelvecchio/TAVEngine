@@ -43,6 +43,8 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
         glfwSetInputMode(engine->window, GLFW_CURSOR, (mode == GLFW_CURSOR_DISABLED) ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
     } else if (key == GLFW_KEY_W && action == GLFW_RELEASE && (mods & GLFW_MOD_CONTROL)) {
         engine->wireframeMode = !engine->wireframeMode;
+    } else if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
+        printf("[DEBUG] SPACER\n");
     }
 }
 
@@ -59,7 +61,7 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
         processMouse(camera, xposF, yposF);
     }
 
-    vec3s delta = CalculateDelta(cursor, previousCursor, engine->selectedAxis);
+    // vec3s delta = CalculateDelta(cursor, previousCursor, engine->selectedAxis);
 
     foreach (Element *element, menu->elements) {
         if (element == NULL || element->type == ELEMENT_TEXTBOX) continue;
@@ -71,8 +73,8 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     foreach (Model3D *model, engine->models) {
         if (!ModelExists(model)) continue;
 
-        if (isDragging && IsAxisSelectionActive()) {
-            TransformGizmoUpdateObject(NULL, model, delta, cursor);
+        if (isDragging) {
+            TransformGizmoUpdateObject(NULL, model, cursor);
         }
 
         model->hoverColor = (vec3s)SmoothHoverColor(model->color, model->clickable.isHovered);
@@ -82,8 +84,8 @@ void cursor_position_callback(GLFWwindow *window, double xpos, double ypos) {
     foreach (SceneObject *object, engine->sceneObjects) {
         if (!ObjectExists(object)) continue;
 
-        if (isDragging && IsAxisSelectionActive()) {
-            TransformGizmoUpdateObject(object, NULL, delta, cursor);
+        if (isDragging) {
+            TransformGizmoUpdateObject(object, NULL, cursor);
         }
 
         object->hoverColor = (vec3s)SmoothHoverColor(object->color, object->clickable.isHovered);

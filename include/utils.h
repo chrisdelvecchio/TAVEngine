@@ -198,14 +198,14 @@ static inline vec3s CalculateDelta(vec2s currentCursor, vec2s previousCursor, ve
     return constrainedDelta;
 }
 
-static inline bool IsAxisSelectionActive(void) {
-    vec3s axis = engine->selectedAxis;
-    return axis.x != 0 && axis.y != 0 && axis.z != 0;
+static inline bool IsAxisSelectionActive(vec3s axis) {
+    vec3s selectedAxis = engine->selectedAxis;
+    return selectedAxis.x == axis.x && selectedAxis.y == axis.y && selectedAxis.z == axis.z;
 }
 
 bool isPointInsideElement(Element *element, vec2s cursor);
 bool isPointInside3DObj(SceneObject *object, Model3D *model, vec2s worldCursor);
 
-void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec3s delta, vec2s cursor);
+void TransformGizmoUpdateObject(SceneObject *object, Model3D *model, vec2s cursor);
 
 #endif  // UTILS_H

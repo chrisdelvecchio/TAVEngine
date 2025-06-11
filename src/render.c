@@ -441,8 +441,7 @@ void DrawTransformGizmo(SceneObject *object, Model3D *model) {
     axes[0] = (Axis){
         .position = x_axis.transform.position,
         .rotation = x_axis.transform.rotation,
-        .rotationDegrees = x_axis.transform.rotationDegrees,
-        .type = AXIS_X};
+        .rotationDegrees = x_axis.transform.rotationDegrees};
 
     // Y-axis (Green)
     Line y_line = (Line){
@@ -467,8 +466,7 @@ void DrawTransformGizmo(SceneObject *object, Model3D *model) {
     axes[1] = (Axis){
         .position = y_axis.transform.position,
         .rotation = y_axis.transform.rotation,
-        .rotationDegrees = y_axis.transform.rotationDegrees,
-        .type = AXIS_Y};
+        .rotationDegrees = y_axis.transform.rotationDegrees};
 
     // Z-axis (Blue)
     Line z_line = (Line){
@@ -495,8 +493,7 @@ void DrawTransformGizmo(SceneObject *object, Model3D *model) {
     axes[2] = (Axis){
         .position = z_axis.transform.position,
         .rotation = z_axis.transform.rotation,
-        .rotationDegrees = z_axis.transform.rotationDegrees,
-        .type = AXIS_Z};
+        .rotationDegrees = z_axis.transform.rotationDegrees};
 
     int axis_size = 3;
     memcpy(gizmo.lines, lines, sizeof(Line) * axis_size);
